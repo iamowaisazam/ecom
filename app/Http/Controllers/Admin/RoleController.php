@@ -89,7 +89,7 @@ class RoleController extends Controller
 
                 $action .= '<a class="btn btn-info" href="'.URL::to('admin/roles/edit/'.Crypt::encryptString($value->id)).'">Edit</a>';
 
-                $action .= '<a class="btn btn-success" href="'.URL::to('admin/permissions/'.Crypt::encryptString($value->id)).'">Permissions</a>';
+                // $action .= '<a class="btn btn-success" href="'.URL::to('admin/permissions/'.Crypt::encryptString($value->id)).'">Permissions</a>';
 
                 $action .= '<a class="btn btn-danger" href="'.URL::to('admin/roles/delete/'.Crypt::encryptString($value->id)).'">Delete</a>';
 

@@ -15,7 +15,11 @@
     <link href="{{asset('admin/assets/node_modules/morrisjs/morris.css')}}" rel="stylesheet">
     <link href="{{asset('admin/assets/node_modules/toast-master/css/jquery.toast.css')}}" rel="stylesheet">
     <link href="{{asset('admin/assets/css/style.css')}}" rel="stylesheet">
-    
+    <style>
+        .menu-button:hover{
+            color: #03a9f3;
+        }
+    </style>    
     @yield('css')
   
 </head>
@@ -159,7 +163,7 @@
                                 
                                 <a href="javascript:void(0)" class="right-side-toggle dropdown-item"><i class="ti-settings"></i> Settings</a>
                               
-                                <a href="login.html" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a>
+                                <a href="{{URL::to('/admin/logout')}}" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a>
                             </div>
                         </li>
                         <!-- ============================================================== -->
@@ -206,7 +210,28 @@
                             </ul>
                         </li>
 
+                        <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-user"></i>
+                            <span class="hide-menu"> Products </span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li> 
+                                    <div class="button-box">
+                                    <button style="padding: 7px 35px 7px 15px;background: transparent;
+                                    border: none;" type="button" class="menu-button" data-bs-toggle="modal" data-bs-target="#exampleModal" data-whatever="@mdo">Add New Product</button>
+                                </div>
+                                </li>
+                                <li><a href="{{URL::to('admin/products/index')}}">All Products</a></li>
+                            </ul>
+                        </li>
 
+             
+
+                        <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-puzzle"></i>
+                            <span class="hide-menu"> Filemanager </span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="{{URL::to('admin/filemanager/create')}}">Add New File</a></li>
+                                <li><a href="{{URL::to('admin/filemanager')}}">All Files</a></li>
+                            </ul>
+                        </li>
 
                         
                         {{-- <li><a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-doc"></i>
@@ -233,7 +258,7 @@
                             </ul>
                         </li> --}}
                         
-                        <li><a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-settings"></i>
+                        {{-- <li><a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-settings"></i>
                             <span class="hide-menu">Settings</span></a>
                             <ul aria-expanded="false" class="collapse">
                                @foreach (explode(',',$global_d['grouping']) as $item)
@@ -241,7 +266,7 @@
                                   {{ ucwords(str_ireplace("_", " ",$item))}}</a></li>  
                                @endforeach
                             </ul>
-                        </li>
+                        </li> --}}
 
                     </ul>
                 </nav>
@@ -251,20 +276,49 @@
         <!-- End Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
 
-
-
         <!-- ============================================================== -->
         <!-- Page wrapper  -->
         <!-- ============================================================== -->
         <div class="page-wrapper">
-
-
             <!-- ============================================================== -->
             <!-- Container fluid  -->
             <!-- ============================================================== -->
             <div class="container-fluid">
 
               @yield('content')
+
+            <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <form method="post" action="{{URL::to('/admin/products/store')}}">
+                            @csrf
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="exampleModalLabel1">Add New Product</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+                        </div>
+                        <div class="modal-body">
+                           
+                                <div class="form-group">
+                                    <label for="recipient-name" class="form-label">Title:</label>
+                                    <input name="title" required type="text" class="form-control" id="recipient-name1">
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="form-label">Product Type :</label>
+                                    <select required class="form-control" name="type">
+                                        <option value="single">Single</option>
+                                        <option value="variation">Variation</option>
+                                    </select>
+                                </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary text-white">Submit</button>
+                        </div>
+                       </form>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal -->
 
 
             
@@ -340,6 +394,8 @@
     <script src="{{asset('admin/assets/js/perfect-scrollbar.jquery.min.js')}}"></script>
     <script src="{{asset('admin/assets/js/waves.js')}}"></script>
     <script src="{{asset('admin/assets/js/custom.js')}}"></script>
+
+  
  
 
 

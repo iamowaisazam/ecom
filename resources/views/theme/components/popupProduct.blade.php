@@ -10,10 +10,10 @@
 
                         <!-- Thumbnails Single -->
                         <div class="quickview-details-img quickview-thumbnails-single">
-                            @foreach (explode(',',$product->images) as $img) 
+                            @foreach ($product->get_gallery() as $img) 
                             <div class="item">
-                                <img src="{{asset('/theme/'.$img)}}" 
-                                data-src="{{asset('/theme/'.$img)}}" 
+                                <img src="{{asset($img->path)}}" 
+                                data-src="{{asset($img->path)}}" 
                                 alt="image" />
                             </div>
                             @endforeach
@@ -23,11 +23,11 @@
                         <!-- Thumbnail Lists -->
                         <div class="product-thumb-lists quickview-thumbnail-items">
             
-                            @foreach (explode(',',$product->images) as $img)    
+                            @foreach ($product->get_gallery() as $img)   
                                 <div class="item">
                                     <img class="blur-up lazyload" 
-                                    src="{{asset('/theme/'.$img)}}" 
-                                    data-src="{{asset('/theme/'.$img)}}" alt="image" />
+                                    src="{{asset($img->path)}}" 
+                                    data-src="{{asset($img->path)}}" alt="image" />
                                 </div>
                             @endforeach
                         </div>

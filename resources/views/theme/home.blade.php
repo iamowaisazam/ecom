@@ -176,20 +176,27 @@
                 <div class="grid-products grid--view-items ">
                     <div class="row">
                         @foreach ($products as $product)
+                         <?php 
+                            $thumb = $product->get_thumbnail() ? asset($product->get_thumbnail()->path) : '';
+                            $img_hover = $product->get_hover_image() ? asset($product->get_hover_image()->path) : '';
+                         ?>
                         
                         <div class="col-6 col-sm-6 col-md-4 col-lg-3 item">
                             <div class="product-image">
                                 <a href="{{URL::to('/products')}}/{{$product->id}}">
+                                    
                                     <img class="primary blur-up lazyload" 
-                                    data-src="{{asset('/theme/'.$product->image)}}" 
-                                    src="{{asset('/theme/'.$product->image)}}" 
+                                    data-src="{{$thumb}}"
+                                    src="{{$thumb}}" 
                                     alt="image" 
                                     title="product" />
+
                                     <img class="hover blur-up lazyload" 
-                                    data-src="{{asset('/theme/'.$product->hover_image)}}" 
-                                    src="{{asset('/theme/'.$product->hover_image)}}" 
+                                    data-src="{{$img_hover}}" 
+                                    src="{{$img_hover}}" 
                                     alt="image" 
                                     title="product" />
+                                    
                                     @if($product->is_popular)
                                     <div class="product-labels"><span class="lbl pr-label3">Popular</span></div>
                                     @endif

@@ -8,6 +8,7 @@ use App\Models\Brand;
 use App\Models\Coupon;
 use App\Models\Product;
 use App\Models\ProductAttribute;
+use App\Models\ProductAttributeValue;
 use App\Models\ProductCategory;
 use App\Models\ProductCollection;
 use App\Models\ProductVariation;
@@ -15,6 +16,7 @@ use App\Models\ProductVariationAttribute;
 use App\Models\Store;
 use App\Models\StoreCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
@@ -57,7 +59,10 @@ class HomeController extends Controller
     {
 
         $attributes = ProductAttribute::with('values')->get()->toArray();
+
+        
         $results = $this->generateAttributeCombinations($attributes);
+        // dd($results);
 
         foreach ($results as $values) {
 
@@ -77,6 +82,7 @@ class HomeController extends Controller
                 ProductVariationAttribute::create([
                     "product_variation_id" => $ProductVariation->id,
                     "product_attribute_id" => $item['product_attribute_id'],
+                    "product_attribute_value_id" => $item['id'],
                     "value" => $item['title'],
                 ]);
             }
@@ -120,11 +126,12 @@ class HomeController extends Controller
     {
     
         $product = Product::where('id',3)->first();
-
         $variations_id = $product->variations->pluck('id')->toArray();
         $variations = ProductVariationAttribute::select([
+            'product_attributes.id as attribute_id',
             'product_attributes.title',
             'product_variation_attributes.value',
+            'product_attribute_value_id',
         ])
         ->join('product_attributes','product_attributes.id','=','product_variation_attributes.product_attribute_id')
         ->whereIn('product_variation_attributes.product_variation_id',$variations_id)
@@ -132,30 +139,35 @@ class HomeController extends Controller
         ->toArray();
 
 
-      
-        $groupedData = array_reduce($variations, function ($result, $item) {
-            $result[$item['title']][] = $item;
-            return $result;
-        }, array());
-        $vv = [];
-        foreach ($groupedData as $key => $value) {
-            $rec = array_unique(array_column($value,'value'));
-            $vv[$key] = $rec;
-        }
-        $variations= $vv;
+        $attributes = ProductAttribute::whereIN('id',array_unique(array_column($variations,'attribute_id')))->get();
+        $attribute_values = ProductAttributeValue::whereIn('id',array_unique(array_column($variations,'product_attribute_value_id')))->get();
 
-       
-     
+        $variations = ProductVariation::select([
+            'product_variations.id as variation_id',
+            'product_variations.sku',
+            'product_variations.quantity',
+            'product_variations.price',
+            'product_variations.image',
+            'product_attributes.id as attribute_id',
+            'product_attributes.title as attribute_title',
+            'product_attribute_values.id as value_id',
+            'product_attribute_values.title as value_title',
+        ])
+        ->join('product_variation_attributes','product_variation_attributes.product_variation_id','=','product_variations.id')
+        ->join('product_attributes','product_attributes.id','=','product_variation_attributes.product_attribute_id')
+        ->join('product_attribute_values','product_attribute_values.id','=','product_variation_attributes.product_attribute_value_id')
+        ->where('product_variations.product_id',3)
+        ->get()
+        ->toArray();
 
-        
+        return view('theme.product-detail',compact(
+            'product',
+            'attributes',
+            'attribute_values',
+            'variations'
+        ));
 
 
-
-        
-
-
-
-        return view('theme.product-detail',compact('product','variations'));
     }
 
     /**
@@ -171,6 +183,57 @@ class HomeController extends Controller
         return view('theme.shop',compact('data','categories'));
     }
 
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function add_to_cart(Request $request)
+    {
+
+        // dd($request->all());
+
+        $cart = session()->get('cart', []);
+        $sku = ProductVariation::where('id',$request->sku)->first();
+
+        if(isset($cart[$request->sku])) {
+            $cart[$request->sku]['quantity']++;
+        } else {
+            $cart[$request->sku] = [
+                "sku" => $request->sku,
+                "quantity" => $request->quantity,
+                "price" => $sku->price,
+                "attributes" => $request->attr,
+            ];
+        }
+        session()->put('cart', $cart);
+
+        return back()->with('success','Product Added In Cart'); 
+            
+    }
+
+
+
+     /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function cart_remove($id)
+    {
+
+        $cart = session()->get('cart', []);
+        if (isset($cart[$id])) {
+            unset($cart[$id]);
+            session()->put('cart', $cart);
+        }
+
+        return back()->with('success','Item Removed In Cart'); 
+            
+    }
+
+
+    
     
 
      /**

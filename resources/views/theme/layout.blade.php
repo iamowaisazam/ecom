@@ -11,6 +11,7 @@
     <!-- Plugins CSS -->
        <link rel="shortcut icon" href="{{asset('web/images/short_icon.png')}}">
        <link rel="stylesheet" href="{{asset('theme/assets/css/plugins.css')}}" />
+       <link href="{{asset('admin/assets/node_modules/toast-master/css/jquery.toast.css')}}" rel="stylesheet">
        <link rel="stylesheet" href="{{asset('theme/assets/css/style.css')}}" />
        <link rel="stylesheet" href="{{asset('theme/assets/css/responsive.css')}}" />
 
@@ -183,7 +184,7 @@
                                 <!-- End Wishlist -->
                                 <!-- Minicart -->
                                 <div class="item site-cart">
-                                    <a href="cart.html" class="icon-cart site-header-cart btn-minicart text-capitalize" data-bs-toggle="modal" data-bs-target="#minicart-drawer"><i class="icon an an-shopping-bag"></i><span class="text align-middle ms-1 d-none d-md-inline-block">Cart</span><span id="CartCount" class="site-header__cart-count1 ms-1" data-cart-render="item_count">(0)</span></a>
+                                    <a href="cart.html" class="icon-cart site-header-cart btn-minicart text-capitalize" data-bs-toggle="modal" data-bs-target="#minicart-drawer"><i class="icon an an-shopping-bag"></i><span class="text align-middle ms-1 d-none d-md-inline-block">Cart</span><span id="CartCount" class="site-header__cart-count1 ms-1" data-cart-render="item_count">({{count($carts)}})</span></a>
                                 </div>
                                 <!-- End Minicart -->
                             </div>
@@ -498,92 +499,67 @@
             <div class="modal-content">
                 <div class="minicart-header">
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><i class="an an-times" aria-hidden="true" data-bs-toggle="tooltip" data-bs-placement="left" title="Close"></i></button>
-                    <h4 class="modal-title" id="myModalLabel2">Shopping Cart <strong>3</strong> items</h4>
+                    <h4 class="modal-title" id="myModalLabel2">Shopping Cart <strong>{{count($carts)}}</strong> items</h4>
                 </div>
                 <div class="minicart-body">
-                    <div class="empty-cart">
+
+                    <div style="display: {{count($carts) ? 'none' : 'block'}}" class="empty-cart">
                         <p>You have no items in your shopping cart.</p>
                     </div>
                     <div id="drawer-minicart" class="block block-cart">
                         <ul class="mini-products-list">
+                            @foreach ($carts as $item)
+                                
                             <li class="item">
-                                <a class="product-image" href="cart.html"><img src="{{asset('theme/assets/images/product-images/cape-dress-1.jpg')}}" alt="Frayed Layered Sleeve" title=""></a>
+                                <a class="product-image" href="{{URL::to('/products')}}/{{$item['id']}}">
+                                <img src="{{asset('theme/'.$item['image'])}}" alt="Frayed Layered Sleeve" title=""></a>
                                 <div class="product-details">
-                                    <a href="#" class="remove" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove"><i class="an an-times" aria-hidden="true"></i></a>
-                                    <a href="#" class="edit-i remove" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="an an-edit" aria-hidden="true"></i></a>
-                                    <a class="pName" href="cart.html">Frayed Layered Sleeve</a>
-                                    <div class="variant-cart">Red / XL</div>
-                                    <div class="wrapQtyBtn clearfix">
-                                        <span class="label">Qty:</span>
-                                        <div class="qtyField clearfix">
-                                            <a class="qtyBtn minus" href="javascript:void(0);"><i class="an an-minus" aria-hidden="true"></i></a>
-                                            <input type="text" name="quantity" value="1" class="product-form__input qty">
-                                            <a class="qtyBtn plus" href="javascript:void(0);"><i class="an an-plus" aria-hidden="true"></i></a>
-                                        </div>
+                                    <a href="{{URL::to('/cart/remove')}}/{{$item['variation_id']}}" 
+                                    class="remove" 
+                                    data-bs-toggle="tooltip" 
+                                    data-bs-placement="top" 
+                                    title="Remove"><i class="an an-times" aria-hidden="true"></i></a>
+
+                                    <a href="{{URL::to('/cart')}}" 
+                                    class="edit-i remove" 
+                                    data-bs-toggle="tooltip" 
+                                    data-bs-placement="top" 
+                                    title="Edit"><i class="an an-edit" aria-hidden="true"></i>
+                                    </a>
+
+                                    <a class="pName" 
+                                    href="{{URL::to('/products')}}/{{$item['id']}}">{{$item['title']}}
+                                    </a>
+
+                                    <div class="variant-cart">SKU:{{$item['sku']}}</div>
+                                    <div class="m-0 wrapQtyBtn clearfix">
+                                        <span class=" label">Qty:{{$item['quantity']}}</span>
                                     </div>
-                                    <div class="priceRow clearfix">
+
+                                    <div class="m-0 priceRow clearfix">
                                         <div class="product-price">
-                                            <span class="money">$199.00</span>
+                                            Price:<span class="money">${{$item['price']}}</span>
                                         </div>
                                     </div>
                                 </div>
                             </li>
-                            <li class="item">
-                                <a class="product-image" href="cart.html"><img src="{{asset('theme/assets/images/product-images/cape-dress-2.jpg')}}" alt="Floral Lined Jacket" title=""></a>
-                                <div class="product-details">
-                                    <a href="#" class="remove" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove"><i class="an an-times" aria-hidden="true"></i></a>
-                                    <a href="#" class="edit-i remove" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="an an-edit" aria-hidden="true"></i></a>
-                                    <a class="pName" href="cart.html">Floral Lined Jacket</a>
-                                    <div class="variant-cart">Black / M</div>
-                                    <div class="wrapQtyBtn clearfix">
-                                        <span class="label">Qty:</span>
-                                        <div class="qtyField clearfix">
-                                            <a class="qtyBtn minus" href="javascript:void(0);"><i class="an an-minus" aria-hidden="true"></i></a>
-                                            <input type="text" name="quantity" value="1" class="product-form__input qty">
-                                            <a class="qtyBtn plus" href="javascript:void(0);"><i class="an an-plus" aria-hidden="true"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="priceRow clearfix">
-                                        <div class="product-price">
-                                            <span class="money">$129.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="item">
-                                <a class="product-image" href="cart.html"><img src="{{asset('theme/assets/images/product-images/cape-dress-3.jpg')}}" alt="Fit & Flare Trim Dress" title=""></a>
-                                <div class="product-details">
-                                    <a href="#" class="remove" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove"><i class="an an-times" aria-hidden="true"></i></a>
-                                    <a href="#" class="edit-i remove" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="an an-edit" aria-hidden="true"></i></a>
-                                    <a class="pName" href="cart.html">Fit & Flare Trim Dress</a>
-                                    <div class="variant-cart">white / XL</div>
-                                    <div class="wrapQtyBtn clearfix">
-                                        <span class="label">Qty:</span>
-                                        <div class="qtyField clearfix">
-                                            <a class="qtyBtn minus" href="javascript:void(0);"><i class="an an-minus" aria-hidden="true"></i></a>
-                                            <input type="text" name="quantity" value="1" class="product-form__input qty">
-                                            <a class="qtyBtn plus" href="javascript:void(0);"><i class="an an-plus" aria-hidden="true"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="priceRow clearfix">
-                                        <div class="product-price">
-                                            <span class="money">$99.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
+                            @endforeach
+
+                            
+                       
                         </ul>
                     </div>
                 </div>
                 <div class="minicart-footer minicart-action">
                     <div class="total-in">
-                        <p class="label"><b>Subtotal:</b><span class="item product-price"><span class="money">$427.00</span></span></p>
+                        {{-- <p class="label"><b>Subtotal:</b><span class="item product-price"><span class="money">$427.00</span></span></p>
                         <p class="label"><b>Shipping:</b><span class="item product-price"><span class="shipping">$10.00</span></span></p>
-                        <p class="label"><b>Tax:</b><span class="item product-price"><span class="tax">$0.00</span></span></p>
-                        <p class="label"><b>Total:</b><span class="item product-price"><span class="totals">$437.00</span></span></p>
+                        <p class="label"><b>Tax:</b><span class="item product-price"><span class="tax">$0.00</span></span></p> --}}
+
+                        <p class="label"><b>Total:</b><span class="item product-price"><span class="totals">$0.00</span></span></p>
                     </div>
                     <div class="buttonSet d-flex flex-row align-items-center text-center">
-                        <a href="cart.html" class="btn btn-secondary w-50 me-3">View Cart</a>
+                        <a href="{{URL::to('/cart')}}" class="btn btn-secondary w-50 me-3">View Cart</a>
                         <a href="checkout.html" class="btn btn-secondary w-50">Checkout</a>
                     </div>
                 </div>
@@ -650,6 +626,49 @@
         <!-- Including Javascript -->
         <script src="{{asset('theme/assets/js/plugins.js')}}"></script>
         <script src="{{asset('theme/assets/js/main.js')}}"></script>
+        <script src="{{asset('admin/assets/node_modules/toast-master/js/jquery.toast.js')}}"></script>
+
+        @if(Session::get('success'))
+        <script> 
+        $.toast({
+                heading: "{{Session::get('success')}}",
+                // text: "{{Session::get('success')}}",
+                position: 'top-right',
+                loaderBg: '#ff6849',
+                icon: 'info',
+                hideAfter: 3500,
+                stack: 6,
+            });
+        </script>
+        @endif
+    
+        @if(Session::get('error'))
+        <script> 
+          $.toast({
+                heading: "{{Session::get('error')}}",
+                // text: "{{Session::get('success')}}",
+                position: 'top-right',
+                loaderBg: '#ff6849',
+                icon: 'error',
+                hideAfter: 3500,
+                stack: 6,
+            });
+        </script>
+        @endif
+    
+        @if(Session::get('warning'))
+        <script> 
+          $.toast({
+                heading: "{{Session::get('warning')}}",
+                // text: "{{Session::get('success')}}",
+                position: 'top-right',
+                loaderBg: '#ff6849',
+                icon: 'warning',
+                hideAfter: 3500,
+                stack: 6,
+            });
+        </script>
+        @endif
   
         @yield('js')
    </body>

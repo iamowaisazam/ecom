@@ -1032,24 +1032,7 @@
     }
     shippingInfo_popup();
 
-    /*-----------------------------------
-     23. Quantity Plus Minus
-     ------------------------------------*/
-    function qnt_incre() {
-        $(".qtyBtn").on("click", function () {
-            var qtyField = $(this).parent(".qtyField"),
-                    oldValue = $(qtyField).find(".qty").val(),
-                    newVal = 1;
-
-            if ($(this).is(".plus")) {
-                newVal = parseInt(oldValue) + 1;
-            } else if (oldValue > 1) {
-                newVal = parseInt(oldValue) - 1;
-            }
-            $(qtyField).find(".qty").val(newVal);
-        });
-    }
-    qnt_incre();
+ 
 
     /*-----------------------------------
      24. Visitor Fake Message

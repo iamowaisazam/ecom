@@ -18,6 +18,7 @@ class ProductVariationAttribute extends Model
         "id",
         "product_variation_id",
         "product_attribute_id",
+        "product_attribute_value_id",
         "value",
         "created_at",
         "updated_at"

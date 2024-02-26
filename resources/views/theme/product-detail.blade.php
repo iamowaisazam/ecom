@@ -18,9 +18,9 @@
    <!-- Bredcrumbs -->
    <div class="bredcrumbWrap bredcrumb-style2">
       <div class="container breadcrumbs">
-          <a href="index.html" title="Back to the home page">Home</a>
+          <a href="{{URL::to('/')}}" title="Back to the home page">Home</a>
           <span aria-hidden="true">|</span>
-          <a href="index.html" title="Back to the home page">Shop</a>
+          <a href="{{URL::to('/shop')}}" title="Back to the home page">Shop</a>
           <span aria-hidden="true">|</span>
           <span class="title-bold">{{$product->title}}</span>
       </div>
@@ -43,9 +43,9 @@
                     <div class="zoompro-wrap product-zoom-right pl-20">
                         <div class="zoompro-span">
                             <img class="blur-up lazyload zoompro" 
-                            data-zoom-image="{{asset('/theme/'.$product->image)}}" 
+                            data-zoom-image="{{asset($product->get_thumbnail()->path)}}" 
                             alt="" 
-                            src="{{asset('/theme/'.$product->image)}}" />               
+                            src="{{asset($product->get_thumbnail()->path)}}" />               
                         </div>
                         <div class="product-labels"><span class="lbl pr-label1">new</span><span class="lbl on-sale">Exclusive</span></div>
                         <div class="product-buttons">
@@ -55,17 +55,19 @@
                     </div>
                     <div class="product-thumb product-thumb-1">
                         <div id="gallery" class="product-dec-slider-1 product-tab-left">
-                          @foreach (explode(',',$product->images) as $img) 
-                            <a data-image="{{asset('/theme/'.$img)}}" 
-                            data-zoom-image="{{asset('/theme/'.$img)}}" class="slick-slide slick-cloned active" data-slick-index="-4" aria-hidden="true" tabindex="-1">
-                                <img class="blur-up lazyload" src="{{asset('/theme/'.$img)}}" alt="" />
+                       
+
+                          @foreach ($product->get_gallery() as $img) 
+                            <a data-image="{{asset($img->path)}}" 
+                            data-zoom-image="{{asset($img->path)}}" class="slick-slide slick-cloned active" data-slick-index="-4" aria-hidden="true" tabindex="-1">
+                                <img class="blur-up lazyload" src="{{asset($img->path)}}"/>
                             </a>
                             @endforeach
                         </div>
                     </div>
                     <div class="lightboximages">
-                      @foreach (explode(',',$product->images) as $img) 
-                        <a href="{{asset('/theme/'.$img)}}" data-size="1462x2048"></a>
+                        @foreach ($product->get_gallery() as $img) 
+                        <a href="{{asset($img->path)}}" data-size="1462x2048"></a>
                         @endforeach
                     </div>
                     <!-- End Product Images -->
@@ -114,13 +116,10 @@
 
                     <!-- Product Price -->
                     <div class="product-single__price product-single__price-product-template">
-                        <span class="visually-hidden">Regular price</span>
-                        <s id="ComparePrice-product-template">
-                          <span class="money">${{$product->old_price}}</span></s>
                         <span class="product-price__price 
                         product-price__price-product-template product-price__sale product-price__sale--single">
                             <span id="ProductPrice-product-template">
-                              <span class="money">${{$product->price}}</span>
+                              <span class="money"><span class="r-price" >{{$product->price}}</span></span>
                             </span>
                         </span>
                     </div>
@@ -138,22 +137,57 @@
                         <span class="instock">In Stock</span>
                         <span class="outstock hide">Unavailable</span>
                       </p> 
-                      <p class="product-sku">SKU: <span class="variant-sku">{{$product->sku}}</span></p>
+                      <p class="product-sku">SKU: 
+                        <span class="variant-sku">.</span>
+                      </p>
                     </div>
                    <!-- End Product Intro -->
           
                     <!-- Form -->
-                    <form method="post" action="/cart/add" id="product_form_10508262282" accept-charset="UTF-8" class="product-form product-form-product-template product-form-border hidedropdown" enctype="multipart/form-data">
+                    <form method="post" 
+                     action="{{URL::to('/cart/add_to_cart')}}" 
+                     id="product_form_10508262282" 
+                     accept-charset="UTF-8" 
+                     class="product-form product-form-product-template product-form-border hidedropdown" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="product_id" value="{{Crypt::encryptString($product->id)}}" />
+                        <input type="hidden" name="sku" />
+                        <input type="hidden" name="price" />
 
-                          @foreach ($variations as $key => $variation)
+                          @foreach ($attributes as $key => $attribute)
+                          <?php 
+                            $rowKey = 0;
+                           ?>
                             <div class="swatch clearfix swatch-1 option2 w-100" data-option-index="1">
-                              <div class="product-form__item">
-                                  <label>{{$key}}: <span class="slVariant">XL</span></label>
-                                  @foreach ($variation as $value)
-                                    <div data-value="{{$value}}" class="swatch-element {{$value}} available">
-                                        <input class="swatchInput" id="swatch-1-xl-1-{{$value}}" type="radio" name="option-1" value="{{$value}}">
-                                        <label class="swatchLbl medium" for="swatch-1-xl-1-{{$value}}" data-bs-toggle="tooltip" data-bs-placement="top" title="{{$value}}">{{$value}}</label>
+                              <div class="product-form__item" data-attribute-id="{{$attribute->id}}">
+                                  <label>{{$attribute->title}}: 
+                                    {{-- <span class="slVariant">{{$attribute->title}}</span> --}}
+                                  </label>
+                                  @foreach ($attribute_values as $values)
+                                  @if($values->product_attribute_id == $attribute->id)
+                                
+                                    <div data-value="{{$values->id}}" 
+                                         class="swatch-element {{$values->title}} available">
+                                         
+                                         <input 
+                                           class="variation_change swatchInput"
+                                           @if($rowKey == 0) checked @endif 
+                                           id="variation_id-{{$values->id}}" 
+                                           type="radio" 
+                                           name="attr[{{$attribute->id}}]" 
+                                           value="{{$values->id}}" />
+                                            
+                                         <label class="swatchLbl medium" 
+                                            for="variation_id-{{$values->id}}" 
+                                            data-bs-toggle="tooltip" 
+                                            data-bs-placement="top" 
+                                            title="{{$values->title}}">{{$values->title}}</label>
+                                    
                                     </div>
+                                    <?php 
+                                      $rowKey += 1;
+                                    ?>
+                                    @endif
                                   @endforeach
                               </div>
                           </div>    
@@ -165,16 +199,21 @@
                                 <div class="wrapQtyBtn">
                                     <div class="qtyField">
                                         <a class="qtyBtn minus" href="javascript:void(0);"><i class="icon an an-minus" aria-hidden="true"></i></a>
-                                        <input type="text" name="quantity" value="1" class="product-form__input qty" />
+                                        <input type="text" name="quantity" value="1" class="variation_change product-form__input qty" />
                                         <a class="qtyBtn plus" href="javascript:void(0);"><i class="icon an an-plus" aria-hidden="true"></i></a>
                                     </div>
                                 </div>
                             </div>                                
                             <div class="product-form__item--submit">
-                                <button type="button" name="add" class="btn product-form__cart-submit"><span>Add to cart</span></button>
+                                <button 
+                                  name="cart-type"
+                                  type="submit" 
+                                  value="cart"
+                                  class="btn product-form__cart-submit">
+                                  <span>Add to cart</span></button>
                             </div>
                             <div class="payment-button" data-shopify="payment-button">
-                                <button type="button" class="payment-button__button payment-button__button--unbranded">Buy it now</button>
+                                <button name="cart-type" value="buy" type="submit" class="payment-button__button payment-button__button--unbranded">Buy it now</button>
                             </div>
                         </div>
                         <!-- End Product Action -->
@@ -184,6 +223,7 @@
                             <a class="wishlist add-to-wishlist d-flex align-items-center" href="wishlist.html"><i class="icon an an-heart me-1"></i> <span>Add to Wishlist</span></a>
                             <a class="wishlist emaillink d-flex align-items-center" href="#productInquiry"><i class="icon an an-envelope me-1" style="margin-top:-1px;"></i> <span>Enquiry</span></a>
                         </div>
+
                     </form>
                     <!-- End Form -->
 
@@ -512,7 +552,7 @@
 
 
       <!-- Related Product Slider -->
-      <div class="related-product grid-products">
+      <div class="d-none related-product grid-products">
         <header class="section-header">
             <h2 class="section-header__title text-center h2"><span>Related Products</span></h2>
             <p class="sub-heading">You can stop autoplay, increase/decrease aniamtion speed and number of grid to show and products from store admin.</p>
@@ -579,54 +619,172 @@
 @endsection
 @section('js')
 
- <!-- Photoswipe Gallery -->
- <script src="{{asset('theme/assets/js/vendor/photoswipe.min.js')}}"></script>
- <script src="{{asset('theme/assets/js/vendor/photoswipe-ui-default.min.js')}}"></script>
- <script>
-     $(function () {
-         var $pswp = $('.pswp')[0],
-                 image = [],
-                 getItems = function () {
-                     var items = [];
-                     $('.lightboximages a').each(function () {
-                         var $href = $(this).attr('href'),
-                                 $size = $(this).data('size').split('x'),
-                                 item = {
-                                     src: $href,
-                                     w: $size[0],
-                                     h: $size[1]
-                                 }
-                         items.push(item);
-                     });
-                     return items;
-                 }
-         var items = getItems();
+<script> 
 
-         $.each(items, function (index, value) {
-             image[index] = new Image();
-             image[index].src = value['src'];
-         });
-         $('.prlightbox').on('click', function (event) {
-             event.preventDefault();
 
-             var $index = $(".active-thumb").parent().attr('data-slick-index');
-             $index++;
-             $index = $index - 1;
+   let arrays = [];
+   let json  = '<?php echo json_encode($variations);?>';
+   const variations = JSON.parse(json);
+  
 
-             var options = {
-                 index: $index,
-                 bgOpacity: 0.9,
-                 showHideOpacity: true
-             }
-             var lightBox = new PhotoSwipe($pswp, PhotoSwipeUI_Default, items, options);
-             lightBox.init();
-         });
-     });
- </script>
 
- <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-     <div class="pswp__bg"></div>
-     <div class="pswp__scroll-wrap"><div class="pswp__container"><div class="pswp__item"></div><div class="pswp__item"></div><div class="pswp__item"></div></div><div class="pswp__ui pswp__ui--hidden"><div class="pswp__top-bar"><div class="pswp__counter"></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button><button class="pswp__button pswp__button--share" title="Share"></button><button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button><button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class="pswp__preloader"><div class="pswp__preloader__icn"><div class="pswp__preloader__cut"><div class="pswp__preloader__donut"></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class="pswp__share-tooltip"></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button><button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class="pswp__caption"><div class="pswp__caption__center"></div></div></div></div>
- </div>
+    $(".qtyBtn").on("click", function () {
+           
+        var qtyField = $(this).parent(".qtyField");
+        var oldValue = $(qtyField).find(".qty").val();
+        var newVal = 1;
+
+            if ($(this).is(".plus")) {
+                newVal = parseInt(oldValue) + 1;
+            } else if (oldValue > 1) {
+                newVal = parseInt(oldValue) - 1;
+            }
+            $(qtyField).find(".qty").val(newVal);
+            $(qtyField).find(".qty").trigger('change');
+    });
+
+</script>
+
+        <!-- Photoswipe Gallery -->
+        <script src="{{asset('theme/assets/js/vendor/photoswipe.min.js')}}"></script>
+        <script src="{{asset('theme/assets/js/vendor/photoswipe-ui-default.min.js')}}"></script>
+        <script>
+            $(function () {
+
+
+                var $pswp = $('.pswp')[0],
+                        image = [],
+                        getItems = function () {
+                            var items = [];
+                            $('.lightboximages a').each(function () {
+                                var $href = $(this).attr('href'),
+                                        $size = $(this).data('size').split('x'),
+                                        item = {
+                                            src: $href,
+                                            w: $size[0],
+                                            h: $size[1]
+                                        }
+                                items.push(item);
+                            });
+                            return items;
+                        }
+                var items = getItems();
+
+                $.each(items, function (index, value) {
+                    image[index] = new Image();
+                    image[index].src = value['src'];
+                });
+                $('.prlightbox').on('click', function (event) {
+                    event.preventDefault();
+
+                    var $index = $(".active-thumb").parent().attr('data-slick-index');
+                    $index++;
+                    $index = $index - 1;
+
+                    var options = {
+                        index: $index,
+                        bgOpacity: 0.9,
+                        showHideOpacity: true
+                    }
+                    var lightBox = new PhotoSwipe($pswp, PhotoSwipeUI_Default, items, options);
+                    lightBox.init();
+                });
+            });
+        </script>
+
+        <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="pswp__bg"></div>
+            <div class="pswp__scroll-wrap"><div class="pswp__container"><div class="pswp__item"></div><div class="pswp__item"></div><div class="pswp__item"></div></div><div class="pswp__ui pswp__ui--hidden"><div class="pswp__top-bar"><div class="pswp__counter"></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button><button class="pswp__button pswp__button--share" title="Share"></button><button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button><button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class="pswp__preloader"><div class="pswp__preloader__icn"><div class="pswp__preloader__cut"><div class="pswp__preloader__donut"></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class="pswp__share-tooltip"></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button><button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class="pswp__caption"><div class="pswp__caption__center"></div></div></div></div>
+        </div>
+
+        <script>
+            $(function () {
+
+
+
+
+
+                $('.variation_change').change(function (e) { 
+                   
+                   let forms = {
+                     qty:$('.qty').val(),
+                     variations:[],
+                   };
+ 
+                    $('.product-form__item').each(function () {
+                        let el = $(this);
+                        let attribute_id =  el.attr('data-attribute-id');
+                        var selectedValue = $(this).find('input[type="radio"]:checked').val();
+                        forms.variations.push({
+                            'attribute':attribute_id,
+                            'value':selectedValue,
+                         });
+                    });
+
+                    
+                    var groupedBySku = variations.reduce(function (result, obj) {
+                        var key = obj.sku;
+                        result[key] = result[key] || [];
+                        result[key].push(obj);
+                        return result;
+                    }, {});
+
+                   // console.log(groupedBySku);
+
+            
+                    var findSku = false;
+                    var selectedAtributes = forms.variations.map(obj =>  Number(obj.value));
+                    for (const key in groupedBySku) {
+
+                        if (groupedBySku.hasOwnProperty(key)) {
+                          
+                            const item = groupedBySku[key];
+                            let is_found_sku = [];
+                            item.forEach(element => {  
+                                
+                                if(selectedAtributes.includes(element.value_id)){
+                                    is_found_sku.push(1);
+                                }else{
+                                    is_found_sku.push(0);
+                                } 
+                            });
+                            if(is_found_sku.includes(0) == false){
+                                findSku = item.pop();
+                            }
+                       }
+                    }
+                
+
+                    
+                    if(findSku){
+
+                       
+                        $('.variant-sku').text(findSku.sku);
+                        $('.r-price').text('$'+findSku.price);
+                        $('.instock').text('In Stock');
+                        $('.instock').css('color','green');
+                        $('.product-form__item--quantity').show();
+                        $("[name='price']").val(findSku.price);
+                        $("[name='sku']").val(findSku.variation_id);
+
+                        
+                    }else{
+                        
+                        $('.product-form__item--quantity').hide();
+                        $('.product-form__item--quantity .qty').val(0);
+                        $('.instock').text('Out Of Stock');
+                        $('.instock').css('color','red');
+                        $('.variant-sku').text('-');
+                        $('.r-price').text('-');
+                        $("[name='price']").val('');
+                        $("[name='sku']").val('');
+                    }
+
+                });
+
+                $('.variation_change').trigger('change');
+
+            });
+        </script>
 
 @endsection

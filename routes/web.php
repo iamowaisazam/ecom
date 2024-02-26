@@ -25,6 +25,11 @@ Route::get('/products/{id}', [App\Http\Controllers\HomeController::class, 'produ
 
 Route::get('/shop', [App\Http\Controllers\HomeController::class, 'shop']);
 Route::get('/cart', [App\Http\Controllers\HomeController::class, 'cart']);
+
+Route::post('/cart/add_to_cart', [App\Http\Controllers\HomeController::class, 'add_to_cart']);
+Route::get('/cart/remove/{id}', [App\Http\Controllers\HomeController::class, 'cart_remove']);
+
+
 Route::get('/combination_maker', [App\Http\Controllers\HomeController::class, 'combination_maker']);
 
 
@@ -76,6 +81,30 @@ Route::get('/admin/roles/edit/{id}', [App\Http\Controllers\Admin\RoleController:
 Route::post('/admin/roles/update/{id}', [App\Http\Controllers\Admin\RoleController::class, 'update']);
 Route::get('/admin/roles/delete/{id}', [App\Http\Controllers\Admin\RoleController::class, 'delete']);
 
+
+//products
+Route::get('/admin/products/index', [App\Http\Controllers\Admin\ProductController::class, 'index']);
+Route::get('/admin/products/create', [App\Http\Controllers\Admin\ProductController::class, 'create']);
+Route::post('/admin/products/store', [App\Http\Controllers\Admin\ProductController::class, 'store']);
+Route::get('/admin/products/edit/{id}', [App\Http\Controllers\Admin\ProductController::class, 'edit']);
+Route::post('/admin/products/update/{id}', [App\Http\Controllers\Admin\ProductController::class, 'update']);
+Route::get('/admin/products/remove-image/{id}', [App\Http\Controllers\Admin\ProductController::class, 'remove_image']);
+Route::get('/admin/products/delete/{id}', [App\Http\Controllers\Admin\ProductController::class, 'delete']);
+
+
+Route::post('/admin/products/variations/{id}', [App\Http\Controllers\Admin\ProductController::class, 'variation']);
+Route::get('/admin/products/remove-variation/{id}', [App\Http\Controllers\Admin\ProductController::class, 'remove_variation']);
+
+
+ //filemanager
+ Route::get('admin/filemanager',[App\Http\Controllers\Admin\FilemanagerController::class,'index']);
+ Route::get('admin/filemanager/create',[App\Http\Controllers\Admin\FilemanagerController::class,'create']);
+ Route::post('admin/filemanager/store',[App\Http\Controllers\Admin\FilemanagerController::class,'store']);
+ Route::get('admin/filemanager/edit/{id}',[App\Http\Controllers\Admin\FilemanagerController::class,'edit']);
+ Route::post('admin/filemanager/update/{id}',[App\Http\Controllers\Admin\FilemanagerController::class,'update']);
+ Route::get('admin/filemanager/delete/{id}',[App\Http\Controllers\Admin\FilemanagerController::class,'delete']);
+
+
 //Store_Category
 Route::get('/admin/storecategories/index', [App\Http\Controllers\Admin\StoreCategoryController::class, 'index']);
 Route::get('/admin/storecategories/create', [App\Http\Controllers\Admin\StoreCategoryController::class, 'create']);
@@ -116,13 +145,7 @@ Route::get('/admin/blogs/edit/{id}', [App\Http\Controllers\Admin\BlogController:
 Route::post('/admin/blogs/update/{id}', [App\Http\Controllers\Admin\BlogController::class, 'update']);
 Route::get('/admin/blogs/delete/{id}', [App\Http\Controllers\Admin\BlogController::class, 'delete']);
 
-//BlogCategories
-Route::get('/admin/blogcategories/index', [App\Http\Controllers\Admin\BlogCategoryController::class, 'index']);
-Route::get('/admin/blogcategories/create', [App\Http\Controllers\Admin\BlogCategoryController::class, 'create']);
-Route::post('/admin/blogcategories/store', [App\Http\Controllers\Admin\BlogCategoryController::class, 'store']);
-Route::get('/admin/blogcategories/edit/{id}', [App\Http\Controllers\Admin\BlogCategoryController::class, 'edit']);
-Route::post('/admin/blogcategories/update/{id}', [App\Http\Controllers\Admin\BlogCategoryController::class, 'update']);
-Route::get('/admin/blogcategories/delete/{id}', [App\Http\Controllers\Admin\BlogCategoryController::class, 'delete']);
+
 
 //Settings
 Route::get('admin/settings/edit', [App\Http\Controllers\Admin\SettingController::class, 'edit']);
@@ -134,6 +157,6 @@ Route::post('admin/settings/update', [App\Http\Controllers\Admin\SettingControll
 
 // Auth::routes();
 
-// Route::fallback(function () {
-//     return redirect('/admin/login'); 
-// });
+Route::fallback(function () {
+    return redirect('/'); 
+});

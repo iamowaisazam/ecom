@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ProductAttributeValue extends Model
 {
 
-    protected $table = 'product_attributes_values';
+    protected $table = 'product_attribute_values';
 
     /**
      * The attributes that are mass assignable.
