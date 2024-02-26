@@ -252,12 +252,12 @@
                 <div class="row">
                     <div class="col-4 col-md-4 col-lg-4 filters-toolbar__item collection-view-as d-flex justify-content-Start align-items-center">
                         <button type="button" class="btn-filter d-block d-md-block d-lg-none icon an an-sliders-h" data-bs-toggle="tooltip" data-bs-placement="top" title="Filters"></button>
-                        <a href="shop-left-sidebar.html" class="change-view change-view--active" data-bs-toggle="tooltip" data-bs-placement="top" title="Grid View">
+                        <a class="change-view change-view--active" data-bs-toggle="tooltip" data-bs-placement="top" title="Grid View">
                             <i class="icon an an-table"></i>
                         </a>
-                        <a href="shop-listview.html" class="change-view" data-bs-toggle="tooltip" data-bs-placement="top" title="List View">
+                        {{-- <a href="shop-listview.html" class="change-view" data-bs-toggle="tooltip" data-bs-placement="top" title="List View">
                             <i class="icon an an-th-list"></i>
-                        </a>
+                        </a> --}}
                     </div>
                     <div class="col-4 col-md-4 col-lg-4 text-center filters-toolbar__item filters-toolbar__item--count d-flex justify-content-center align-items-center">
                         <span class="filters-toolbar__product-count">Showing: 22</span>
@@ -286,27 +286,26 @@
         <div class="grid-products grid--view-items product-three-load-more">
           <div class="row">
             @foreach ($data as $item)    
+            <?php 
+            $thumb = $item->get_thumbnail() ? asset($item->get_thumbnail()->path) : '';
+            $img_hover = $item->get_hover_image() ? asset($item->get_hover_image()->path) : '';
+         ?>
               <div class="col-6 col-sm-6 col-md-4 col-lg-4 item">
                   <div class="product-image">
                       <a href="{{URL::to('/products')}}/{{$item->id}}">
-                          <img class="primary blur-up lazyload" data-src="{{asset('/theme/'.$item->image)}}" src="{{asset('/theme/'.$item->image)}}" alt="image" title="product" />
-                          <img class="hover blur-up lazyload" data-src="{{asset('/theme/'.$item->hover_image)}}" src="{{asset('/theme/'.$item->hover_image)}}" alt="image" title="product" />
-                          <div class="product-labels rectangular"><span class="lbl on-sale">Exclusive</span></div>
+                          <img class="primary blur-up lazyload" 
+                          data-src="{{asset($thumb)}}" 
+                          src="{{asset($thumb)}}" 
+                          alt="image" 
+                          title="product" />
+
+                          <img class="hover blur-up lazyload" 
+                            data-src="{{asset($img_hover)}}" 
+                            src="{{asset($img_hover)}}" 
+                            alt="image" 
+                            title="product" />
+                          
                       </a>
-                  
-                      <div class="button-set">
-                          <div class="quickview-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="quick view">
-                              <a href="#open-quickview-popup" class="btn quick-view-popup quick-view"><i class="icon an an-search"></i></a>
-                          </div>
-                          <div class="variants add" data-bs-toggle="tooltip" data-bs-placement="top" title="add to cart">
-                              <form class="addtocart" action="#" method="post">
-                                  <a href="#open-addtocart-popup" class="btn cartIcon btn-addto-cart open-addtocart-popup"><i class="icon an an-shopping-bag"></i></a>
-                              </form>
-                          </div>
-                          <div class="wishlist-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="add to wishlist">
-                              <a href="#open-wishlist-popup" class="open-wishlist-popup wishlist add-to-wishlist"><i class="icon an an-heart"></i></a>
-                          </div>
-                      </div>
                   </div>
                 
                   <div class="product-details text-center">
@@ -314,7 +313,7 @@
                           <a href="{{URL::to('/products')}}/{{$item->id}}">{{$item->title}}</a>
                       </div>
                       <div class="product-price">
-                          <span class="old-price">${{$item->old_price}}</span>
+                          <span class="old-price">${{$item->selling_price}}</span>
                           <span class="price">${{$item->price}}</span>
                       </div>
                       <div class="product-review">
@@ -334,21 +333,6 @@
       </div>
         
       
-      
-      
-      <!-- Infinit Pagination -->
-         <div class="infinitpaginOuter">
-          <div class="infinitpagin-three">	
-              <a href="#" class="btn loadMoreThree">Load More</a>
-          </div>
-        </div>
-      <!-- End Infinit Pagination -->
-
-
-            
-              
-
-
 
       </div>
     </div>

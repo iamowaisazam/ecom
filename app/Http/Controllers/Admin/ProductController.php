@@ -220,12 +220,15 @@ class ProductController extends Controller
     {
         
 
+      
+
 
         $id = Crypt::decryptString($id);
 
+        //   dd($request->all());
+
         $validator = Validator::make($request->all(), [
             "title" => 'required|max:255',
-            "type" => "required|max:255",
             "details" => 'max:500',
             "description" => 'max:9000',
             "category_id" => 'integer',
@@ -253,7 +256,8 @@ class ProductController extends Controller
            return back()->with('error','Record Not Found');
         }
 
-    
+        // dd($request->variation);
+
         if($request->has('variation')){
             foreach ($request->variation as $v) {
                 ProductVariation::where('id',$v['id'])->update([
@@ -274,7 +278,7 @@ class ProductController extends Controller
         }
 
         $product->title = $request->title;
-        $product->type = $request->type;
+        // $product->type = $request->type;
         $product->slug = $request->slug;
         $product->details = $request->details;
         $product->description = $request->description;
@@ -340,6 +344,51 @@ class ProductController extends Controller
 
         return back()->with('success','Record Removed Success'); 
 
+    }
+
+    
+
+    /**
+     * Create a new controller instance.
+     * @return void
+     */
+    public function variations(Request $request,$id)
+    {
+
+        $id = Crypt::decryptString($id);
+        $product = Product::find($id);
+
+     
+
+        ProductVariation::where('product_id',$id)->delete();
+
+        $values = $product->generateAttributeCombinations($request->attr);
+
+        foreach ($values as $values) {
+
+            $sku = [];
+            foreach ($values as $item) {
+                array_push($sku,$item['title']);
+            }
+
+            $ProductVariation = ProductVariation::create([
+                "product_id"=> 3,
+                "title" => implode('-',$sku), 
+                "sku" => implode('-',$sku),
+                "value" => implode('-',$sku) 
+            ]);
+
+            foreach ($values as $item) {
+                ProductVariationAttribute::create([
+                    "product_variation_id" => $ProductVariation->id,
+                    "product_attribute_id" => $item['product_attribute_id'],
+                    "product_attribute_value_id" => $item['id'],
+                    "value" => $item['title'],
+                ]);
+            }
+        }
+      
+        return back()->with('success','Variation Generated Successfully');
     }
 
 

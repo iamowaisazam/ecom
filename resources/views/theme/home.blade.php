@@ -200,16 +200,13 @@
                                     @if($product->is_popular)
                                     <div class="product-labels"><span class="lbl pr-label3">Popular</span></div>
                                     @endif
+
                                 </a>
                                 <!-- End Product Image -->
 
                                 <!-- Product Button -->
-                                <div class="button-set">
-                                    <div class="quickview-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="quick view">
-                                        <a href="#open-quickview-popup-{{$product->id}}" 
-                                            class="btn quick-view-popup quick-view">
-                                            <i class="icon an an-search"></i></a>
-                                    </div>
+                                {{-- <div class="button-set">
+                                   
                                     <div class="variants add" data-bs-toggle="tooltip" data-bs-placement="top" title="add to cart">
                                         <form class="addtocart" action="#" method="post">
                                             <a href="#open-addtocart-popup" class="btn cartIcon btn-addto-cart open-addtocart-popup"><i class="icon an an-shopping-bag"></i></a>
@@ -218,7 +215,7 @@
                                     <div class="wishlist-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="add to wishlist">
                                         <a href="#open-wishlist-popup" class="btn open-wishlist-popup wishlist add-to-wishlist"><i class="icon an an-heart"></i></a>
                                     </div>  
-                                </div>
+                                </div> --}}
                             </div>
                             <!-- End Product Image -->
 

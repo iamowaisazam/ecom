@@ -92,7 +92,7 @@ Route::get('/admin/products/remove-image/{id}', [App\Http\Controllers\Admin\Prod
 Route::get('/admin/products/delete/{id}', [App\Http\Controllers\Admin\ProductController::class, 'delete']);
 
 
-Route::post('/admin/products/variations/{id}', [App\Http\Controllers\Admin\ProductController::class, 'variation']);
+Route::post('/admin/products/variations/{id}', [App\Http\Controllers\Admin\ProductController::class, 'variations']);
 Route::get('/admin/products/remove-variation/{id}', [App\Http\Controllers\Admin\ProductController::class, 'remove_variation']);
 
 

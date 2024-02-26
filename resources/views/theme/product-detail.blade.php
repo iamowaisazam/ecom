@@ -8,9 +8,18 @@
     <title>{{$product->title}}</title>
     <meta name="description" content="{{$global_d['blog_meta_description'] ?? ''}}">
     <meta name="keywords" content="{{$global_d['blog_keywords'] ?? ''}}">
+
+    
 @endsection
 @section('css')
+
+<style>
+    .product-info p span {
+       padding-left: 0px!important;   
+    }
+</style>
   
+
 @endsection
 @section('content')
 <div id="page-content" class="template-product">
@@ -29,8 +38,6 @@
 
   <div class="container">
 
-  
-
   <div id="ProductSection-product-template" class="product-template__container prstyle2">
    
     <!-- #ProductSection product template -->
@@ -47,7 +54,7 @@
                             alt="" 
                             src="{{asset($product->get_thumbnail()->path)}}" />               
                         </div>
-                        <div class="product-labels"><span class="lbl pr-label1">new</span><span class="lbl on-sale">Exclusive</span></div>
+                   
                         <div class="product-buttons">
                             <a href="https://www.youtube.com/watch?v=93A2jOW5Mog" class="btn popup-video" data-bs-toggle="tooltip" data-bs-placement="left" title="Watch Video"><i class="icon an an-play" aria-hidden="true"></i></a>
                             <a href="#" class="btn prlightbox" data-bs-toggle="tooltip" data-bs-placement="left" title="Zoom Image"><i class="icon an an-expand-arrows-alt" aria-hidden="true"></i></a>
@@ -77,19 +84,19 @@
                     <div class="display-table shareRow pt-3 pb-0 d-table">
                         <div class="display-table-cell text-center align-top">
                             <div class="social-sharing">
-                                <a target="_blank" href="#" class="btn btn--small btn--secondary btn--share share-facebook" data-bs-toggle="tooltip" data-bs-placement="top" title="Share on Facebook">
+                                <a class="btn btn--small btn--secondary btn--share share-facebook" data-bs-toggle="tooltip" data-bs-placement="top" title="Share on Facebook">
                                     <i class="icon an an-facebook" aria-hidden="true"></i><span class="share-title" aria-hidden="true">Facebook</span>
                                 </a>
-                                <a target="_blank" href="#" class="btn btn--small btn--secondary btn--share share-twitter" data-bs-toggle="tooltip" data-bs-placement="top" title="Tweet on Twitter">
+                                <a class="btn btn--small btn--secondary btn--share share-twitter" data-bs-toggle="tooltip" data-bs-placement="top" title="Tweet on Twitter">
                                     <i class="icon an an-twitter" aria-hidden="true"></i><span class="share-title" aria-hidden="true">Tweet</span>
                                 </a>
-                                <a target="_blank" href="#" class="btn btn--small btn--secondary btn--share share-google" data-bs-toggle="tooltip" data-bs-placement="top" title="Share on google+">
+                                <a class="btn btn--small btn--secondary btn--share share-google" data-bs-toggle="tooltip" data-bs-placement="top" title="Share on google+">
                                     <i class="icon an an-google-plus" aria-hidden="true"></i><span class="share-title" aria-hidden="true">Google+</span>
                                 </a>
-                                <a target="_blank" href="#" class="btn btn--small btn--secondary btn--share share-pinterest" data-bs-toggle="tooltip" data-bs-placement="top" title="Pin on Pinterest">
+                                <a class="btn btn--small btn--secondary btn--share share-pinterest" data-bs-toggle="tooltip" data-bs-placement="top" title="Pin on Pinterest">
                                     <i class="icon an an-pinterest-p" aria-hidden="true"></i><span class="share-title" aria-hidden="true">Pin it</span>
                                 </a>
-                                <a target="_blank" href="#" class="btn btn--small btn--secondary btn--share share-email" data-bs-toggle="tooltip" data-bs-placement="top" title="Share by Email">
+                                <a class="btn btn--small btn--secondary btn--share share-email" data-bs-toggle="tooltip" data-bs-placement="top" title="Share by Email">
                                     <i class="icon an an-envelope" aria-hidden="true"></i><span class="share-title" aria-hidden="true">Email</span>
                                 </a>
                             </div>
@@ -106,7 +113,7 @@
                     <!-- Product Reviews -->
                     <div class="prInfoRow d-flex flex-wrap">
                         <div class="product-review">
-                            <a class="reviewLink d-flex flex-wrap align-items-center" href="#tab2">
+                            <a class="reviewLink d-flex flex-wrap align-items-center" >
                                 <i class="an an-star"></i><i class="an an-star"></i><i class="an an-star"></i><i class="an an-star"></i><i class="an an-star-half-alt"></i>
                                 <span class="spr-badge-caption">6 reviews</span>
                             </a>
@@ -220,8 +227,14 @@
 
                         <!-- Wishlist - Compare -->
                         <div class="infolinks d-flex flex-wrap align-items-center px-0 mb-0">
-                            <a class="wishlist add-to-wishlist d-flex align-items-center" href="wishlist.html"><i class="icon an an-heart me-1"></i> <span>Add to Wishlist</span></a>
-                            <a class="wishlist emaillink d-flex align-items-center" href="#productInquiry"><i class="icon an an-envelope me-1" style="margin-top:-1px;"></i> <span>Enquiry</span></a>
+                            <a class="wishlist add-to-wishlist d-flex align-items-center">
+                                <i class="icon an an-heart me-1"></i> 
+                                <span>Add to Wishlist</span>
+                            </a>
+                            <a class="wishlist emaillink d-flex align-items-center" >
+                                <i class="icon an an-envelope me-1" style="margin-top:-1px;">
+                                </i> <span>Enquiry</span>
+                            </a>
                         </div>
 
                     </form>
@@ -262,9 +275,8 @@
           <!-- Tabs -->
             <ul class="product-tabs d-none d-md-block">
                 <li class="active" rel="tab1"><a class="tablink">Product Details</a></li>
-                <li rel="tab2"><a class="tablink">Product Reviews</a></li>
+                {{-- <li rel="tab2"><a class="tablink">Product Reviews</a></li> --}}
                 <li rel="tab3"><a class="tablink">Size Chart</a></li>
-                <li rel="tab4"><a class="tablink">Shipping &amp; Returns</a></li>
             </ul>
             <!-- End Tabs -->
           
@@ -275,65 +287,7 @@
                 <h3 class="acor-ttl active d-block d-md-none" rel="tab1">Product Details</h3>
                 <div id="tab1" class="tab-content py-3 py-md-0" style="display:block;">
                     <div class="product-description rte">
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-                        <ul class="checkmark my-0">
-                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
-                            <li>Sed ut perspiciatis unde omnis iste natus error sit</li>
-                            <li>Neque porro quisquam est qui dolorem ipsum quia dolor</li>
-                            <li>Lorem Ipsum is not simply random text.</li>
-                            <li>Morbi malesuada lacus sed metus luctus pulvinar quis at odio.</li>
-                        </ul>
-                        <h3>Sed ut perspiciatis unde omnis iste natus error sit voluptatem</h3>
-                        <p>Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>
-                        <div class="rte__table-wrapper">
-                            <div class="table-responsive">
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <td><strong>Shoulder (cm):</strong></td>
-                                            <td>XS: 35.5 cm, S: 36.5 cm, M: 37.5 cm, L: 38.5 cm</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Bust (cm):</strong></td>
-                                            <td>XS: 87 cm, S: 91 cm, M: 95 cm, L: 99 cm</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Sleeve Length (cm):</strong></td>
-                                            <td>XS: 13.5 cm, S: 14.5 cm, M: 15.5 cm, L: 16.5 cm</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Length (cm):</strong></td>
-                                            <td>XS: 59 cm, S: 60 cm, M: 61 cm, L: 62 cm</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Size Available:</strong></td>
-                                            <td>XS, S, M, L</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Fabric:</strong></td>
-                                            <td>Fabric has some stretch</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Season:</strong></td>
-                                            <td>Summer</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Cuff (cm):</strong></td>
-                                            <td>XS: 28.5 cm, S: 29.5 cm, M: 30.5 cm, L: 31.5 cm</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <h5 class="mt-4 mb-2" style="font-weight:600;">Features:</h5>
-                        <ul class="checkmark">
-                            <li>high quality fabric, very comfortable to touch and wear. light weight and perfect forlayering</li>
-                            <li>This cardigan sweater is cute for no reason,perfect for travel and casual. with dress or t-shirt inside,Perfect match</li>
-                            <li>It can tie in front-is forgiving to you belly or tie behind like Bow, you can tie different ways</li>
-                            <li>Pictures may slightly vary from actual item due to lighting and monitor.</li>
-                        </ul>
-                        <h5 class="mt-4 mb-2" style="font-weight:600;">Notes:</h5>
-                        <p>Return or exchange within 30 days from the delivered date.</p>
+                        {!! $product->description !!}
                     </div>
                 </div>
                 <!-- End Tabs Content One -->
@@ -527,15 +481,6 @@
                     </div>
                 </div>
                 <!-- End Tabs Content Three -->
-                <!-- Tabs Content Four -->
-                <h3 class="acor-ttl d-block d-md-none" rel="tab4">Shipping &amp; Returns</h3>
-                <div id="tab4" class="tab-content py-3 py-md-0">
-                    <h4>Returns Policy</h4>
-                    <p class="mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eros justo, accumsan non dui sit amet. Phasellus semper volutpat mi sed imperdiet. Ut odio lectus, vulputate non ex non, mattis sollicitudin purus. Mauris consequat justo a enim interdum, in consequat dolor accumsan. Nulla iaculis diam purus, ut vehicula leo efficitur at.</p>
-                    <p>Interdum et malesuada fames ac ante ipsum primis in faucibus. In blandit nunc enim, sit amet pharetra erat aliquet ac.</p>
-                    <h4>Shipping</h4>
-                    <p>Pellentesque ultrices ut sem sit amet lacinia. Sed nisi dui, ultrices ut turpis pulvinar. Sed fringilla ex eget lorem consectetur, consectetur blandit lacus varius. Duis vel scelerisque elit, et vestibulum metus.  Integer sit amet tincidunt tortor. Ut lacinia ullamcorper massa, a fermentum arcu vehicula ut. Ut efficitur faucibus dui Nullam tristique dolor eget turpis consequat varius. Quisque a interdum augue. Nam ut nibh mauris.</p>
-                </div>
                 <!-- End Tabs Content Four -->
             </div>
             <!-- End Tabs Container -->
@@ -552,47 +497,38 @@
 
 
       <!-- Related Product Slider -->
-      <div class="d-none related-product grid-products">
+      <div class=" related-product grid-products">
         <header class="section-header">
             <h2 class="section-header__title text-center h2"><span>Related Products</span></h2>
             <p class="sub-heading">You can stop autoplay, increase/decrease aniamtion speed and number of grid to show and products from store admin.</p>
         </header>
         <div class="productPageSlider">
-          @foreach (range(1,5) as $item)
+          @foreach ($releated_products as $rel)
+          <?php 
+                $thumb = $product->get_thumbnail() ? asset($product->get_thumbnail()->path) : '';
+                $img_hover = $product->get_hover_image() ? asset($product->get_hover_image()->path) : '';
+            ?>
               
             <div class="col-12 item">
                 <div class="product-image">
-                    <a href="product-layout1.html">
+                    <a href="{{URL::to('/products')}}/{{$rel->id}}">
                         <img class="primary blur-up lazyload" 
-                        data-src="{{asset('theme/assets/images/product-images/product-image1.jpg')}}" 
-                        src="{{asset('theme/assets/images/product-images/product-image1.jpg')}}" alt="image" title="product" />
+                        data-src="{{asset($thumb)}}" 
+                        src="{{asset($thumb)}}" alt="image" title="product" />
                         <img class="hover blur-up lazyload" 
-                        data-src="{{asset('theme/assets/images/product-images/product-image1-1.jpg')}}" 
-                        src="{{asset('theme/assets/images/product-images/product-image1-1.jpg')}}" 
+                        data-src="{{asset($img_hover)}}" 
+                        src="{{asset($img_hover)}}" 
                          alt="image" title="product" />
-                        <div class="product-labels rectangular"><span class="lbl on-sale">Exclusive</span></div>
+                      
                     </a>
-                    <div class="button-set">
-                        <div class="quickview-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="quick view">
-                            <a href="#open-quickview-popup" class="btn quick-view-popup quick-view"><i class="icon an an-search"></i></a>
-                        </div>
-                        <div class="variants add" data-bs-toggle="tooltip" data-bs-placement="top" title="add to cart">
-                            <form class="addtocart" action="#" method="post">
-                                <a href="#open-addtocart-popup" class="btn cartIcon btn-addto-cart open-addtocart-popup"><i class="icon an an-shopping-bag"></i></a>
-                            </form>
-                        </div>
-                        <div class="wishlist-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="add to wishlist">
-                            <a href="#open-wishlist-popup" class="open-wishlist-popup wishlist add-to-wishlist"><i class="icon an an-heart"></i></a>
-                        </div>
-                    </div>
                 </div>
                 <div class="product-details text-center">
                     <div class="product-name">
-                        <a href="product-layout1.html">Edna Dress</a>
+                        <a href="{{URL::to('/products')}}/{{$rel->id}}">{{$rel->title}}</a>
                     </div>
                     <div class="product-price">
-                        <span class="old-price">$500.00</span>
-                        <span class="price">$600.00</span>
+                        <span class="old-price">${{$rel->selling_price}}</span>
+                        <span class="price">${{$rel->price}}</span>
                     </div>
                     <div class="product-review">
                         <i class="an an-star"></i>
@@ -699,10 +635,6 @@
 
         <script>
             $(function () {
-
-
-
-
 
                 $('.variation_change').change(function (e) { 
                    

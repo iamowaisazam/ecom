@@ -124,7 +124,9 @@ class HomeController extends Controller
      */
     public function product($id)
     {
-    
+        
+        $releated_products = Product::query()->limit(5)->get();
+
         $product = Product::where('id',3)->first();
         $variations_id = $product->variations->pluck('id')->toArray();
         $variations = ProductVariationAttribute::select([
@@ -164,7 +166,8 @@ class HomeController extends Controller
             'product',
             'attributes',
             'attribute_values',
-            'variations'
+            'variations',
+            'releated_products'
         ));
 
 

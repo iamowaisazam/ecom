@@ -92,55 +92,35 @@
                                             @endif 
                                         </div>
                                     </div>
-                                </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Price</label>
+                                            <input type="text" value="{{$product->price}}" name="price" class="form-control" 
+                                            placeholder="Price">
+                                            @if($errors->has('price'))
+                                            <p class="invalid-feedback" >{{ $errors->first('price') }}</p>
+                                            @endif 
+                                        </div>
+                                    </div>
+    
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Selling Price</label>
+                                            <input type="text" value="{{$product->selling_price}}" name="selling_price" class="form-control" 
+                                            placeholder="Selling Price">
+                                            @if($errors->has('selling_price'))
+                                            <p class="invalid-feedback" >{{ $errors->first('selling_price') }}</p>
+                                            @endif 
+                                        </div>
+                                    </div>
+
+                             </div>
                         </div>
                     </section>
 
 
-                    <section class="card single_box ">
-                        <header class="card-header bg-info">
-                            <h4 class="mb-0 text-white" >Price And Stock</h4>
-                        </header>
-                        <div class="card-body">
-                            <div class="row">
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="form-label">Sku</label>
-                                        <input type="text" value="{{$product->sku}}" name="sku" class="form-control" 
-                                        placeholder="Sku">
-                                        @if($errors->has('sku'))
-                                        <p class="invalid-feedback" >{{ $errors->first('sku') }}</p>
-                                        @endif 
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="form-label">Price</label>
-                                        <input type="text" value="{{$product->price}}" name="price" class="form-control" 
-                                        placeholder="Price">
-                                        @if($errors->has('price'))
-                                        <p class="invalid-feedback" >{{ $errors->first('price') }}</p>
-                                        @endif 
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="form-label">Selling Price</label>
-                                        <input type="text" value="{{$product->selling_price}}" name="selling_price" class="form-control" 
-                                        placeholder="Selling Price">
-                                        @if($errors->has('selling_price'))
-                                        <p class="invalid-feedback" >{{ $errors->first('selling_price') }}</p>
-                                        @endif 
-                                    </div>
-                                </div>
-                           </div>
-                        </div>
-                 </section>
-
-
+            
                  <section class="card variation_box">
                         <header class="card-header bg-info">
                             <div class="row">
@@ -178,9 +158,9 @@
                                            class="form-control" 
                                            value="{{$variation->sku}}" />
                                     </td>
-                                    <td><input name="variation[{{$key}}][quantity]" class="form-control" 
+                                    <td><input required name="variation[{{$key}}][quantity]" class="form-control" 
                                         value="{{$variation->quantity}}" /></td>
-                                    <td><input name="variation[{{$key}}][price]" class="form-control" 
+                                    <td><input required name="variation[{{$key}}][price]" class="form-control" 
                                         value="{{$variation->price}}" /></td>
                                     <td><input name="variation[{{$key}}][thumbnail]" class="form-control" 
                                         value="{{$variation->image}}" /></td>
@@ -202,8 +182,9 @@
 
                 </div>
                 <div class="col-md-3">
-                    @include('admin.products.thumbnail')
                     @include('admin.products.status')
+                    @include('admin.products.thumbnail')
+                    
                     @include('admin.products.category')
                     @include('admin.products.brand')
                     @include('admin.products.tags')
@@ -306,17 +287,17 @@
             $(".slug").val(Text);        
         });
 
-        $(".type").change(function() {
+        // $(".type").change(function() {
 
-            var type = $(this).val();
-            if(type == 'single'){
-                $('.variation_box').hide();
-                $('.single_box').show();
-            }else{
-                $('.variation_box').show();
-                $('.single_box').hide();
-            }
-        }).trigger('change');
+        //     var type = $(this).val();
+        //     if(type == 'single'){
+        //         $('.variation_box').hide();
+        //         $('.single_box').show();
+        //     }else{
+        //         $('.variation_box').show();
+        //         $('.single_box').hide();
+        //     }
+        // }).trigger('change');
 
         
             

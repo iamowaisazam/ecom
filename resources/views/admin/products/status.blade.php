@@ -4,13 +4,13 @@
     </header>
     <div class="card-body">       
                 
-                <div class="form-group my-2" > 
+                {{-- <div class="form-group my-2" >    
                     <label class="form-label" for="">Type</label>
                     <select class="type form-control" name="type">
                         <option @if($product->type == 'single') selected @endif value="single">Single</option>
                         <option @if($product->type == 'variation') selected @endif value="variation">Variation</option>
                     </select>
-                </div>
+                </div> --}}
 
                 <div class="form-group my-2" > 
                     <label class="form-label" for="">Is Approved</label>
