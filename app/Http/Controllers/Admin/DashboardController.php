@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\Coupon;
+use App\Models\Filemanager;
 use App\Models\Store;
 use App\Models\StoreCategory;
 use Illuminate\Support\Facades\Validator;
@@ -114,6 +115,21 @@ class DashboardController extends Controller
 
        
 
+    }
+
+     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function update_file_url(Request $request)
+    {
+        $files = Filemanager::all();
+        foreach ($files as $key => $file) {
+            $file->preview = asset($file->path);
+            $file->save();
+        }
+        
     }
 
 

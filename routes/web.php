@@ -57,6 +57,9 @@ Route::post('/admin/login_submit', [App\Http\Controllers\Admin\AuthController::c
 
 Route::middleware(['web', 'auth'])->group(function () {
 
+    
+Route::get('/admin/update_file_url', [App\Http\Controllers\Admin\DashboardController::class, 'update_file_url']);
+
 Route::get('/admin/logout', [App\Http\Controllers\Admin\AuthController::class, 'logout']);
 Route::get('/admin/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'dashboard']);
 Route::get('/admin/changepassword', [App\Http\Controllers\Admin\DashboardController::class, 'changepassword']);
