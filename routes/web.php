@@ -95,6 +95,15 @@ Route::get('/admin/products/remove-image/{id}', [App\Http\Controllers\Admin\Prod
 Route::get('/admin/products/delete/{id}', [App\Http\Controllers\Admin\ProductController::class, 'delete']);
 
 
+//products category
+Route::get('/admin/categories/index', [App\Http\Controllers\Admin\CategoryController::class, 'index']);
+Route::get('/admin/categories/create', [App\Http\Controllers\Admin\CategoryController::class, 'create']);
+Route::post('/admin/categories/store', [App\Http\Controllers\Admin\CategoryController::class, 'store']);
+Route::get('/admin/categories/edit/{id}', [App\Http\Controllers\Admin\CategoryController::class, 'edit']);
+Route::post('/admin/categories/update/{id}', [App\Http\Controllers\Admin\CategoryController::class, 'update']);
+Route::get('/admin/categories/delete/{id}', [App\Http\Controllers\Admin\CategoryController::class, 'delete']);
+
+
 Route::post('/admin/products/variations/{id}', [App\Http\Controllers\Admin\ProductController::class, 'variations']);
 Route::get('/admin/products/remove-variation/{id}', [App\Http\Controllers\Admin\ProductController::class, 'remove_variation']);
 
@@ -106,49 +115,6 @@ Route::get('/admin/products/remove-variation/{id}', [App\Http\Controllers\Admin\
  Route::get('admin/filemanager/edit/{id}',[App\Http\Controllers\Admin\FilemanagerController::class,'edit']);
  Route::post('admin/filemanager/update/{id}',[App\Http\Controllers\Admin\FilemanagerController::class,'update']);
  Route::get('admin/filemanager/delete/{id}',[App\Http\Controllers\Admin\FilemanagerController::class,'delete']);
-
-
-//Store_Category
-Route::get('/admin/storecategories/index', [App\Http\Controllers\Admin\StoreCategoryController::class, 'index']);
-Route::get('/admin/storecategories/create', [App\Http\Controllers\Admin\StoreCategoryController::class, 'create']);
-Route::post('/admin/storecategories/store', [App\Http\Controllers\Admin\StoreCategoryController::class, 'store']);
-Route::get('/admin/storecategories/edit/{id}', [App\Http\Controllers\Admin\StoreCategoryController::class, 'edit']);
-Route::post('/admin/storecategories/update/{id}', [App\Http\Controllers\Admin\StoreCategoryController::class, 'update']);
-Route::get('/admin/storecategories/delete/{id}', [App\Http\Controllers\Admin\StoreCategoryController::class, 'delete']);
-Route::get('/admin/storecategories/status/{id}', [App\Http\Controllers\Admin\StoreCategoryController::class, 'status']);
-
-
-//Stores
-Route::get('/admin/stores/index', [App\Http\Controllers\Admin\StoreController::class, 'index']);
-Route::get('/admin/stores/create', [App\Http\Controllers\Admin\StoreController::class, 'create']);
-Route::post('/admin/stores/store', [App\Http\Controllers\Admin\StoreController::class, 'store']);
-Route::get('/admin/stores/edit/{id}', [App\Http\Controllers\Admin\StoreController::class, 'edit']);
-Route::post('/admin/stores/update/{id}', [App\Http\Controllers\Admin\StoreController::class, 'update']);
-Route::get('/admin/stores/delete/{id}', [App\Http\Controllers\Admin\StoreController::class, 'delete']);
-Route::get('/admin/stores/view/{id}', [App\Http\Controllers\Admin\StoreController::class, 'view']);
-Route::get('/admin/stores/status/{id}', [App\Http\Controllers\Admin\StoreController::class, 'status']);
-
-//Coupens
-Route::get('/admin/coupons/index', [App\Http\Controllers\Admin\CouponController::class, 'index']);
-Route::get('/admin/coupons/create', [App\Http\Controllers\Admin\CouponController::class, 'create']);
-Route::post('/admin/coupons/store', [App\Http\Controllers\Admin\CouponController::class, 'store']);
-Route::get('/admin/coupons/edit/{id}', [App\Http\Controllers\Admin\CouponController::class, 'edit']);
-Route::post('/admin/coupons/update/{id}', [App\Http\Controllers\Admin\CouponController::class, 'update']);
-Route::get('/admin/coupons/delete/{id}', [App\Http\Controllers\Admin\CouponController::class, 'delete']);
-Route::get('/admin/coupons/view/{id}', [App\Http\Controllers\Admin\CouponController::class, 'view']);
-Route::get('/admin/coupons/status/{id}', [App\Http\Controllers\Admin\CouponController::class, 'status']);
-Route::get('/admin/coupons/sort', [App\Http\Controllers\Admin\CouponController::class, 'sort']);
-Route::post('/admin/coupons/sort_update', [App\Http\Controllers\Admin\CouponController::class, 'sort_update']);
-
-//Blogs
-Route::get('/admin/blogs/index', [App\Http\Controllers\Admin\BlogController::class, 'index']);
-Route::get('/admin/blogs/create', [App\Http\Controllers\Admin\BlogController::class, 'create']);
-Route::post('/admin/blogs/store', [App\Http\Controllers\Admin\BlogController::class, 'store']);
-Route::get('/admin/blogs/edit/{id}', [App\Http\Controllers\Admin\BlogController::class, 'edit']);
-Route::post('/admin/blogs/update/{id}', [App\Http\Controllers\Admin\BlogController::class, 'update']);
-Route::get('/admin/blogs/delete/{id}', [App\Http\Controllers\Admin\BlogController::class, 'delete']);
-
-
 
 //Settings
 Route::get('admin/settings/edit', [App\Http\Controllers\Admin\SettingController::class, 'edit']);
