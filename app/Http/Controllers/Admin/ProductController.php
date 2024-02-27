@@ -355,11 +355,11 @@ class ProductController extends Controller
     public function variations(Request $request,$id)
     {
 
+      
+
         $id = Crypt::decryptString($id);
         $product = Product::find($id);
-
-     
-
+        
         ProductVariation::where('product_id',$id)->delete();
 
         $values = $product->generateAttributeCombinations($request->attr);
@@ -372,7 +372,7 @@ class ProductController extends Controller
             }
 
             $ProductVariation = ProductVariation::create([
-                "product_id"=> 3,
+                "product_id"=> $id,
                 "title" => implode('-',$sku), 
                 "sku" => implode('-',$sku),
                 "value" => implode('-',$sku) 
