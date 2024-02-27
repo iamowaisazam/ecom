@@ -41,7 +41,7 @@ class ProductCategory extends Model
 
     public function parent()
     {
-        return $this->hasOne(ProductCategory::class, 'parent_id');
+        return $this->belongsTo(ProductCategory::class, 'parent_id');
     }
 
     public function img()

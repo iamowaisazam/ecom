@@ -66,6 +66,17 @@ class CategoryController extends Controller
             $data = [];
             foreach ($records as $key => $value) {
 
+                if($value->parent_id != 0){
+                  $category = ProductCategory::where('id',$value->parent_id)->first();
+                  if($category){
+                    $category = $category->title;
+                  }else{
+                    $category = "None";
+                  }
+                }else{
+                    $category = "None";
+                }
+
                 $action = '<div class="btn-group">';
 
                 $action .= '<a class="btn btn-info" href="'.URL::to('admin/categories/edit/'.Crypt::encryptString($value->id)).'">Edit</a>';
@@ -79,7 +90,7 @@ class CategoryController extends Controller
                    "<img style='width:50px;' src='".$img."' />",
                     $value->title,
                     $value->slug,
-                    $value->parent ? $value->parent->title : 'none',
+                    $category,
                     $value->is_enable ? 'Approved' : 'Pending',
                     $action,
                  ]
@@ -105,7 +116,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories = ProductCategory::where('parent_id','!=',0)->get();
+        $categories = ProductCategory::where('parent_id',0)->get();
         return view('admin.categories.create',compact('categories'));
     }
 
@@ -175,7 +186,7 @@ class CategoryController extends Controller
          }
 
          $categories = ProductCategory::where('id','!=',$id)
-         ->where('parent_id','!=',0)
+         ->where('parent_id',0)
          ->get();
 
         return view('admin.categories.edit',compact('categories','model'));
