@@ -17,6 +17,7 @@ use App\Models\Store;
 use App\Models\StoreCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Crypt;
 
 class HomeController extends Controller
 {
@@ -124,10 +125,10 @@ class HomeController extends Controller
      */
     public function product($id)
     {
-        
+        // $id = Crypt::decryptString($id);
         $releated_products = Product::query()->limit(5)->get();
 
-        $product = Product::where('id',3)->first();
+        $product = Product::where('id',$id)->first();
         $variations_id = $product->variations->pluck('id')->toArray();
         $variations = ProductVariationAttribute::select([
             'product_attributes.id as attribute_id',
