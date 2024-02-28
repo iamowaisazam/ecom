@@ -5,6 +5,7 @@
 href="{{asset('admin/assets/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css')}}">
 <link rel="stylesheet" type="text/css"
 href="{{asset('admin/assets/node_modules/datatables.net-bs4/css/responsive.dataTables.min.css')}}">
+<link href="{{asset('admin/assets/node_modules/switchery/dist/switchery.min.css')}}" rel="stylesheet" type="text/css" />
 
 
 <style>
@@ -62,6 +63,7 @@ href="{{asset('admin/assets/node_modules/datatables.net-bs4/css/responsive.dataT
                                             <th>Slug</th>
                                             <th>Parent</th>
                                             <th>Status</th>
+                                            <th>Featured</th>
                                             <th class="hidden-phone">Action</th>
                                         </tr>
                                      </thead>
@@ -81,6 +83,7 @@ href="{{asset('admin/assets/node_modules/datatables.net-bs4/css/responsive.dataT
        <!-- This is data table -->
        <script src="{{asset('admin/assets/node_modules/datatables.net/js/jquery.dataTables.min.js')}}"></script>
        <script src="{{asset('admin/assets/node_modules/datatables.net-bs4/js/dataTables.responsive.min.js')}}"></script>
+       <script src="{{asset('admin/assets/node_modules/switchery/dist/switchery.min.js')}}"></script>
     
 
        <script>
@@ -105,7 +108,10 @@ href="{{asset('admin/assets/node_modules/datatables.net-bs4/css/responsive.dataT
 
                 }
             },
-            initComplete: function () {                
+            initComplete: function () {  
+                $('.js-switch').each(function () {
+                   new Switchery($(this)[0], $(this).data());
+                 });               
             }
         });
 
@@ -118,6 +124,49 @@ href="{{asset('admin/assets/node_modules/datatables.net-bs4/css/responsive.dataT
         $("#example23 thead .row-checkbox").change(function (e) { 
             var isChecked = $(this).prop('checked');
             $('#example23 tbody .row-checkbox').prop('checked', isChecked);
+        });
+
+        $(".mydatatable").delegate(".is_enable", "change", function(){
+            var isChecked = $(this).prop('checked');
+            $.ajax({
+                url: "{{URL::to('/admin/status')}}",
+                data: {
+                    id:$(this).data('id'),
+                    table:'product_categories',
+                    column:'is_enable',
+                    value: $(this).prop('checked') ? 1: 0,
+                },
+                dataType: "json",
+                success: function (response) {
+                    
+                },
+                errror:function (response) {
+                    
+                },
+            });
+            console.log(isChecked);
+        });
+
+
+        $(".mydatatable").delegate(".is_featured", "change", function(){
+            var isChecked = $(this).prop('checked');
+            $.ajax({
+                url: "{{URL::to('/admin/status')}}",
+                data: {
+                    id:$(this).data('id'),
+                    table:'product_categories',
+                    column:'is_featured',
+                    value: $(this).prop('checked') ? 1: 0,
+                },
+                dataType: "json",
+                success: function (response) {
+                    
+                },
+                errror:function (response) {
+                    
+                },
+            });
+            console.log(isChecked);
         });
 
 

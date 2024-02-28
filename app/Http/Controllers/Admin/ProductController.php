@@ -91,6 +91,9 @@ class ProductController extends Controller
             $data = [];
             foreach ($records as $key => $value) {
 
+                $is_enable = $value->is_enable ? 'checked' : '';
+                $is_featured = $value->is_featured ? 'checked' : '';
+
                 $action = '<div class="btn-group">';
 
                 $action .= '<a class="btn btn-info" href="'.URL::to('admin/products/edit/'.Crypt::encryptString($value->id)).'">Edit</a>';
@@ -107,9 +110,11 @@ class ProductController extends Controller
                     $value->title,
                     $value->slug,
                     $value->price,
-                    $value->type,
                     $value->get_category() ? $value->get_category()->title : '-',
-                    $value->is_enable ? 'Approved' : 'Pending',
+                    '<div class="switchery-demo m-b-30">
+                    <input data-id="'.Crypt::encryptString($value->id).'" '.$is_enable.' type="checkbox"  class="is_enable js-switch" data-color="#009efb"/></div>',
+                    '<div class="switchery-demo m-b-30">
+                    <input data-id="'.Crypt::encryptString($value->id).'" '.$is_featured.' type="checkbox"  class="is_featured js-switch" data-color="#009efb"/></div>',
                     $action,
                  ]
                 );
@@ -157,13 +162,14 @@ class ProductController extends Controller
     public function store(Request $request)
     {
 
+      
+
         $product = Product::create([
             'title' => $request->title,
-            'type' => $request->type,
+            'slug' => uniqid(),
             'is_enable' => 0,
         ]);
 
-        
         return redirect('/admin/products/edit/'.Crypt::encryptString($product->id))->with('success','Record Created Success'); 
     }
 
@@ -185,7 +191,6 @@ class ProductController extends Controller
 
          $categories = ProductCategory::all();
          $brands = Brand::all();
-
          $attributes = ProductAttribute::with('values')->get();
 
 
@@ -219,22 +224,12 @@ class ProductController extends Controller
     public function update(Request $request,$id)
     {
         
-
-      
-
-
         $id = Crypt::decryptString($id);
-
-        //   dd($request->all());
-
         $validator = Validator::make($request->all(), [
             "title" => 'required|max:255',
             "details" => 'max:500',
             "description" => 'max:9000',
             "category_id" => 'integer',
-            "is_enable" => "integer",
-            "is_featured" => "integer",
-            
             'meta_title' => 'max:255',
             'meta_description' => 'max:255',
             'meta_keywords' => 'max:255',
@@ -278,15 +273,11 @@ class ProductController extends Controller
         }
 
         $product->title = $request->title;
-        // $product->type = $request->type;
         $product->slug = $request->slug;
         $product->details = $request->details;
         $product->description = $request->description;
 
         $product->category_id = $request->category_id;
-        $product->brand_id = $request->brand_id;
-        $product->is_featured = $request->is_featured;
-        $product->is_enable = $request->is_enable;
 
         $product->meta_title = $request->meta_title;
         $product->meta_description = $request->meta_description;
@@ -314,15 +305,17 @@ class ProductController extends Controller
      */
     public function delete($id)
     {
-        $user = User::find(Crypt::decryptString($id));
-        if($user == false){
+        $product = Product::find(Crypt::decryptString($id));
+        if($product == false){
             return back()->with('warning','Record Not Found');
         }else{
-            $user->delete();
-            return redirect('/admin/users/index')->with('success','Record Deleted Success'); 
+            $product->delete();
+            return redirect('/admin/products/index')->with('success','Record Deleted Success'); 
         }
 
     }
+
+    
 
         /**
      * Create a new controller instance.
@@ -341,7 +334,6 @@ class ProductController extends Controller
          $array_without_strawberries = array_diff($images, array($request->image));
          $product->images = implode(',',$array_without_strawberries);
          $product->save();
-
         return back()->with('success','Record Removed Success'); 
 
     }
@@ -355,13 +347,9 @@ class ProductController extends Controller
     public function variations(Request $request,$id)
     {
 
-      
-
         $id = Crypt::decryptString($id);
         $product = Product::find($id);
-        
         ProductVariation::where('product_id',$id)->delete();
-
         $values = $product->generateAttributeCombinations($request->attr);
 
         foreach ($values as $values) {
@@ -398,7 +386,6 @@ class ProductController extends Controller
      */
     public function remove_variation(Request $request,$id)
     {
-        
         ProductVariation::where('id',$id)->delete();
         return back()->with('success','Remove Variation Successfully');
     }

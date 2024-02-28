@@ -5,6 +5,7 @@
 href="{{asset('admin/assets/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css')}}">
 <link rel="stylesheet" type="text/css"
 href="{{asset('admin/assets/node_modules/datatables.net-bs4/css/responsive.dataTables.min.css')}}">
+<link href="{{asset('admin/assets/node_modules/switchery/dist/switchery.min.css')}}" rel="stylesheet" type="text/css" />
 
 
 <style>
@@ -55,40 +56,15 @@ href="{{asset('admin/assets/node_modules/datatables.net-bs4/css/responsive.dataT
                           <div class="table-responsive m-t-40">
                             <table id="example23" class="mydatatable display nowrap table table-hover table-striped border" cellspacing="0" width="100%">
                                     <thead>
-                                        {{-- <tr>
-                                            <th></th>
-                                            <th>
-                                                <input class="username form-control" placeholder="Username"/>
-                                            </th>
-                                            <th>
-                                                <input class="email form-control" placeholder="Email"/>
-                                            </th>
-                                            <th>
-                                                <select class="role_id form-control" >
-                                                    <option value="">Search By Roles</option>
-                                                    @foreach ($categories as $item)
-                                                    <option value="{{$item->id}}">{{$item->title}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </th>
-                                            <th colspan="3" 
-                                             title="{{__('action')}}" 
-                                             style = "background:white;">
-                                                <div class="restore_list">
-                                                    <button id="searchButton" type="button" class="btn btn-sm btn-success search_list"><i class="fa fa-search"></i>
-                                                    </button>
-                                                </div>
-                                            </th>
-                                        </tr> --}}
                                         <tr class="" >
                                             <th>#</th>
                                             <th>Image</th>
                                             <th>Title</th>
                                             <th>Slug</th>
                                             <th>Price</th>
-                                            <th>Type</th>
                                             <th>Category</th>
-                                            <th>Status</th>
+                                            <th>Status </th>
+                                            <th>Featured </th>
                                             <th class="hidden-phone">Action</th>
                                         </tr>
                                      </thead>
@@ -104,15 +80,16 @@ href="{{asset('admin/assets/node_modules/datatables.net-bs4/css/responsive.dataT
 
 @endsection
  @section('js')
-
-       <!-- This is data table -->
+        
        <script src="{{asset('admin/assets/node_modules/datatables.net/js/jquery.dataTables.min.js')}}"></script>
        <script src="{{asset('admin/assets/node_modules/datatables.net-bs4/js/dataTables.responsive.min.js')}}"></script>
+       <script src="{{asset('admin/assets/node_modules/switchery/dist/switchery.min.js')}}"></script>
     
 
        <script>
         $(function () {
-          
+
+            
             var application_table = $('.mydatatable').DataTable({
             processing: true,
             "searching": true,  
@@ -130,13 +107,15 @@ href="{{asset('admin/assets/node_modules/datatables.net-bs4/css/responsive.dataT
                 type: "GET",
                 data: function ( d ) {
 
-                        // d.username = $('.mydatatable .username').val();
-                        // d.email=$('.mydatatable .email').val();
-                        // d.role_id=$('.mydatatable .role_id').val();
+                
        
                 }
             },
-            initComplete: function () {                
+            initComplete: function () {     
+
+                $('.js-switch').each(function () {
+                   new Switchery($(this)[0], $(this).data());
+                 }); 
             }
         });
 
@@ -150,6 +129,50 @@ href="{{asset('admin/assets/node_modules/datatables.net-bs4/css/responsive.dataT
             var isChecked = $(this).prop('checked');
             $('#example23 tbody .row-checkbox').prop('checked', isChecked);
         });
+
+        $(".mydatatable").delegate(".is_enable", "change", function(){
+            var isChecked = $(this).prop('checked');
+            $.ajax({
+                url: "{{URL::to('/admin/status')}}",
+                data: {
+                    id:$(this).data('id'),
+                    table:'products',
+                    column:'is_enable',
+                    value: $(this).prop('checked') ? 1: 0,
+                },
+                dataType: "json",
+                success: function (response) {
+                    
+                },
+                errror:function (response) {
+                    
+                },
+            });
+            console.log(isChecked);
+        });
+
+
+        $(".mydatatable").delegate(".is_featured", "change", function(){
+            var isChecked = $(this).prop('checked');
+            $.ajax({
+                url: "{{URL::to('/admin/status')}}",
+                data: {
+                    id:$(this).data('id'),
+                    table:'products',
+                    column:'is_featured',
+                    value: $(this).prop('checked') ? 1: 0,
+                },
+                dataType: "json",
+                success: function (response) {
+                    
+                },
+                errror:function (response) {
+                    
+                },
+            });
+            console.log(isChecked);
+        });
+
 
 
       });

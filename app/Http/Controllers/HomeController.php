@@ -181,7 +181,7 @@ class HomeController extends Controller
     public function shop()
     {
     
-        $data = Product::all();
+        $data = Product::paginate(5);
         $categories = ProductCategory::with('children.children')->where('parent_id', 0)->get();
 
         return view('theme.shop',compact('data','categories'));

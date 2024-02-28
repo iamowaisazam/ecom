@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('admin/assets/images/favicon.png')}}">
-    <title>Elite Admin Template - The Ultimate</title>
+    <title>{{$global_d['site_title']}}</title>
 
     <!-- ============================================================== -->
     <!-- Plugins -->
@@ -24,6 +24,10 @@
   
 </head>
 <body class="skin-blue fixed-layout">
+
+    <?php 
+    //   dd($global_d['site_title']);    
+    ?>
     
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
@@ -50,12 +54,13 @@
                 <!-- Logo -->
                 <!-- ============================================================== -->
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="{{URL::to('/admin/dashboard')}}">
                         <!-- Logo icon --><b>
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
                             <img src="{{asset('admin/assets/images/logo-icon.png')}}" alt="homepage" class="dark-logo" />
                             <!-- Light Logo icon -->
+                            
                             <img src="{{asset('admin/assets/images/logo-light-icon.png')}}" alt="homepage" class="light-logo" />
                         </b>
                         <!--End Logo icon -->
@@ -92,56 +97,7 @@
                     <!-- User profile and search -->
                     <!-- ============================================================== -->
                     <ul class="navbar-nav my-lg-0">
-                        <!-- ============================================================== -->
-                        <!-- Comment -->
-                        <!-- ============================================================== -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="ti-email"></i>
-                                <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end mailbox animated bounceInDown">
-                                <ul>
-                                    <li>
-                                        <div class="drop-title">Notifications</div>
-                                    </li>
-                                    <li>
-                                        <div class="message-center">
-                                            <!-- Message -->
-                                            <a href="javascript:void(0)">
-                                                <div class="btn btn-danger btn-circle text-white"><i class="fa fa-link"></i></div>
-                                                <div class="mail-contnet">
-                                                    <h5>Luanch Admin</h5> <span class="mail-desc">Just see the my new admin!</span> <span class="time">9:30 AM</span> </div>
-                                            </a>
-                                            <!-- Message -->
-                                            <a href="javascript:void(0)">
-                                                <div class="btn btn-success btn-circle text-white"><i class="ti-calendar"></i></div>
-                                                <div class="mail-contnet">
-                                                    <h5>Event today</h5> <span class="mail-desc">Just a reminder that you have event</span> <span class="time">9:10 AM</span> </div>
-                                            </a>
-                                            <!-- Message -->
-                                            <a href="javascript:void(0)">
-                                                <div class="btn btn-info btn-circle text-white"><i class="ti-settings"></i></div>
-                                                <div class="mail-contnet">
-                                                    <h5>Settings</h5> <span class="mail-desc">You can customize this template as you want</span> <span class="time">9:08 AM</span> </div>
-                                            </a>
-                                            <!-- Message -->
-                                            <a href="javascript:void(0)">
-                                                <div class="btn btn-primary btn-circle"><i class="ti-user"></i></div>
-                                                <div class="mail-contnet">
-                                                    <h5>Pavan kumar</h5> <span class="mail-desc">Just see the my admin!</span> <span class="time">9:02 AM</span> </div>
-                                            </a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link text-center link" href="javascript:void(0);"> <strong>Check all notifications</strong> <i class="fa fa-angle-right"></i> </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <!-- ============================================================== -->
-                        <!-- End Comment -->
-                        <!-- ============================================================== -->
-
+                 
 
         
                       
@@ -305,17 +261,9 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
                         </div>
                         <div class="modal-body">
-                           
                                 <div class="form-group">
                                     <label for="recipient-name" class="form-label">Title:</label>
                                     <input name="title" required type="text" class="form-control" id="recipient-name1">
-                                </div>
-                                <div class="form-group">
-                                    <label for="recipient-name" class="form-label">Product Type :</label>
-                                    <select required class="form-control" name="type">
-                                        <option value="single">Single</option>
-                                        <option value="variation">Variation</option>
-                                    </select>
                                 </div>
                         </div>
                         <div class="modal-footer">
@@ -376,8 +324,8 @@
         <!-- footer -->
         <!-- ============================================================== -->
         <footer class="footer">
-            © 2021 Eliteadmin by themedesigner.in
-            <a href="https://www.wrappixel.com/">WrapPixel</a>
+            © 2021 {{$global_d['site_title']}} by 
+            <a href="https://www.wrappixel.com/">azamsolutions.com</a>
         </footer>
         <!-- ============================================================== -->
         <!-- End footer -->

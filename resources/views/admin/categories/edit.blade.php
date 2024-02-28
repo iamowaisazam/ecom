@@ -83,7 +83,7 @@
 
                       <div class="form-group">
                           <label class="form-label">Sort</label>
-                          <input type="text" required value="{{$model->sort}}" name="sort" class="form-control" placeholder="Sort"> 
+                          <input type="number" required value="{{$model->sort}}" name="sort" class="form-control" placeholder="Sort"> 
                           @if($errors->has('sort'))
                           <p class="invalid-feedback" >{{ $errors->first('sort') }}</p>
                           @endif 

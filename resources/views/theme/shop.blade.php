@@ -250,19 +250,12 @@
         <div class="toolbar">
             <div class="filters-toolbar-wrapper">
                 <div class="row">
-                    <div class="col-4 col-md-4 col-lg-4 filters-toolbar__item collection-view-as d-flex justify-content-Start align-items-center">
+                    <div class="col-6 col-md-6 col-lg-6 filters-toolbar__item collection-view-as d-flex justify-content-Start align-items-center">
                         <button type="button" class="btn-filter d-block d-md-block d-lg-none icon an an-sliders-h" data-bs-toggle="tooltip" data-bs-placement="top" title="Filters"></button>
-                        <a class="change-view change-view--active" data-bs-toggle="tooltip" data-bs-placement="top" title="Grid View">
-                            <i class="icon an an-table"></i>
-                        </a>
-                        {{-- <a href="shop-listview.html" class="change-view" data-bs-toggle="tooltip" data-bs-placement="top" title="List View">
-                            <i class="icon an an-th-list"></i>
-                        </a> --}}
+                        Showing {{ $data->firstItem() }} - {{ $data->lastItem() }} of {{ $data->total() }}
                     </div>
-                    <div class="col-4 col-md-4 col-lg-4 text-center filters-toolbar__item filters-toolbar__item--count d-flex justify-content-center align-items-center">
-                        <span class="filters-toolbar__product-count">Showing: 22</span>
-                    </div>
-                    <div class="col-4 col-md-4 col-lg-4 d-flex justify-content-end align-items-center text-end">
+                    
+                    <div class="col-6 col-md-6 col-lg-6 d-flex justify-content-end align-items-center text-end">
                         <div class="filters-toolbar__item">
                             <label for="SortBy" class="hidden">Sort</label>
                             <select name="SortBy" id="SortBy" class="filters-toolbar__input filters-toolbar__input--sort">

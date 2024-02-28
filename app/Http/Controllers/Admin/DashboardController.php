@@ -104,17 +104,11 @@ class DashboardController extends Controller
 
     /**
      * Create a new controller instance.
-     *
      * @return void
      */
     public function status(Request $request)
     {
-
-        
         DB::update('UPDATE '.$request->table.' SET '.$request->column.' = ? WHERE id = ?', [$request->value,Crypt::decryptString($request->id)]);
-
-       
-
     }
 
      /**
@@ -131,6 +125,7 @@ class DashboardController extends Controller
         }
         
     }
+
 
 
     

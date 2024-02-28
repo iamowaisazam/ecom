@@ -182,11 +182,10 @@
 
                 </div>
                 <div class="col-md-3">
-                    @include('admin.products.status')
+                
                     @include('admin.products.thumbnail')
                     
                     @include('admin.products.category')
-                    @include('admin.products.brand')
                     @include('admin.products.tags')
                     @include('admin.products.details')
                 </div>

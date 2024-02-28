@@ -66,6 +66,9 @@ class CategoryController extends Controller
             $data = [];
             foreach ($records as $key => $value) {
 
+                $is_enable = $value->is_enable ? 'checked' : '';
+                $is_featured = $value->is_featured ? 'checked' : '';
+
                 if($value->parent_id != 0){
                   $category = ProductCategory::where('id',$value->parent_id)->first();
                   if($category){
@@ -91,7 +94,10 @@ class CategoryController extends Controller
                     $value->title,
                     $value->slug,
                     $category,
-                    $value->is_enable ? 'Approved' : 'Pending',
+                    '<div class="switchery-demo m-b-30">
+                    <input data-id="'.Crypt::encryptString($value->id).'" '.$is_enable.' type="checkbox"  class="is_enable js-switch" data-color="#009efb"/></div>',
+                    '<div class="switchery-demo m-b-30">
+                    <input data-id="'.Crypt::encryptString($value->id).'" '.$is_featured.' type="checkbox"  class="is_featured js-switch" data-color="#009efb"/></div>',
                     $action,
                  ]
                 );       
@@ -164,8 +170,7 @@ class CategoryController extends Controller
             'meta_keywords' => $request->meta_keywords,
         ]);
 
-        return redirect('/admin/categories/edit/'.Crypt::encryptString($ProductCategory->id))
-        ->with('success','Record Created Success'); 
+        return redirect('/admin/categories/index')->with('success','Record Created Success'); 
 
     }
 
@@ -253,94 +258,34 @@ class CategoryController extends Controller
      */
     public function delete($id)
     {
-        $user = User::find(Crypt::decryptString($id));
-        if($user == false){
+        $data = ProductCategory::find(Crypt::decryptString($id));
+        if($data == false){
             return back()->with('warning','Record Not Found');
         }else{
-            $user->delete();
-            return redirect('/admin/users/index')->with('success','Record Deleted Success'); 
+
+            $category = ProductCategory::where('parent_id',$data->id)->get();
+            if(count($category) > 0){
+                return back()->with('warning','This Category Used As Parent Category');
+            }
+
+            $product = Product::where('category_id',$data->id)->get();
+            if(count($product) > 0){
+                return back()->with('warning','This Category Used In Products');
+            }
+
+
+            $data->delete();
+            return redirect('/admin/categories/index')->with('success','Record Deleted Success'); 
         }
-
-    }
-
-        /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function remove_image(Request $request,$id)
-    {
-        $id = Crypt::decryptString($id);
-        $product = Product::find($id);
-        if($product == false){  
-           return back()->with('error','Record Not Found');
-        }
-
-         $images = explode(',',$product->images); 
-         $array_without_strawberries = array_diff($images, array($request->image));
-         $product->images = implode(',',$array_without_strawberries);
-         $product->save();
-
-        return back()->with('success','Record Removed Success'); 
 
     }
 
     
 
-    /**
-     * Create a new controller instance.
-     * @return void
-     */
-    public function variations(Request $request,$id)
-    {
+ 
+    
 
-      
-
-        $id = Crypt::decryptString($id);
-        $product = Product::find($id);
-        
-        ProductVariation::where('product_id',$id)->delete();
-
-        $values = $product->generateAttributeCombinations($request->attr);
-
-        foreach ($values as $values) {
-
-            $sku = [];
-            foreach ($values as $item) {
-                array_push($sku,$item['title']);
-            }
-
-            $ProductVariation = ProductVariation::create([
-                "product_id"=> $id,
-                "title" => implode('-',$sku), 
-                "sku" => implode('-',$sku),
-                "value" => implode('-',$sku) 
-            ]);
-
-            foreach ($values as $item) {
-                ProductVariationAttribute::create([
-                    "product_variation_id" => $ProductVariation->id,
-                    "product_attribute_id" => $item['product_attribute_id'],
-                    "product_attribute_value_id" => $item['id'],
-                    "value" => $item['title'],
-                ]);
-            }
-        }
-      
-        return back()->with('success','Variation Generated Successfully');
-    }
-
-
-    /**
-     * Create a new controller instance.
-     * @return void
-     */
-    public function remove_variation(Request $request,$id)
-    {
-        
-        ProductVariation::where('id',$id)->delete();
-        return back()->with('success','Remove Variation Successfully');
-    }
+  
 
 
     
