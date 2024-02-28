@@ -113,7 +113,7 @@ class HomeController extends Controller
 
         $categories = ProductCollection::all();
         $brands = Brand::all();
-        $products = Product::all();
+        $products = Product::where('is_enable',1)->get();
        
         return view('theme.home',compact('blogs','categories','brands','products'));
     }

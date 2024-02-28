@@ -5,28 +5,6 @@
 
 
 
-// $categories = [
-//     [
-//         "title" => "To the Tops", 
-//         "image" => asset('theme/assets/images/collection/home10-collection1.jpg'),
-//         "button" => "Shop Tops",
-//     ],
-//     [
-//         "title" => "Easy Dressing ",  
-//         "image" => asset('theme/assets/images/collection/home10-collection2.jpg'),
-//         "button" => "Shop Dresses",
-//     ],
-//     [
-//         "title" => "Summer Special ", 
-//         "image" => asset('theme/assets/images/collection/home10-collection3.jpg'),
-//         "button" => "Shop All under $70",
-//     ],
-//     [
-//         "title" => "Women Clothes from", 
-//         "image" => asset('theme/assets/images/collection/home10-collection4.jpg'),
-//         "button" => "View Collection",
-//     ],
-// ];
 
 
 

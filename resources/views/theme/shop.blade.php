@@ -11,6 +11,29 @@
     <meta name="keywords" content="{{$global_d['blog_keywords'] ?? ''}}">
 @endsection
 @section('css')
+
+<style>
+
+.pager{
+                list-style: none;
+                display: flex;
+                justify-content: center;
+            }
+
+            .pager li{
+                margin: 0px 6px;
+            }
+
+            .pager .active span {
+                color: #fb9678!important;
+            }
+
+            .pager li a{
+                color:#212529;
+            }
+
+
+</style>
   
 @endsection
 @section('content')
@@ -319,6 +342,14 @@
                   </div>
                 </div>
               @endforeach
+
+              <div class="col-12 pt-5">
+                <div class="paginate text-center">
+                    {{ $data->links('pagination.custom') }}
+                  </div>
+              </div>
+
+            
 
             </div>
           </div>
