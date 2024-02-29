@@ -6,24 +6,29 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 
 
-class ProductCollection extends Model
+class VariationAttribute extends Model
 {
-    protected $table = 'product_collections';
+    protected $table = 'variation_attributes';
 
     /**
      * The attributes that are mass assignable.
-     *
      * @var array<int, string>
      */
     protected $fillable = [
         "id",
-        "title",
-        "slug",
-        "parent_id",
-        "image",
+        "variation_id",
+        "attribute_id",
+        "value_id",
+        "value",
         "created_at",
         "updated_at"
     ];
+
+      // Relationship to itself for parent-child relationship
+      public function attribute()
+      {
+          return $this->belongsTo(Attribute::class, 'attribute_id');
+      }
 
      
 }

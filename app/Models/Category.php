@@ -6,9 +6,9 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 
 
-class ProductCategory extends Model
+class Category extends Model
 {
-    protected $table = 'product_categories';
+    protected $table = 'categories';
 
     /**
      * The attributes that are mass assignable.
@@ -37,12 +37,12 @@ class ProductCategory extends Model
     // Relationship to itself for parent-child relationship
     public function children()
     {
-        return $this->hasMany(ProductCategory::class, 'parent_id');
+        return $this->hasMany(Category::class, 'parent_id');
     }
 
     public function parent()
     {
-        return $this->belongsTo(ProductCategory::class, 'parent_id');
+        return $this->belongsTo(Category::class, 'parent_id');
     }
 
     public function img()

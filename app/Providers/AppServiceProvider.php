@@ -2,10 +2,9 @@
 
 namespace App\Providers;
 
-use App\Models\BlogCategory;
-use App\Models\ProductAttributeValue;
-use App\Models\ProductVariation;
 use App\Models\Setting;
+use App\Models\Value;
+use App\Models\Variation;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -32,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
        
         //
         View::composer('*', function ($view) {
-            $blogs_category = BlogCategory::all();
+          
             $groups = [];
           
              $global_d = [];
@@ -44,7 +43,7 @@ class AppServiceProvider extends ServiceProvider
             
 
             $view->with('global_d', $global_d);
-            $view->with('blogs_category', $blogs_category);
+           
 
 
             $cart_items = [];
@@ -52,32 +51,32 @@ class AppServiceProvider extends ServiceProvider
             $cart = session()->get('cart', []);
             foreach ($cart as $key => $c) {
 
-                $products = ProductVariation::select([
+                $products = Variation::select([
                     'products.id',
                     'products.title',
                     'products.slug',
                     'products.category_id',
                     'products.subcategory_id',
                     'products.subchildcategory_id',
-                    'product_variations.id as variation_id',
-                    'product_variations.sku as sku',
-                    'product_variations.image as image',
-                    'product_variations.quantity as quantity',
-                    'product_variations.price'
+                    'variations.id as variation_id',
+                    'variations.sku as sku',
+                    'variations.image as image',
+                    'variations.quantity as quantity',
+                    'variations.price'
                 ])
-                ->join('products','products.id','=','product_variations.product_id')
-                ->where('product_variations.id',$c['sku'])
+                ->join('products','products.id','=','variations.product_id')
+                ->where('variations.id',$c['sku'])
                 ->first()
                 ->toArray();
 
-               $attributes = ProductAttributeValue::select([
-                'product_attributes.title as attribute_title',
-                'product_attributes.id as attribute_id',
-                'product_attribute_values.id as product_attribute_values_id',
-                'product_attribute_values.title as product_attribute_values_title',
+               $attributes = Value::select([
+                'attributes.title as attribute_title',
+                'attributes.id as attribute_id',
+                'values.id as values_id',
+                'values.title as values_title',
                ])
-               ->join('product_attributes','product_attributes.id','=','product_attribute_values.product_attribute_id')
-               ->whereIn('product_attribute_values.id',array_values($c['attributes']))
+               ->join('attributes','attributes.id','=','values.attribute_id')
+               ->whereIn('values.id',array_values($c['attributes']))
                ->get()
                ->toArray();
                $products['attributes'] = $attributes;

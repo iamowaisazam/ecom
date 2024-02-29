@@ -5,10 +5,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 
-
-class StoreCategory extends Model
+class Attribute extends Model
 {
-    protected $table = 'store_categories';
+
+    protected $table = 'attributes';
 
     /**
      * The attributes that are mass assignable.
@@ -18,12 +18,15 @@ class StoreCategory extends Model
     protected $fillable = [
         "id",
         "title",
-        "slug",
-        "image",
         "created_at",
-        "alt",
         "updated_at"
     ];
+
+    // Relationship to itself for parent-child relationship
+    public function values()
+    {
+        return $this->hasMany(Value::class, 'attribute_id');
+    }
 
 
 

@@ -3,13 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Product;
-use App\Models\ProductAttribute;
 use App\Models\ProductCategory;
-use App\Models\ProductVariation;
-use App\Models\ProductVariationAttribute;
-use App\Models\Role;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -45,7 +41,7 @@ class CategoryController extends Controller
 
         if($request->ajax()){
 
-            $query = ProductCategory::Query();
+            $query = Category::Query();
 
             //Search
             $search = $request->get('search')['value'];
@@ -70,7 +66,7 @@ class CategoryController extends Controller
                 $is_featured = $value->is_featured ? 'checked' : '';
 
                 if($value->parent_id != 0){
-                  $category = ProductCategory::where('id',$value->parent_id)->first();
+                  $category = Category::where('id',$value->parent_id)->first();
                   if($category){
                     $category = $category->title;
                   }else{
@@ -122,7 +118,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories = ProductCategory::where('parent_id',0)->get();
+        $categories = Category::where('parent_id',0)->get();
         return view('admin.categories.create',compact('categories'));
     }
 
@@ -142,7 +138,7 @@ class CategoryController extends Controller
             'slug' => [
               'required',
               'max:255',
-              Rule::unique('product_categories'),
+              Rule::unique('categories'),
             ],
             "parent_id" => 'integer|required',
             "details" => 'max:500',
@@ -157,7 +153,7 @@ class CategoryController extends Controller
                 ->withInput();
         }
         
-        $ProductCategory = ProductCategory::create([
+        $ProductCategory = Category::create([
             'title' => $request->title,
             "slug" => $request->slug,
             "image" => $request->image,
@@ -185,12 +181,12 @@ class CategoryController extends Controller
     {
         
         $id = Crypt::decryptString($id);
-        $model = ProductCategory::find($id);
+        $model = Category::find($id);
         if($model == false){  
             return back()->with('error','Record Not Found');
          }
 
-         $categories = ProductCategory::where('id','!=',$id)
+         $categories = Category::where('id','!=',$id)
          ->where('parent_id',0)
          ->get();
 
@@ -212,7 +208,7 @@ class CategoryController extends Controller
             'slug' => [
                 'required',
                 'max:255',
-                Rule::unique('products')->ignore($id),
+                Rule::unique('categories')->ignore($id),
             ],
             "details" => 'max:500',
             "description" => 'max:9000',
@@ -228,7 +224,7 @@ class CategoryController extends Controller
                 ->withInput();
         }
 
-        $product = ProductCategory::find($id);
+        $product = Category::find($id);
         if($product == false){  
            return back()->with('error','Record Not Found');
         }
@@ -258,12 +254,12 @@ class CategoryController extends Controller
      */
     public function delete($id)
     {
-        $data = ProductCategory::find(Crypt::decryptString($id));
+        $data = Category::find(Crypt::decryptString($id));
         if($data == false){
             return back()->with('warning','Record Not Found');
         }else{
 
-            $category = ProductCategory::where('parent_id',$data->id)->get();
+            $category = Category::where('parent_id',$data->id)->get();
             if(count($category) > 0){
                 return back()->with('warning','This Category Used As Parent Category');
             }

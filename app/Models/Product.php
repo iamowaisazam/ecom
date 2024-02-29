@@ -42,7 +42,7 @@ class Product extends Model
     // Relationship to itself for parent-child relationship
     public function variations()
     {
-        return $this->hasMany(ProductVariation::class, 'product_id');
+        return $this->hasMany(Variation::class, 'product_id');
     }
 
     function generateAttributeCombinations($atts) {
@@ -50,8 +50,8 @@ class Product extends Model
 
         $attributes = [];
         foreach ($atts as $key => $value) {
-            $patr = ProductAttribute::where('id',$key)->first();
-            $pval = ProductAttributeValue::whereIn('id',$value)->get()->toArray();
+            $patr = Attribute::where('id',$key)->first();
+            $pval = Value::whereIn('id',$value)->get()->toArray();
             if($patr){
                 $patr = $patr->toArray();
                 $patr['values'] = $pval;
@@ -102,7 +102,7 @@ class Product extends Model
 
     public function get_category()
     {
-        return ProductCategory::where('id',$this->category_id)->first();
+        return Category::where('id',$this->category_id)->first();
         
     }
 

@@ -32,14 +32,14 @@ href="{{asset('admin/assets/node_modules/datatables.net-bs4/css/responsive.dataT
 @section('content')
     <div class="row page-titles">
         <div class="col-md-5 align-self-center">
-            <h4 class="text-themecolor">ALL CATEGORIES LIST 
+            <h4 class="text-themecolor">ALL SLIDERS LIST 
             </h4>
         </div>
         <div class="col-md-7 align-self-center text-end">
             <div class="d-flex justify-content-end align-items-center">
                 <ol class="breadcrumb justify-content-end">
                     <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                    <li class="breadcrumb-item active">Categories</li>
+                    <li class="breadcrumb-item active">Sliders</li>
                 </ol>
             </div>
         </div>
@@ -50,7 +50,7 @@ href="{{asset('admin/assets/node_modules/datatables.net-bs4/css/responsive.dataT
                     <div class="col-sm-12">
                         <section class="card">
                             <header class="card-header bg-info">
-                                <h4 class="mb-0 text-white" >All Categories List</h4>
+                                <h4 class="mb-0 text-white" >All Sliders List</h4>
                             </header>
                         <div class="card-body">    
                           <div class="table-responsive m-t-40">
@@ -60,10 +60,7 @@ href="{{asset('admin/assets/node_modules/datatables.net-bs4/css/responsive.dataT
                                             <th>#</th>
                                             <th>Image</th>
                                             <th>Title</th>
-                                            <th>Slug</th>
-                                            <th>Parent</th>
                                             <th>Status</th>
-                                            <th>Featured</th>
                                             <th class="hidden-phone">Action</th>
                                         </tr>
                                      </thead>
@@ -102,7 +99,7 @@ href="{{asset('admin/assets/node_modules/datatables.net-bs4/css/responsive.dataT
             serverSide: true,
             lengthMenu: [[10,25, 50, 100,500],[10,25, 50, 100,500]],
             ajax: {
-                url: "{{URL::to('admin/categories/index')}}",
+                url: "{{URL::to('admin/sliders/index')}}",
                 type: "GET",
                 data: function ( d ) {
 
@@ -115,8 +112,6 @@ href="{{asset('admin/assets/node_modules/datatables.net-bs4/css/responsive.dataT
             }
         });
 
-        
-
         // $('input[type=search]').unbind();
         $("#searchButton").click(e =>{ 
             application_table.search($('input[type=search]').val());
@@ -128,48 +123,7 @@ href="{{asset('admin/assets/node_modules/datatables.net-bs4/css/responsive.dataT
             $('#example23 tbody .row-checkbox').prop('checked', isChecked);
         });
 
-        $(".mydatatable").delegate(".is_enable", "change", function(){
-            var isChecked = $(this).prop('checked');
-            $.ajax({
-                url: "{{URL::to('/admin/status')}}",
-                data: {
-                    id:$(this).data('id'),
-                    table:'categories',
-                    column:'is_enable',
-                    value: $(this).prop('checked') ? 1: 0,
-                },
-                dataType: "json",
-                success: function (response) {
-                    
-                },
-                errror:function (response) {
-                    
-                },
-            });
-            console.log(isChecked);
-        });
-
-
-        $(".mydatatable").delegate(".is_featured", "change", function(){
-            var isChecked = $(this).prop('checked');
-            $.ajax({
-                url: "{{URL::to('/admin/status')}}",
-                data: {
-                    id:$(this).data('id'),
-                    table:'categories',
-                    column:'is_featured',
-                    value: $(this).prop('checked') ? 1: 0,
-                },
-                dataType: "json",
-                success: function (response) {
-                    
-                },
-                errror:function (response) {
-                    
-                },
-            });
-            console.log(isChecked);
-        });
+     
 
 
       });

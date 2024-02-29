@@ -5,10 +5,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 
-
-class BlogCategory extends Model
+class Value extends Model
 {
-    protected $table = 'blog_categories';
+
+    protected $table = 'values';
 
     /**
      * The attributes that are mass assignable.
@@ -18,18 +18,10 @@ class BlogCategory extends Model
     protected $fillable = [
         "id",
         "title",
-        "slug",
-        'sort',
-        'meta_title',
-        'meta_description',
-        'meta_keywords',
-        'alt',
-        "image",
+        "attribute_id",
         "created_at",
         "updated_at"
     ];
 
-
-
-   
+    
 }

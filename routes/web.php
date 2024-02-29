@@ -28,26 +28,9 @@ Route::get('/cart', [App\Http\Controllers\HomeController::class, 'cart']);
 
 Route::post('/cart/add_to_cart', [App\Http\Controllers\HomeController::class, 'add_to_cart']);
 Route::get('/cart/remove/{id}', [App\Http\Controllers\HomeController::class, 'cart_remove']);
-
-
 Route::get('/combination_maker', [App\Http\Controllers\HomeController::class, 'combination_maker']);
-
-
-
 Route::get('/blogs/categories/{id}', [App\Http\Controllers\HomeController::class, 'blog_categories']);
 
-
-
-//promotions
-
-Route::get('/promotions', [App\Http\Controllers\PromotionController::class, 'promotions']);
-Route::get('/promotions1', [App\Http\Controllers\PromotionController::class, 'promotions1']);
-
-Route::get('/promotions/search', [App\Http\Controllers\PromotionController::class, 'search']);
-Route::get('/promotions/stores', [App\Http\Controllers\PromotionController::class, 'stores']);
-Route::get('/promotions/stores/{slug}', [App\Http\Controllers\PromotionController::class, 'store']);
-Route::get('/promotions/categories', [App\Http\Controllers\PromotionController::class, 'categories']);
-Route::get('/promotions/categories/{id}', [App\Http\Controllers\PromotionController::class, 'category']);
 
 
 
@@ -86,39 +69,49 @@ Route::get('/admin/roles/delete/{id}', [App\Http\Controllers\Admin\RoleControlle
 
 
 //products
-Route::get('/admin/products/index', [App\Http\Controllers\Admin\ProductController::class, 'index']);
-Route::get('/admin/products/create', [App\Http\Controllers\Admin\ProductController::class, 'create']);
-Route::post('/admin/products/store', [App\Http\Controllers\Admin\ProductController::class, 'store']);
-Route::get('/admin/products/edit/{id}', [App\Http\Controllers\Admin\ProductController::class, 'edit']);
-Route::post('/admin/products/update/{id}', [App\Http\Controllers\Admin\ProductController::class, 'update']);
-Route::get('/admin/products/remove-image/{id}', [App\Http\Controllers\Admin\ProductController::class, 'remove_image']);
-Route::get('/admin/products/delete/{id}', [App\Http\Controllers\Admin\ProductController::class, 'delete']);
+    Route::get('/admin/products/index', [App\Http\Controllers\Admin\ProductController::class, 'index']);
+    Route::get('/admin/products/create', [App\Http\Controllers\Admin\ProductController::class, 'create']);
+    Route::post('/admin/products/store', [App\Http\Controllers\Admin\ProductController::class, 'store']);
+    Route::get('/admin/products/edit/{id}', [App\Http\Controllers\Admin\ProductController::class, 'edit']);
+    Route::post('/admin/products/update/{id}', [App\Http\Controllers\Admin\ProductController::class, 'update']);
+    Route::get('/admin/products/remove-image/{id}', [App\Http\Controllers\Admin\ProductController::class, 'remove_image']);
+    Route::get('/admin/products/delete/{id}', [App\Http\Controllers\Admin\ProductController::class, 'delete']);
 
 
-//products category
-Route::get('/admin/categories/index', [App\Http\Controllers\Admin\CategoryController::class, 'index']);
-Route::get('/admin/categories/create', [App\Http\Controllers\Admin\CategoryController::class, 'create']);
-Route::post('/admin/categories/store', [App\Http\Controllers\Admin\CategoryController::class, 'store']);
-Route::get('/admin/categories/edit/{id}', [App\Http\Controllers\Admin\CategoryController::class, 'edit']);
-Route::post('/admin/categories/update/{id}', [App\Http\Controllers\Admin\CategoryController::class, 'update']);
-Route::get('/admin/categories/delete/{id}', [App\Http\Controllers\Admin\CategoryController::class, 'delete']);
+//Sliders
+    Route::get('/admin/sliders/index', [App\Http\Controllers\Admin\SliderController::class, 'index']);
+    Route::get('/admin/sliders/create', [App\Http\Controllers\Admin\SliderController::class, 'create']);
+    Route::post('/admin/sliders/store', [App\Http\Controllers\Admin\SliderController::class, 'store']);
+    Route::get('/admin/sliders/edit/{id}', [App\Http\Controllers\Admin\SliderController::class, 'edit']);
+    Route::post('/admin/sliders/update/{id}', [App\Http\Controllers\Admin\SliderController::class, 'update']);
+    Route::get('/admin/sliders/delete/{id}', [App\Http\Controllers\Admin\SliderController::class, 'delete']);
+    Route::post('/admin/products/variations/{id}', [App\Http\Controllers\Admin\ProductController::class, 'variations']);
+    Route::get('/admin/products/remove-variation/{id}', [App\Http\Controllers\Admin\ProductController::class, 'remove_variation']);
 
 
-Route::post('/admin/products/variations/{id}', [App\Http\Controllers\Admin\ProductController::class, 'variations']);
-Route::get('/admin/products/remove-variation/{id}', [App\Http\Controllers\Admin\ProductController::class, 'remove_variation']);
+
+ //products category
+    Route::get('/admin/categories/index', [App\Http\Controllers\Admin\CategoryController::class, 'index']);
+    Route::get('/admin/categories/create', [App\Http\Controllers\Admin\CategoryController::class, 'create']);
+    Route::post('/admin/categories/store', [App\Http\Controllers\Admin\CategoryController::class, 'store']);
+    Route::get('/admin/categories/edit/{id}', [App\Http\Controllers\Admin\CategoryController::class, 'edit']);
+    Route::post('/admin/categories/update/{id}', [App\Http\Controllers\Admin\CategoryController::class, 'update']);
+    Route::get('/admin/categories/delete/{id}', [App\Http\Controllers\Admin\CategoryController::class, 'delete']);
+
+
 
 
  //filemanager
- Route::get('admin/filemanager',[App\Http\Controllers\Admin\FilemanagerController::class,'index']);
- Route::get('admin/filemanager/create',[App\Http\Controllers\Admin\FilemanagerController::class,'create']);
- Route::post('admin/filemanager/store',[App\Http\Controllers\Admin\FilemanagerController::class,'store']);
- Route::get('admin/filemanager/edit/{id}',[App\Http\Controllers\Admin\FilemanagerController::class,'edit']);
- Route::post('admin/filemanager/update/{id}',[App\Http\Controllers\Admin\FilemanagerController::class,'update']);
- Route::get('admin/filemanager/delete/{id}',[App\Http\Controllers\Admin\FilemanagerController::class,'delete']);
+    Route::get('admin/filemanager',[App\Http\Controllers\Admin\FilemanagerController::class,'index']);
+    Route::get('admin/filemanager/create',[App\Http\Controllers\Admin\FilemanagerController::class,'create']);
+    Route::post('admin/filemanager/store',[App\Http\Controllers\Admin\FilemanagerController::class,'store']);
+    Route::get('admin/filemanager/edit/{id}',[App\Http\Controllers\Admin\FilemanagerController::class,'edit']);
+    Route::post('admin/filemanager/update/{id}',[App\Http\Controllers\Admin\FilemanagerController::class,'update']);
+    Route::get('admin/filemanager/delete/{id}',[App\Http\Controllers\Admin\FilemanagerController::class,'delete']);
 
-//Settings
-Route::get('admin/settings/edit', [App\Http\Controllers\Admin\SettingController::class, 'edit']);
-Route::post('admin/settings/update', [App\Http\Controllers\Admin\SettingController::class, 'update']);
+    //Settings
+    Route::get('admin/settings/edit', [App\Http\Controllers\Admin\SettingController::class, 'edit']);
+    Route::post('admin/settings/update', [App\Http\Controllers\Admin\SettingController::class, 'update']);
 
 
 

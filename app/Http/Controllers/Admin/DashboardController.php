@@ -44,12 +44,9 @@ class DashboardController extends Controller
      */
     public function dashboard()
     {
-        $stores = Store::where('is_enable',1)->count();
-        $coupons = Coupon::count();
-        $blogs = Blog::count();
-        $storeCategory = StoreCategory::where('is_enable',1)->count();
+       
         
-        return view('admin.dashboard',compact('stores','coupons','blogs','storeCategory'));
+        return view('admin.dashboard');
     }
 
     /**

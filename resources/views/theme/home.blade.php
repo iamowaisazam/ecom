@@ -26,22 +26,28 @@
             <!-- Home Banner slider -->
             <div class="slideshow slideshow-wrapper pb-section">
                 <div class="home-slideshow slideshow--large">
-                    <div class="slide slide1 d-block">
-                        <div class="slideimg blur-up lazyload">
-                            <img class="blur-up lazyload" data-src="{{asset('theme/assets/images/slideshow-banners/home2-banner1.jpg')}}" src="{{asset('theme/assets/images/slideshow-banners/home2-banner1.jpg')}}" alt="Welcome to Diva" title="Welcome to Diva" />
-                            <div class="slideshow__text-wrap slideshow__overlay">
-                                <div class="slideshow__text-content mt-0 center">
-                                    <div class="container">
-                                        <div class="wrap-caption left">
-                                            <h2 class="h1 mega-title slideshow__title">Welcome to Diva</h2>
-                                            <span class="mega-subtitle slideshow__subtitle">We have created a Store  that looks Awesome and performs Brilliantly</span>
-                                            <a href="{{URL::to('/shop')}}" class="btn btn--large">Purchase Now</a>
+
+                    @foreach ($sliders as $slide)
+                        <div class="slide slide1 d-block">
+                            <div class="slideimg blur-up lazyload">
+                                <img class="blur-up lazyload" 
+                                data-src="{{ asset($slide->image ? $slide->image->path : '')}}" src="{{asset($slide->image ? $slide->image->path : '')}}" 
+                                alt="Welcome to Diva" title="Welcome to Diva" />
+                                <div class="slideshow__text-wrap slideshow__overlay">
+                                    <div class="slideshow__text-content mt-0 center">
+                                        <div class="container">
+                                            <div class="wrap-caption {{$slide->alignment}}">
+                                                <h2 class="h1 mega-title slideshow__title">{{$slide->title}}</h2>
+                                                <span class="mega-subtitle slideshow__subtitle">{{$slide->details}}</span>
+                                                <a href="{{$slide->link}}" class="btn btn--large">{{$slide->button}}</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
+               
 
                     
                     <div class="slide slide2 d-block">

@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Product;
-use App\Models\ProductAttribute;
-use App\Models\ProductCategory;
-use App\Models\ProductVariation;
-use App\Models\ProductVariationAttribute;
+use App\Models\Attribute;
+use App\Models\Variation;
+use App\Models\VariationAttribute;
 use App\Models\Role;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -57,33 +57,7 @@ class ProductController extends Controller
                });
             }
 
-            // if($request->has('username') && $request->has('username') != ''){
-            //     $query = $query->where('users.name','like','%'.$request->username.'%');
-            // }
-
-            // if($request->has('email') && $request->has('email') != ''){
-            //     $query = $query->where('users.email','like','%'.$request->email.'%');
-            // }
-
-            // if($request->has('role_id') && $request->has('role_id') != '' && $request->has('role_id') != NULL ){
-            //     $query = $query->where('users.role_id',$request->role_id);
-            // }
-
             $count = $query->get();
-
-            // if($request->has('order')){
-            //     if($request->order[0]['column'] == 1){
-            //         $query = $query->orderBy('users.name',$request->order[0]['dir']);
-            //     }
-
-            //     if($request->order[0]['column'] == 2){
-            //         $query = $query->orderBy('users.email',$request->order[0]['dir']);
-            //     }
-
-             
-
-            // }
-            
             $records = $query->skip($request->start)
             ->take($request->length)
             ->get();
@@ -131,7 +105,7 @@ class ProductController extends Controller
         }
         
 
-        $categories = ProductCategory::all();
+        $categories = Category::all();
         
         
         return view('admin.products.index',compact('categories'));
@@ -148,7 +122,7 @@ class ProductController extends Controller
     public function create()
     {
 
-        $categories = ProductCategory::all();
+        $categories = Category::all();
 
         return view('admin.products.create',compact('categories'));
     }
@@ -189,9 +163,9 @@ class ProductController extends Controller
             return back()->with('error','Record Not Found');
          }
 
-         $categories = ProductCategory::all();
+         $categories = Category::all();
          $brands = Brand::all();
-         $attributes = ProductAttribute::with('values')->get();
+         $attributes = Attribute::with('values')->get();
 
 
         return view('admin.products.edit',compact('product','categories','brands','attributes'));
@@ -255,7 +229,7 @@ class ProductController extends Controller
 
         if($request->has('variation')){
             foreach ($request->variation as $v) {
-                ProductVariation::where('id',$v['id'])->update([
+                Variation::where('id',$v['id'])->update([
                     "sku" => $v['sku'],
                     "quantity" => $v['quantity'],
                     "price" => $v['price'],
@@ -349,7 +323,7 @@ class ProductController extends Controller
 
         $id = Crypt::decryptString($id);
         $product = Product::find($id);
-        ProductVariation::where('product_id',$id)->delete();
+        Variation::where('product_id',$id)->delete();
         $values = $product->generateAttributeCombinations($request->attr);
 
         foreach ($values as $values) {
@@ -359,7 +333,7 @@ class ProductController extends Controller
                 array_push($sku,$item['title']);
             }
 
-            $ProductVariation = ProductVariation::create([
+            $ProductVariation = Variation::create([
                 "product_id"=> $id,
                 "title" => implode('-',$sku), 
                 "sku" => implode('-',$sku),
@@ -367,10 +341,10 @@ class ProductController extends Controller
             ]);
 
             foreach ($values as $item) {
-                ProductVariationAttribute::create([
-                    "product_variation_id" => $ProductVariation->id,
-                    "product_attribute_id" => $item['product_attribute_id'],
-                    "product_attribute_value_id" => $item['id'],
+                VariationAttribute::create([
+                    "variation_id" => $ProductVariation->id,
+                    "attribute_id" => $item['attribute_id'],
+                    "value_id" => $item['id'],
                     "value" => $item['title'],
                 ]);
             }
@@ -386,14 +360,9 @@ class ProductController extends Controller
      */
     public function remove_variation(Request $request,$id)
     {
-        ProductVariation::where('id',$id)->delete();
+        Variation::where('id',$id)->delete();
         return back()->with('success','Remove Variation Successfully');
     }
-
-
-    
-
-
 
     
 }

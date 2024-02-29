@@ -13,6 +13,7 @@ use App\Models\ProductCategory;
 use App\Models\ProductCollection;
 use App\Models\ProductVariation;
 use App\Models\ProductVariationAttribute;
+use App\Models\Slider;
 use App\Models\Store;
 use App\Models\StoreCategory;
 use Illuminate\Http\Request;
@@ -113,9 +114,10 @@ class HomeController extends Controller
 
         $categories = ProductCollection::all();
         $brands = Brand::all();
+        $sliders = Slider::where('is_enable',1)->get(); 
         $products = Product::where('is_enable',1)->get();
        
-        return view('theme.home',compact('blogs','categories','brands','products'));
+        return view('theme.home',compact('blogs','categories','brands','products','sliders'));
     }
 
 
