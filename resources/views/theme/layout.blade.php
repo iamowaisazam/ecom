@@ -20,18 +20,20 @@
 <body class="template-index diva home8-simple">
 
   <!-- Page Loader -->
-  <div id="pre-loader"><img src="{{asset('theme/assets/images/loader.gif')}}" alt="Loading..." /></div>
+  <div id="pre-loader">
+     <img src="{{asset('theme/assets/images/loader.gif')}}" />
+   </div>
   <!-- End Page Loader -->
 
   <!-- Page Wrapper -->
   <div class="pageWrapper">
 
     <!-- Promotion Bar -->
-    <div class="notification-bar mobilehide">
-        <a href="#" class="notification-bar__message">10% off your very first purchase,
-             use promo code: diva 2018</a>
-        <span class="close-announcement icon an an-times"></span>
-    </div>
+        <div class="notification-bar mobilehide">
+            <a href="#" class="notification-bar__message">10% off your very first purchase,
+                use promo code: diva 2018</a>
+            <span class="close-announcement icon an an-times"></span>
+        </div>
     <!-- End Promotion Bar -->
 
     <!-- Search Form Drawer -->
@@ -48,9 +50,10 @@
 
     <!-- Main Header -->
     <div class="header-section clearfix animated hdr-sticky">
+        
         <!-- Desktop Header -->
         <div class="header-7">
-            <!-- Top Header -->
+
             <div class="top-header d-block d-lg-none">
                 <div class="container-fluid">
                     <div class="row">
@@ -66,7 +69,17 @@
                         <div class="col-2 col-sm-4 col-md-5 col-lg-4 text-end d-none d-sm-block d-md-block d-lg-block">
                             <div class="header-social">
                                 <ul class="justify-content-end list--inline social-icons">
-                                    <li><a class="social-icons__link" href="#" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Facebook"><i class="icon an an-facebook"></i> <span class="icon__fallback-text">Facebook</span></a></li>
+                                    <li>
+                                        <a class="social-icons__link" 
+                                            href="#" 
+                                            target="_blank" 
+                                            data-bs-toggle="tooltip" 
+                                            data-bs-placement="bottom" 
+                                            title="Facebook"><i class="icon an an-facebook"></i> 
+                                            <span class="icon__fallback-text">Facebook</span>
+                                        </a>
+                                    </li>
+
                                     <li><a class="social-icons__link" href="#" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Twitter"><i class="icon an an-twitter"></i> <span class="icon__fallback-text">Twitter</span></a></li>
                                     <li><a class="social-icons__link" href="#" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Pinterest"><i class="icon an an-pinterest-p"></i> <span class="icon__fallback-text">Pinterest</span></a></li>
                                     <li><a class="social-icons__link" href="#" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Instagram"><i class="icon an an-instagram"></i> <span class="icon__fallback-text">Instagram</span></a></li>
@@ -160,7 +173,7 @@
                                 <!-- End Wishlist -->
                                 <!-- Minicart -->
                                 <div class="item site-cart">
-                                    <a href="cart.html" class="icon-cart site-header-cart btn-minicart text-capitalize" data-bs-toggle="modal" data-bs-target="#minicart-drawer"><i class="icon an an-shopping-bag"></i><span class="text align-middle ms-1 d-none d-md-inline-block">Cart</span><span id="CartCount" class="site-header__cart-count1 ms-1" data-cart-render="item_count">({{count($carts)}})</span></a>
+                                    <a href="{{URL::to('/cart')}}" class="icon-cart site-header-cart btn-minicart text-capitalize" data-bs-toggle="modal" data-bs-target="#minicart-drawer"><i class="icon an an-shopping-bag"></i><span class="text align-middle ms-1 d-none d-md-inline-block">Cart</span><span id="CartCount" class="site-header__cart-count1 ms-1" data-cart-render="item_count">({{count($carts)}})</span></a>
                                 </div>
                                 <!-- End Minicart -->
                             </div>
@@ -295,11 +308,12 @@
 
     <!-- Scoll Top -->
     <div id="site-scroll"><i class="icon an an-angle-up"></i></div>
-    <!-- End Scoll Top -->
 
-    <!-- Minicart Drawer -->
-    <div class="minicart-right-drawer right modal fade" id="minicart-drawer" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
+    <div class="minicart-right-drawer right modal fade" 
+         id="minicart-drawer" 
+         tabindex="-1" 
+         aria-hidden="true">
+          <div class="modal-dialog">
             <div class="modal-content">
                 <div class="minicart-header">
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><i class="an an-times" aria-hidden="true" data-bs-toggle="tooltip" data-bs-placement="left" title="Close"></i></button>
@@ -313,26 +327,30 @@
                     <div id="drawer-minicart" class="block block-cart">
                         <ul class="mini-products-list">
                             @foreach ($carts as $item)
+                            
                                 
                             <li class="item">
-                                <a class="product-image" href="{{URL::to('/products')}}/{{$item['id']}}">
-                                <img src="{{asset('theme/'.$item['image'])}}" alt="Frayed Layered Sleeve" title=""></a>
+                                <a class="product-image" href="{{URL::to('/products')}}/{{$item['slug']}}">
+                                <img src="{{asset($item['image'])}}" ></a>
                                 <div class="product-details">
                                     <a href="{{URL::to('/cart/remove')}}/{{$item['variation_id']}}" 
-                                    class="remove" 
-                                    data-bs-toggle="tooltip" 
-                                    data-bs-placement="top" 
-                                    title="Remove"><i class="an an-times" aria-hidden="true"></i></a>
+                                        class="remove" 
+                                        data-bs-toggle="tooltip" 
+                                        data-bs-placement="top" 
+                                        title="Remove">
+                                       <i class="an an-times" aria-hidden="true"></i>
+                                    </a>
 
                                     <a href="{{URL::to('/cart')}}" 
-                                    class="edit-i remove" 
-                                    data-bs-toggle="tooltip" 
-                                    data-bs-placement="top" 
-                                    title="Edit"><i class="an an-edit" aria-hidden="true"></i>
+                                        class="edit-i remove" 
+                                        data-bs-toggle="tooltip" 
+                                        data-bs-placement="top" 
+                                        title="Edit">
+                                        <i class="an an-edit" aria-hidden="true"></i>
                                     </a>
 
                                     <a class="pName" 
-                                    href="{{URL::to('/products')}}/{{$item['id']}}">{{$item['title']}}
+                                            href="{{URL::to('/products')}}/{{$item['slug']}}">{{$item['title']}}
                                     </a>
 
                                     <div class="variant-cart">SKU:{{$item['sku']}}</div>

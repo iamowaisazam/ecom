@@ -14,6 +14,10 @@
   
 @endsection
 @section('content')
+
+<?php 
+//dd($carts);
+?>
 <div id="page-content" class="template-collection">
 
     <div class="page section-header text-center">
@@ -26,9 +30,9 @@
         <div class="row">
             <!-- Main Content -->
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 main-col">
-                <div class="alert alert-success text-uppercase" role="alert">
+                {{-- <div class="alert alert-success text-uppercase" role="alert">
                     <i class="icon an an-truck icon-large"></i> &nbsp;<strong>Congratulations!</strong> You've got free shipping!
-                </div>
+                </div> --}}
                 <form action="#" method="post" class="cart style2">
                     <table>
                         <thead class="cart__row cart__header">
@@ -41,46 +45,57 @@
                             </tr>
                         </thead>
                         <tbody>
-                          @foreach ($data as $item)
+                          @foreach ($carts as $item)
                             <tr class="cart__row border-bottom line1 cart-flex border-top">
                                 <td class="cart__image-wrapper cart-flex-item">
-                                    <a href="{{URL::to('/products')}}/{{$item->id}}">
+                                    <a href="{{URL::to('/products')}}">
                                         <img class="cart__image blur-up lazyload" 
-                                          data-src="{{asset('theme/'.$item->image)}}" 
-                                          alt="Elastic Waist Dress - Navy / Small" 
-                                          />
+                                          data-src="{{asset($item['image'])}}" />
                                     </a>
                                 </td>
                                 <td class="cart__meta small--text-left cart-flex-item">
                                     <div class="list-view-item__title">
-                                        <a href="{{URL::to('/products')}}/{{$item->id}}">{{$item->title}}</a>
+                                        <a href="{{URL::to('/products')}}/{{$item['slug']}}">{{$item['title']}} - {{$item['sku']}}</a>
                                     </div>
                                     <div class="cart__meta-text">
                                         Color: Navy<br>Size: Small<br>
                                     </div>
                                 </td>
                                 <td class="cart__price-wrapper cart-flex-item text-center">
-                                    <span class="money">$735.00</span>
+                                    <span class="money">${{$item['price']}}</span>
                                 </td>
                                 <td class="cart__update-wrapper cart-flex-item text-center">
                                     <div class="cart__qty text-center">
                                         <div class="qtyField">
-                                            <a class="qtyBtn minus" href="javascript:void(0);"><i class="icon an an-minus"></i></a>
-                                            <input class="cart__qty-input qty" type="text" name="updates[]" value="1" pattern="[0-9]*" />
-                                            <a class="qtyBtn plus" href="javascript:void(0);"><i class="icon an an-plus"></i></a>
+                                            <a class="qtyBtn minus" href="javascript:void(0);">
+                                                <i class="icon an an-minus"></i>
+                                            </a>
+
+                                            <input class="cart__qty-input qty" type="text" name="updates[]" value="{{$item['quantity']}}" pattern="[0-9]*" />
+                                            
+                                            <a class="qtyBtn plus" href="javascript:void(0);">
+                                                <i class="icon an an-plus"></i></a>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="small--hide cart-price text-center">
-                                    <span class="money">${{$item->price}}</span>
+                                    <span class="money">${{$item['price'] * $item['quantity']}}</span>
                                 </td>
-                                <td class="text-center small--hide"><a href="#" class="btn btn--secondary cart__remove" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove item"><i class="icon an an-times"></i></a></td>
+                                <td class="text-center small--hide">
+                                    <a href="#" 
+                                      class="btn btn--secondary cart__remove" 
+                                      data-bs-toggle="tooltip" 
+                                      data-bs-placement="top" 
+                                       title="Remove item">
+                                    <i class="icon an an-times"></i></a>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="3" class="text-start"><a href="{{URL::to('/shop')}}" class="btn btn--link btn--small cart-continue"><i class="icon an an-chevron-circle-left"></i> Continue shopping</a></td>
+                                <td colspan="3" class="text-start"><a href="{{URL::to('/')}}" class="btn btn--link btn--small cart-continue"><i class="icon an an-chevron-circle-left"></i> Continue shopping</a>
+                                </td>
                                 <td colspan="3" class="text-end">
                                     <button type="submit" name="clear" class="btn btn--link btn--small small--hide"><i class="icon an an-times"></i> Clear Shoping Cart</button>
                                     <button type="submit" name="update" class="btn btn--link btn--small cart-continue ml-2"><i class="icon an an-sync"></i> Update Cart</button>
@@ -94,8 +109,8 @@
 
             <div class="container mt-4">
                 <div class="row">
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-4 cart-col">
-                        <h5>Discount Codes</h5>
+                    <div class=" col-12 col-sm-12 col-md-6 col-lg-4 mb-4 cart-col">
+                        {{-- <h5>Discount Codes</h5>
                         <form action="#" method="post">
                             <div class="form-group">
                                 <label for="address_zip">Enter your coupon code if you have one.</label>
@@ -104,10 +119,10 @@
                             <div class="actionRow">
                                 <div><input type="button" class="btn btn-secondary btn--small" value="Apply Coupon" /></div>
                             </div>
-                        </form>
+                        </form> --}}
                     </div>
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-4 cart-col">
-                        <h5>Estimate Shipping and Tax</h5>
+                    <div class=" col-12 col-sm-12 col-md-6 col-lg-4 mb-4 cart-col">
+                        {{-- <h5>Estimate Shipping and Tax</h5>
                         <form action="#" method="post">
                             <div class="form-group">
                                 <label for="address_country">Country</label>
@@ -345,7 +360,7 @@
                             <div class="actionRow">
                                 <div><input type="button" class="btn btn-secondary btn--small" value="Calculate shipping" /></div>
                             </div>
-                        </form>
+                        </form> --}}
                     </div>
 
                     <div class="col-12 col-sm-12 col-md-12 col-lg-4 cart__footer">

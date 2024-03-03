@@ -116,28 +116,11 @@ class HomeController extends Controller
     {
         // $id = Crypt::decryptString($id);
         $releated_products = Product::query()->limit(5)->get();
+        $product = Product::with(['variations.attributes.values','variations.attributes.attribute'])
+        ->where('slug',$id)
+        ->first();
 
-        $product = Product::with(['variations.attributes.values','variations.attributes.attribute'])->where('slug',$id)->first();
-
-        // dd($product->toArray());
-
-
-        // $variations_id = $product->variations->pluck('id')->toArray();
-
-        // $variations = VariationAttribute::select([
-        //     'attributes.id as attribute_id',
-        //     'attributes.title',
-        //     'variation_attributes.value',
-        //     'value_id',
-        // ])
-        // ->join('attributes','attributes.id','=','variation_attributes.attribute_id')
-        // ->whereIn('variation_attributes.variation_id',$variations_id)
-        // ->get()
-        // ->toArray();
-
-        // dd($product->toArray());
-        
-
+    
         $attributes = [];
         $values = [];
         $variations = [];
@@ -181,10 +164,8 @@ class HomeController extends Controller
      */
     public function shop()
     {
-    
         $data = Product::paginate(5);
         $categories = Category::with('children.children')->where('parent_id', 0)->get();
-
         return view('theme.shop',compact('data','categories'));
     }
 

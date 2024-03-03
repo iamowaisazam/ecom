@@ -47,10 +47,6 @@ class AppServiceProvider extends ServiceProvider
             $view->with('global_d', $global_d);
            
 
-
-
-
-
             $cart_items = [];
           
             $cart = session()->get('cart', []);
@@ -65,11 +61,12 @@ class AppServiceProvider extends ServiceProvider
                     'products.subchildcategory_id',
                     'variations.id as variation_id',
                     'variations.sku as sku',
-                    'variations.image as image',
+                    'filemanager.path as image',
                     'variations.quantity as quantity',
                     'variations.price'
                 ])
                 ->join('products','products.id','=','variations.product_id')
+                ->join('filemanager','filemanager.id','=','variations.image')
                 ->where('variations.id',$c['sku'])
                 ->first()
                 ->toArray();
@@ -85,6 +82,7 @@ class AppServiceProvider extends ServiceProvider
                ->get()
                ->toArray();
                $products['attributes'] = $attributes;
+
                array_push($cart_items,$products);
             }
 
