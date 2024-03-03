@@ -123,6 +123,7 @@ class SliderController extends Controller
             "alignment" => 'max:255|required',
             "button" => 'required|max:255',
         ]);
+        
 
         if($validator->fails()){
             return back()

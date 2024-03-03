@@ -97,14 +97,15 @@
                         @endif 
                       </div>
 
+
                       <div class="form-group">
                         <label class="form-label">Status</label>
-                        <select class="form-control" name="status" >
-                            <option {{old('status') ==  '1' ? 'selected' : ''}} value="1">Approve</option>
-                            <option {{old('status') ==  '0' ? 'selected' : ''}} value="0">Pending</option>
+                        <select class="form-control" name="is_enable" >
+                            <option {{old('is_enable') ==  '1' ? 'selected' : ''}} value="1">Approve</option>
+                            <option {{old('is_enable') ==  '0' ? 'selected' : ''}} value="0">Pending</option>
                         </select>
-                        @if($errors->has('status'))
-                        <p class="invalid-feedback" >{{ $errors->first('status') }}</p>
+                        @if($errors->has('is_enable'))
+                        <p class="invalid-feedback" >{{ $errors->first('is_enable') }}</p>
                         @endif 
                       </div>
 
