@@ -2,20 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Blog;
-use App\Models\BlogCategory;
+
 use App\Models\Brand;
-use App\Models\Coupon;
 use App\Models\Product;
-use App\Models\ProductAttribute;
-use App\Models\ProductAttributeValue;
-use App\Models\ProductCategory;
-use App\Models\ProductCollection;
-use App\Models\ProductVariation;
-use App\Models\ProductVariationAttribute;
+use App\Models\Attribute;
+use App\Models\Value;
+use App\Models\Category;
+use App\Models\Collection;
+use App\Models\Variation;
+use App\Models\VariationAttribute;
 use App\Models\Slider;
-use App\Models\Store;
-use App\Models\StoreCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
@@ -60,7 +56,7 @@ class HomeController extends Controller
     public function combination_maker()
     {
 
-        $attributes = ProductAttribute::with('values')->get()->toArray();
+        $attributes = Attribute::with('values')->get()->toArray();
 
         
         $results = $this->generateAttributeCombinations($attributes);
@@ -73,7 +69,7 @@ class HomeController extends Controller
                 array_push($sku,$item['title']);
             }
 
-            $ProductVariation = ProductVariation::create([
+            $ProductVariation = Variation::create([
                 "product_id"=> 3,
                 "title" => implode('-',$sku), 
                 "sku" => implode('-',$sku),
@@ -81,10 +77,10 @@ class HomeController extends Controller
             ]);
 
             foreach ($values as $item) {
-                ProductVariationAttribute::create([
-                    "product_variation_id" => $ProductVariation->id,
-                    "product_attribute_id" => $item['product_attribute_id'],
-                    "product_attribute_value_id" => $item['id'],
+                VariationAttribute::create([
+                    "variation_id" => $ProductVariation->id,
+                    "attribute_id" => $item['attribute_id'],
+                    "value_id" => $item['id'],
                     "value" => $item['title'],
                 ]);
             }
@@ -102,22 +98,13 @@ class HomeController extends Controller
     public function home()
     {
         
-        $blogs = Blog::select([
-            'blogs.*',
-            'blog_categories.title as cat_title',
-        ])
-        ->join('blog_categories','blog_categories.id','=','blogs.category_id')
-        ->where('featured1',1)
-        ->orWhere('featured2',1)
-        ->orWhere('featured3',1)
-        ->get();
-
-        $categories = ProductCollection::all();
+      
+        $categories = Collection::all();
         $brands = Brand::all();
         $sliders = Slider::where('is_enable',1)->get(); 
         $products = Product::where('is_enable',1)->get();
        
-        return view('theme.home',compact('blogs','categories','brands','products','sliders'));
+        return view('theme.home',compact('categories','brands','products','sliders'));
     }
 
 
@@ -130,45 +117,57 @@ class HomeController extends Controller
         // $id = Crypt::decryptString($id);
         $releated_products = Product::query()->limit(5)->get();
 
-        $product = Product::where('id',$id)->first();
-        $variations_id = $product->variations->pluck('id')->toArray();
-        $variations = ProductVariationAttribute::select([
-            'product_attributes.id as attribute_id',
-            'product_attributes.title',
-            'product_variation_attributes.value',
-            'product_attribute_value_id',
-        ])
-        ->join('product_attributes','product_attributes.id','=','product_variation_attributes.product_attribute_id')
-        ->whereIn('product_variation_attributes.product_variation_id',$variations_id)
-        ->get()
-        ->toArray();
+        $product = Product::with(['variations.attributes.values','variations.attributes.attribute'])->where('slug',$id)->first();
+
+        // dd($product->toArray());
 
 
-        $attributes = ProductAttribute::whereIN('id',array_unique(array_column($variations,'attribute_id')))->get();
-        $attribute_values = ProductAttributeValue::whereIn('id',array_unique(array_column($variations,'product_attribute_value_id')))->get();
+        // $variations_id = $product->variations->pluck('id')->toArray();
 
-        $variations = ProductVariation::select([
-            'product_variations.id as variation_id',
-            'product_variations.sku',
-            'product_variations.quantity',
-            'product_variations.price',
-            'product_variations.image',
-            'product_attributes.id as attribute_id',
-            'product_attributes.title as attribute_title',
-            'product_attribute_values.id as value_id',
-            'product_attribute_values.title as value_title',
-        ])
-        ->join('product_variation_attributes','product_variation_attributes.product_variation_id','=','product_variations.id')
-        ->join('product_attributes','product_attributes.id','=','product_variation_attributes.product_attribute_id')
-        ->join('product_attribute_values','product_attribute_values.id','=','product_variation_attributes.product_attribute_value_id')
-        ->where('product_variations.product_id',3)
-        ->get()
-        ->toArray();
+        // $variations = VariationAttribute::select([
+        //     'attributes.id as attribute_id',
+        //     'attributes.title',
+        //     'variation_attributes.value',
+        //     'value_id',
+        // ])
+        // ->join('attributes','attributes.id','=','variation_attributes.attribute_id')
+        // ->whereIn('variation_attributes.variation_id',$variations_id)
+        // ->get()
+        // ->toArray();
 
-        return view('theme.product-detail',compact(
+        // dd($product->toArray());
+        
+
+        $attributes = [];
+        $values = [];
+        $variations = [];
+
+        $arrays = [];
+        foreach ($product->variations as $key => $variation) {
+            foreach ($variation->attributes as $attribute) {
+                
+                array_push($variations,[
+                    'variation_id' => $variation->id,
+                    'sku' => $variation->sku,
+                    'quantity' => $variation->quantity,
+                    'price' => $variation->price,
+                    'image' => $variation->image,
+                    'attribute_id' => $attribute->attribute->id,
+                    'attribute_title' => $attribute->attribute->title,
+                    'value_id' => $attribute->values->id,
+                    'value_title' => $attribute->values->title
+                ]);
+                $attributes[$attribute->attribute->id] = $attribute->attribute->toArray();
+                $values[$attribute->values->id] = $attribute->values->toArray();
+             
+            }
+            
+        }
+
+        return view('theme.product.product-detail',compact(
             'product',
             'attributes',
-            'attribute_values',
+            'values',
             'variations',
             'releated_products'
         ));
@@ -184,7 +183,7 @@ class HomeController extends Controller
     {
     
         $data = Product::paginate(5);
-        $categories = ProductCategory::with('children.children')->where('parent_id', 0)->get();
+        $categories = Category::with('children.children')->where('parent_id', 0)->get();
 
         return view('theme.shop',compact('data','categories'));
     }
@@ -200,7 +199,7 @@ class HomeController extends Controller
         // dd($request->all());
 
         $cart = session()->get('cart', []);
-        $sku = ProductVariation::where('id',$request->sku)->first();
+        $sku = Variation::where('id',$request->sku)->first();
 
         if(isset($cart[$request->sku])) {
             $cart[$request->sku]['quantity']++;
@@ -252,36 +251,6 @@ class HomeController extends Controller
         $data = Product::all();
         return view('theme.cart',compact('data'));
     }
-
-  
-
-
-    
-
-     /**
-     * Show the application dashboard.
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function blog_categories($id)
-    {
-        $category = BlogCategory::where('slug',$id)->first();
-        if($category == false){
-            return back();
-        }
-
-        $blogs = Blog::select([
-            'blogs.*',
-            'blog_categories.title as cat_title',
-        ])->join('blog_categories','blog_categories.id','=','blogs.category_id')
-        ->where('blogs.category_id',$category->id)
-        ->paginate(8);
-        
-        return view('blogs.blog-categories',compact('category','blogs'));
-    }
-
-    
-
-  
 
   
 }

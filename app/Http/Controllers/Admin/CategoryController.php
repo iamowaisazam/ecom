@@ -82,7 +82,7 @@ class CategoryController extends Controller
                 $action .= '<a class="btn btn-danger" href="'.URL::to('admin/categories/delete/'.Crypt::encryptString($value->id)).'">Delete</a>';
 
                 $action .= '</div>';
-                $img = $value->img ? $value->img->preview : '';
+                $img = $value->img ? asset($value->img->path) : '';
 
                 array_push($data,[
                     $value->id,
@@ -106,9 +106,67 @@ class CategoryController extends Controller
                 'data'=> $data,
             ]);
         }
-              
+
         return view('admin.categories.index');
     }
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function sort(Request $request)
+    {
+
+        if($request->ajax()){
+
+           
+
+            if($request->has('data')){
+                foreach ($request->data as $key => $category) {
+                  
+                    Category::where('id',$category['id'])->update([
+                        "sort" => $key,
+                        "parent_id" => null,
+                    ]);
+                    
+
+                    if(isset($category['children'])){
+                        foreach ($category['children'] as $subkey => $subCategory) {
+                            Category::where('id',$subCategory['id'])->update([
+                                "sort" => $subkey,
+                                "parent_id" => $category['id'],
+                            ]);
+
+                            if(isset($subCategory['children'])){
+                                foreach ($subCategory['children'] as $childkey => $childCategory) {
+                                    Category::where('id',$childCategory['id'])->update([
+                                        "sort" => $childkey,
+                                        "parent_id" => $subCategory['id'],
+                                    ]);
+
+                                }
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            return response()->json($request->all());
+        }
+
+        $categories = Category::
+        where('parent_id',null)
+        ->orderby('sort')
+        ->get();
+              
+        return view('admin.categories.sort',compact('categories'));
+    }
+
 
 
     /**
@@ -118,7 +176,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories = Category::where('parent_id',0)->get();
+        $categories = Category::where('parent_id',null)->orderby('sort')->get();
         return view('admin.categories.create',compact('categories'));
     }
 
@@ -131,7 +189,6 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
 
-        // dd($request->all());
 
         $validator = Validator::make($request->all(),[
             "title" => 'required|max:255',
@@ -140,7 +197,7 @@ class CategoryController extends Controller
               'max:255',
               Rule::unique('categories'),
             ],
-            "parent_id" => 'integer|required',
+            "parent_id" => 'max:255',
             "details" => 'max:500',
             'meta_title' => 'max:255',
             'meta_description' => 'max:255',
@@ -152,14 +209,26 @@ class CategoryController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
+
+        $level = 1; 
+        $parent_id = null; 
+
+        if($request->parent_id == null && $request->parent_id == ''){
+            $level = 1; 
+            $parent_id = null; 
+        }else{
+            $explode =  explode('-',$request->parent_id);
+            $level = $explode[1]; 
+            $parent_id = $explode[0]; 
+        }
         
         $ProductCategory = Category::create([
             'title' => $request->title,
             "slug" => $request->slug,
             "image" => $request->image,
             "sort" => $request->sort,
-            "level" => $request->parent_id == 0 ? 1 : 2,
-            "parent_id" => $request->parent_id,
+            "level" => $level,
+            "parent_id" => $parent_id,
             "details" => $request->details,
             'meta_title' => $request->meta_title,
             'meta_description' => $request->meta_description,
@@ -186,8 +255,10 @@ class CategoryController extends Controller
             return back()->with('error','Record Not Found');
          }
 
-         $categories = Category::where('id','!=',$id)
-         ->where('parent_id',0)
+        //  dd($id);
+
+         $categories = Category::where('parent_id',null)
+         ->orderby('sort')
          ->get();
 
         return view('admin.categories.edit',compact('categories','model'));

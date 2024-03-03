@@ -13,6 +13,7 @@
     <!-- Plugins -->
     <!-- ============================================================== -->
     <link href="{{asset('admin/assets/node_modules/morrisjs/morris.css')}}" rel="stylesheet">
+    <link href="{{asset('admin/assets/node_modules/sweetalert2/dist/sweetalert2.min.css')}}" rel="stylesheet">
     <link href="{{asset('admin/assets/node_modules/toast-master/css/jquery.toast.css')}}" rel="stylesheet">
     <link href="{{asset('admin/assets/css/style.css')}}" rel="stylesheet">
     <style>
@@ -35,7 +36,7 @@
     <div class="preloader">
         <div class="loader">
             <div class="loader__figure"></div>
-            <p class="loader__label">Elite admin</p>
+            <p class="loader__label">{{$global_d['site_title']}}</p>
         </div>
     </div>
     
@@ -158,7 +159,7 @@
                             </ul>
                         </li>
                         
-                        <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-puzzle"></i>
+                        <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-account-multiple-outline"></i>
                             <span class="hide-menu"> Roles </span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="{{URL::to('admin/roles/create')}}">Add New Role</a></li>
@@ -166,16 +167,17 @@
                             </ul>
                         </li>
 
-                        <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-user"></i>
-                            <span class="hide-menu"> Category </span></a>
+                        <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-menu"></i>
+                            <span class="hide-menu"> Menus </span></a>
+                            
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="{{URL::to('admin/categories/create')}}">Add New Category</a></li>
-                                <li><a href="{{URL::to('admin/categories/index')}}">All Category</a></li>
+                                <li><a href="{{URL::to('admin/menus/create')}}">Add New Menus</a></li>
+                                <li><a href="{{URL::to('admin/menus/index')}}">All Menus</a></li>
                             </ul>
                         </li>
 
                         <li><a class="has-arrow waves-effect waves-dark" 
-                            href="javascript:void(0)" aria-expanded="false"><i class="icon-user"></i>
+                            href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-folder-multiple-image"></i>
                             <span class="hide-menu"> Slider </span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="{{URL::to('admin/sliders/create')}}">Add New Slider</a></li>
@@ -183,22 +185,34 @@
                             </ul>
                         </li>
 
-                        <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-user"></i>
+                        <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-gallery"></i>
+                            <span class="hide-menu"> Collections </span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="{{URL::to('admin/collections/create')}}">Add New Collection</a></li>
+                                <li><a href="{{URL::to('admin/collections/index')}}">All Collection</a></li>
+                            </ul>
+                        </li>
+
+                        <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-apps"></i>
+                            <span class="hide-menu"> Category </span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="{{URL::to('admin/categories/create')}}">Add New Category</a></li>
+                                <li><a href="{{URL::to('admin/categories/index')}}">All Category</a></li>
+                                <li><a href="{{URL::to('admin/categories/sort')}}">Sort Category</a></li>
+                            </ul>
+                        </li>
+
+                       
+
+                        <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-border-all"></i>
                             <span class="hide-menu"> Products </span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li> 
-                                    <div class="button-box">
-                                    <button style="padding: 7px 35px 7px 15px;background: transparent;
-                                    border: none;" type="button" class="menu-button" data-bs-toggle="modal" data-bs-target="#exampleModal" data-whatever="@mdo">Add New Product</button>
-                                </div>
-                                </li>
+                                <li><a href="{{URL::to('admin/products/create')}}">Add New Product</a></li>
                                 <li><a href="{{URL::to('admin/products/index')}}">All Products</a></li>
                             </ul>
                         </li>
 
-             
-
-                        <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-puzzle"></i>
+                        <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-folder-multiple-outline"></i>
                             <span class="hide-menu"> Filemanager </span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="{{URL::to('admin/filemanager/create')}}">Add New File</a></li>
@@ -206,32 +220,7 @@
                             </ul>
                         </li>
 
-                        
-                        {{-- <li><a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-doc"></i>
-                            <span class="hide-menu">Pages</span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a href="index.html">Add New Page</a></li>
-                                <li><a href="index2.html">All Pages</a></li>
-                            </ul>
-                        </li> --}}
-
-                        {{-- <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class=" icon-book-open"></i>
-                            <span class="hide-menu">Blog Category</span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a href="{{URL::to('admin/blogcategories/create')}}">Add New Category</a></li>
-                                <li><a href="{{URL::to('admin/blogcategories/index')}}">All Category</a></li>
-                            </ul>
-                        </li> --}}
-
-                        {{-- <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class=" icon-book-open"></i>
-                            <span class="hide-menu">Blogs</span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a href="{{URL::to('admin/blogs/create')}}">Add New Blog</a></li>
-                                <li><a href="{{URL::to('admin/blogs/index')}}">All Blogs</a></li>
-                            </ul>
-                        </li> --}}
-                        
-                        {{-- <li><a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-settings"></i>
+                        <li><a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-settings"></i>
                             <span class="hide-menu">Settings</span></a>
                             <ul aria-expanded="false" class="collapse">
                                @foreach (explode(',',$global_d['grouping']) as $item)
@@ -239,7 +228,7 @@
                                   {{ ucwords(str_ireplace("_", " ",$item))}}</a></li>  
                                @endforeach
                             </ul>
-                        </li> --}}
+                        </li>
 
                     </ul>
                 </nav>
@@ -260,33 +249,7 @@
 
               @yield('content')
 
-            <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <form method="post" action="{{URL::to('/admin/products/store')}}">
-                            @csrf
-                        <div class="modal-header">
-                            <h4 class="modal-title" id="exampleModalLabel1">Add New Product</h4>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
-                        </div>
-                        <div class="modal-body">
-                                <div class="form-group">
-                                    <label for="recipient-name" class="form-label">Title:</label>
-                                    <input name="title" required type="text" class="form-control" id="recipient-name1">
-                                </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary text-white">Submit</button>
-                        </div>
-                       </form>
-                    </div>
-                </div>
-            </div>
-            <!-- /.modal -->
-
-
-            
+          
                 <!-- Right sidebar -->
                 <!-- ============================================================== -->
                 <!-- .right-sidebar -->
@@ -333,8 +296,8 @@
         <!-- footer -->
         <!-- ============================================================== -->
         <footer class="footer">
-            © 2021 {{$global_d['site_title']}} by 
-            <a href="https://www.wrappixel.com/">azamsolutions.com</a>
+            © 2024 {{$global_d['site_title']}} Developed by 
+            <a href="https://www.azamsolutions.com/">azamsolutions.com</a>
         </footer>
         <!-- ============================================================== -->
         <!-- End footer -->
@@ -356,7 +319,10 @@
     <script src="{{asset('admin/assets/node_modules/morrisjs/morris.min.js')}}"></script>
     <script src="{{asset('admin/assets/node_modules/jquery-sparkline/jquery.sparkline.min.js')}}"></script>
     <script src="{{asset('admin/assets/node_modules/toast-master/js/jquery.toast.js')}}"></script>
+    <script src="{{asset('admin/assets/node_modules/sweetalert2/dist/sweetalert2.all.min.js')}}"></script>
+
     <script src="{{asset('admin/assets/js/perfect-scrollbar.jquery.min.js')}}"></script>
+   
     <script src="{{asset('admin/assets/js/waves.js')}}"></script>
     <script src="{{asset('admin/assets/js/custom.js')}}"></script>
 

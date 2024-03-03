@@ -24,6 +24,11 @@ href="{{asset('admin/assets/node_modules/datatables.net-bs4/css/responsive.dataT
             overflow: scroll!important;
         }
     }
+    
+
+    .dataTables_filter{
+        display: none!important;
+    }
 
 
 </style>
@@ -57,15 +62,59 @@ href="{{asset('admin/assets/node_modules/datatables.net-bs4/css/responsive.dataT
                             <table id="example23" class="mydatatable display nowrap table table-hover table-striped border" cellspacing="0" width="100%">
                                     <thead>
                                         <tr class="" >
+                                            <th>
+                                                <button type="button" class="search_result btn btn-primary" >
+                                                    <i class="mdi mdi-magnify"></i>
+                                                </button>
+                                            </th>
+                                            <th></th>
+                                            
+                                            <th>
+                                               
+                                                <select style="width: 200px" class="form-control category">
+                                                    <option value="">Select Category</option>
+                                                    {!!$categoryDropdown!!}
+                                                </select>
+                                            </th>
+                                            <th></th>
+                                            <th>
+                                                <input type="text" placeholder="Title" class="form-control title "/>
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="Slug" class="form-control slug"/>
+                                            </th>
+                                            <th>
+                                                <input style="width: 100px"  type="text" placeholder="Price" class="form-control price"/>
+                                            </th>
+                                           
+                                            <th>
+                                                <select style="width: 100px"  class="form-control is_enable">
+                                                    <option value="">Select Status</option>
+                                                    <option value="1">Approve</option>
+                                                    <option value="0">Pending</option>
+                                                </select>
+                                            </th>
+                                            <th>
+                                                <select style="width: 100px"  class="form-control is_featured ">
+                                                    <option value="">Select Featured</option>
+                                                    <option value="1">Yes</option>
+                                                    <option value="0">No</option>
+                                                </select> 
+                                            </th>
+                                            
+                                        </tr>
+                                        <tr class="" >
+                                            <th class="hidden-phone">Action</th>
                                             <th>#</th>
+                                            
+                                            <th>Category</th>
                                             <th>Image</th>
                                             <th>Title</th>
                                             <th>Slug</th>
                                             <th>Price</th>
-                                            <th>Category</th>
                                             <th>Status </th>
                                             <th>Featured </th>
-                                            <th class="hidden-phone">Action</th>
+                                            
                                         </tr>
                                      </thead>
                                     <tbody>
@@ -107,7 +156,12 @@ href="{{asset('admin/assets/node_modules/datatables.net-bs4/css/responsive.dataT
                 type: "GET",
                 data: function ( d ) {
 
-                
+                    d.category_id = $('.category').val();
+                    d.title = $('.title').val();
+                    d.slug = $('.slug').val();
+                    d.price = $('.price').val();
+                    d.is_enable = $('.is_enable').val();
+                    d.is_featured = $('.is_featured').val();
        
                 }
             },
@@ -119,17 +173,14 @@ href="{{asset('admin/assets/node_modules/datatables.net-bs4/css/responsive.dataT
             }
         });
 
+
         // $('input[type=search]').unbind();
         $("#searchButton").click(e =>{ 
             application_table.search($('input[type=search]').val());
             application_table.draw();
         });
 
-        $("#example23 thead .row-checkbox").change(function (e) { 
-            var isChecked = $(this).prop('checked');
-            $('#example23 tbody .row-checkbox').prop('checked', isChecked);
-        });
-
+   
         $(".mydatatable").delegate(".is_enable", "change", function(){
             var isChecked = $(this).prop('checked');
             $.ajax({
@@ -172,6 +223,14 @@ href="{{asset('admin/assets/node_modules/datatables.net-bs4/css/responsive.dataT
             });
             console.log(isChecked);
         });
+
+
+        $('.search_result').click(function(){          
+           
+            // users_table.search($('input[type=search]').val());
+            application_table.draw();
+        }); 
+
 
 
 

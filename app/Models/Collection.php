@@ -12,18 +12,27 @@ class Collection extends Model
 
     /**
      * The attributes that are mass assignable.
-     *
      * @var array<int, string>
      */
     protected $fillable = [
         "id",
-        "title",
+        'title',
         "slug",
-        "parent_id",
-        "image",
+        "details",
+        "image_id",
+        "sort",
+        "is_enable",
+        "is_featured",
+        "meta_title",
+        "meta_description",
+        "meta_keywords",
         "created_at",
         "updated_at"
     ];
 
-     
+    public function image()
+    {
+        return $this->belongsTo(Filemanager::class, 'image_id');
+    }
+        
 }

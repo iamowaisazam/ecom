@@ -21,5 +21,12 @@ class Setting extends Model
         'name',
         'value',
     ];
+
+    public function image()
+    {
+        return $this-> belongsTo(Filemanager::class, 'value');
+    }
+
+
     
 }

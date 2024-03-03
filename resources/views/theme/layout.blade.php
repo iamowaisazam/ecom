@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
+
     @yield('metatags')
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -28,7 +28,8 @@
 
     <!-- Promotion Bar -->
     <div class="notification-bar mobilehide">
-        <a href="#" class="notification-bar__message">10% off your very first purchase, use promo code: diva 2018</a>
+        <a href="#" class="notification-bar__message">10% off your very first purchase,
+             use promo code: diva 2018</a>
         <span class="close-announcement icon an an-times"></span>
     </div>
     <!-- End Promotion Bar -->
@@ -54,7 +55,8 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-10 col-sm-8 col-md-7 col-lg-4">
-                            <p class="phone-no float-start"><i class="icon an an-phone me-1"></i><a href="tel:+4400(111)044833">+440 0(111) 044 833</a></p>
+                            <p class="phone-no float-start"><i class="icon an an-phone me-1"></i>
+                                <a href="tel:+4400(111)044833">+440 0(111) 044 833</a></p>
                         </div>
                         <div class="col-sm-4 col-md-4 col-lg-4 d-none d-md-none d-lg-block">
                             <div class="text-center">
@@ -96,69 +98,43 @@
                     <div class="row align-items-center">
                         <div class="col-4 col-sm-4 col-md-5 col-lg-8 d-block d-lg-none">
                             <button type="button" class="btn--link site-header__menu js-mobile-nav-toggle mobile-nav--open" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Menu"><i class="icon an an-times"></i><i class="icon an an-bars"></i></button>
+                        
                             <!-- Mobile Search -->
                             <div class="site-header__search d-block d-lg-none mobile-search-icon">
                                 <button type="button" class="search-trigger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Search"><i class="icon an an-search"></i></button>
                             </div>
                             <!-- End Mobile Search -->
                         </div>
+
                         <!-- Desktop Logo -->
                         <div class="logo col-4 col-sm-4 col-md-2 col-lg-2 align-self-center">
-                            <a href="{{URL::to('/')}}"><img src="{{asset('theme/assets/images/logo.png')}}" width="100" title="Diva Multipurpose Html Template" /></a>
+                            <a href="{{URL::to('/')}}"><img src="{{asset('black.png')}}" width="100" alt="theme/assets/images/logo.png" /></a>
                         </div>
                         <!-- End Desktop Logo -->
+                        
                         <!-- Desktop Navigation -->
                         <div class="col-2 col-sm-3 col-md-3 col-lg-6 d-none d-lg-block">
                             <!-- Desktop Menu -->
                             <nav class="grid__item" id="AccessibleNav">
                                 <ul id="siteNav" class="d-flex flex-wrap site-nav medium left ms-0 hidearrow">
-                                    <li class="lvl1 parent dropdown">
-                                        <a href="{{URL::to('/')}}">Home <i class="an an-angle-down"></i></a>
-                                    </li>
-                                    <li class="lvl1 parent dropdown">
-                                        <a href="{{URL::to('/shop')}}">Shop<i class="an an-angle-down"></i></a>
-                                    </li>
-                                    <li class="lvl1 parent dropdown">
-                                        <a href="#">Page 1 <i class="an an-angle-down"></i></a>
-                                        <ul class="dropdown">
-                                            <li><a href="index.html" class="site-nav">Layout 1 - Classic 01</a></li>
-                                            <li><a href="home2-default.html" class="site-nav">Layout 2 - Default</a></li>
-                                            <li><a href="home3-classic.html" class="site-nav">Layout 3 - Classic 02</a></li>
-                                            <li><a href="home4-fullwidth.html" class="site-nav">Layout 4 - Full Width</a></li>
-                                            <li><a href="home5-boxed.html" class="site-nav">Layout 5 - Boxed</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="lvl1 parent dropdown">
-                                        <a href="#">Page 2 <i class="an an-angle-down"></i></a>
-                                        <ul class="dropdown">
-                                            <li><a href="index.html" class="site-nav">Layout 1 - Classic 01</a></li>
-                                            <li><a href="home2-default.html" class="site-nav">Layout 2 - Default</a></li>
-                                            <li><a href="home3-classic.html" class="site-nav">Layout 3 - Classic 02</a></li>
-                                            <li><a href="home4-fullwidth.html" class="site-nav">Layout 4 - Full Width</a></li>
-                                            <li><a href="home5-boxed.html" class="site-nav">Layout 5 - Boxed</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="lvl1 parent dropdown">
-                                        <a href="#">Page 3 <i class="an an-angle-down"></i></a>
-                                        <ul class="dropdown">
-                                            <li><a href="index.html" class="site-nav">Layout 1 - Classic 01</a></li>
-                                            <li><a href="home2-default.html" class="site-nav">Layout 2 - Default</a></li>
-                                            <li><a href="home3-classic.html" class="site-nav">Layout 3 - Classic 02</a></li>
-                                            <li><a href="home4-fullwidth.html" class="site-nav">Layout 4 - Full Width</a></li>
-                                            <li><a href="home5-boxed.html" class="site-nav">Layout 5 - Boxed</a></li>
-                                        </ul>
-                                    </li>
-                                   
-                                    <li class="lvl1 parent dropdown">
-                                        <a href="#">Page 4 <i class="an an-angle-down"></i></a>
-                                        <ul class="dropdown">
-                                            <li><a href="lookbook-2columns.html" class="site-nav">2 Columns</a></li>
-                                            <li><a href="lookbook-3columns.html" class="site-nav">3 Columns</a></li>
-                                            <li><a href="lookbook-4columns.html" class="site-nav">4 Columns</a></li>
-                                            <li><a href="lookbook-5columns.html" class="site-nav">5 Columns + Fullwidth</a></li>
-                                            <li><a href="lookbook-shop.html" class="site-nav last">Lookbook Shop</a></li>
-                                        </ul>
-                                    </li>
+                                   <?php $menus = $global_d['menus']->where('id',1)[0]; ?>
+                                      @foreach ($menus->children->where('parent_id',null) as $page)
+                                            <li class="lvl1 parent dropdown">
+                                                <a href="{{$page->link}} ">{{$page->title}} 
+                                                <i class="an an-angle-down"></i>
+                                                </a>
+                                            @if(count($page->children) > 0)
+                                                <ul class="dropdown">
+                                                    @foreach ($page->children as $chil_page)
+                                                    <li>
+                                                        <a href="{{$chil_page->link}}" 
+                                                        class="site-nav">{{$chil_page->title}}</a>
+                                                    </li>
+                                                    @endforeach
+                                                </ul>
+                                            @endif
+                                        </li>  
+                                    @endforeach
                                 </ul>
                             </nav>
                         </div>
@@ -168,19 +144,19 @@
                         <div class="col-4 col-sm-4 col-md-5 col-lg-4">
                             <div class="right-action text-action d-flex-align-center justify-content-end">
                                 <!-- Search -->
-                                <div class="item site-header__search d-none d-lg-inline-block">
+                                {{-- <div class="item site-header__search d-none d-lg-inline-block">
                                     <button type="button" class="search-trigger"><i class="icon an an-search"></i><span class="text align-middle ms-1 d-none d-md-inline-block">Search</span></button>
-                                </div>
+                                </div> --}}
                                 <!-- End Search -->
                                 <!-- User Links -->
                                 <div class="item site-user-menu d-none d-sm-inline-block">
-                                    <a href="login.html" class="icon-login text-capitalize text-nowrap"><i class="icon an an-user-alt"></i><span class="text align-middle ms-1 d-none d-md-inline-block">Login</span></a>
+                                    <a href="{{URL::to('/admin/login')}}" class="icon-login text-capitalize text-nowrap"><i class="icon an an-user-alt"></i><span class="text align-middle ms-1 d-none d-md-inline-block">Login</span></a>
                                 </div>
                                 <!-- End User Links -->
                                 <!-- Wishlist -->
-                                <div class="item site-header-wishlist">
+                                {{-- <div class="item site-header-wishlist">
                                     <a href="wishlist.html" class="icon-wishlist text-capitalize"><i class="icon an an-heart"></i><span class="text align-middle ms-1 d-none d-md-inline-block">Wishlist</span><span id="WishCount" class="site-header-wish-count1 ms-1" data-cart-render="item_count">(0)</span></a>
-                                </div>
+                                </div> --}}
                                 <!-- End Wishlist -->
                                 <!-- Minicart -->
                                 <div class="item site-cart">
@@ -198,207 +174,35 @@
         <!-- End Desktop Header -->
     </div>
     <!-- End Main Header -->
+    <?php //dd($menus->children); ?>
 
     <!-- Mobile Menu -->
     <div class="mobile-nav-wrapper" role="navigation">
         <div class="closemobileMenu"><i class="icon an an-times-circle closemenu"></i> Close Menu</div>
         <ul id="MobileNav" class="mobile-nav">
-            <li class="lvl1 parent megamenu">
-                <a href="index.html">Layout <i class="an an-plus"></i></a>
+
+           
+            @foreach ($menus->children->where('parent_id',null) as $page)
+            <li class="lvl1  parent megamenu">
+                <a href="{{$page->link}}">{{$page->title}} 
+                    @if(count($page->children) > 0) 
+                     <i class="an an-plus"></i>
+                    @endif 
+                </a>
+
+                @if(count($page->children) > 0)
                 <ul>
-                    <li><a href="index.html" class="site-nav">Layout 1 - Classic 01</a></li>
-                    <li><a href="home2-default.html" class="site-nav">Layout 2 - Default</a></li>
-                    <li><a href="home3-classic.html" class="site-nav">Layout 3 - Classic 02</a></li>
-                    <li><a href="home4-fullwidth.html" class="site-nav">Layout 4 - Full Width</a></li>
-                    <li><a href="home5-boxed.html" class="site-nav">Layout 5 - Boxed</a></li>
-                    <li><a href="home6-parallax.html" class="site-nav">Layout 6 - Parallax  Banner</a></li>
-                    <li><a href="home7-creative.html" class="site-nav">Layout 7 - Creative</a></li>
-                    <li><a href="home8-simple.html" class="site-nav">Layout 8 - Simple</a></li>
-                    <li><a href="home9-simple2.html" class="site-nav">Layout 9 - Simple 2</a></li>
-                    <li><a href="home10-minimal.html" class="site-nav">Home 10 - Minimal</a></li>
-                    <li><a href="home11-modern.html" class="site-nav">Layout 11 - Modern</a></li>
-                    <li><a href="home12-category.html" class="site-nav">Layout 12 - Category</a></li>
-                    <li><a href="home13-dark.html" class="site-nav">Layout 13 - Dark</a></li>
-                    <li><a href="home14.html" class="site-nav last">Layout 14 <span class="lbl nm_label1">New</span></a></li>
+                    @foreach ($page->children as $chil_page)
+                     <li><a href="{{$chil_page->link}}" class="site-nav">{{$chil_page->title}}</a></li>
+                    @endforeach
                 </ul>
+                @endif
             </li>
-            <li class="lvl1 parent megamenu">
-                <a href="shop-left-sidebar.html">Shop <i class="an an-plus"></i></a>
-                <ul>
-                    <li>
-                        <a href="#" class="site-nav">Shop Pages<i class="an an-plus"></i></a>
-                        <ul>
-                            <li><a href="shop-left-sidebar.html" class="site-nav">Left Sidebar</a></li>
-                            <li><a href="shop-right-sidebar.html" class="site-nav">Right Sidebar</a></li>
-                            <li><a href="shop-fullwidth.html" class="site-nav">No Sidebar</a></li>
-                            <li><a href="shop-sidebar-drawer.html" class="site-nav">Sidebar Drawer</a></li>
-                            <li><a href="shop-listview-sidebar.html" class="site-nav">Sidebar Products List</a></li>
-                            <li><a href="shop-left-sidebar.html" class="site-nav">Sidebar Products Slider</a></li>
-                            <li><a href="shop-right-sidebar.html" class="site-nav">Pagination - Infinite Scroll</a></li>
-                            <li><a href="shop-grid-6.html" class="site-nav">Pagination - Load More</a></li>
-                            <li><a href="product-swatches-style.html" class="site-nav">Diffrent Swatches Style</a></li>
-                            <li><a href="product-labels.html" class="site-nav">Product Labels</a></li>
-                            <li><a href="collection-3columns.html" class="site-nav last">Collection 3 Columns</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#" class="site-nav">Shop Pages<i class="an an-plus"></i></a>
-                        <ul>
-                            <li><a href="shop-right-sidebar.html" class="site-nav">Category Slideshow</a></li>
-                            <li><a href="shop-grid-2.html" class="site-nav">2 Products Per Row</a></li>
-                            <li><a href="shop-grid-3.html" class="site-nav">3 Products Per Row</a></li>
-                            <li><a href="shop-grid-4.html" class="site-nav">4 Products Per Row</a></li>
-                            <li><a href="shop-grid-5.html" class="site-nav">5 Products Per Row</a></li>
-                            <li><a href="shop-grid-6.html" class="site-nav">6 Products Per Row</a></li>
-                            <li><a href="shop-listview.html" class="site-nav">List View</a></li>
-                            <li><a href="shop-listview-sidebar.html" class="site-nav">List View Sidebar</a></li>
-                            <li><a href="shop-grid-3.html" class="site-nav">Pagination - Number</a></li>
-                            <li><a href="product-hover-info.html" class="site-nav">Product Hover Info</a></li>
-                            <li><a href="collection-4columns.html" class="site-nav last">Collection 4 Columns</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#" class="site-nav">Shop Other Page<i class="an an-plus"></i></a>
-                        <ul>
-                            <li><a href="wishlist.html" class="site-nav">My Wishlist Page Style1</a></li>
-                            <li><a href="wishlist-style2.html" class="site-nav">My Wishlist Page Style2</a></li>
-                            <li><a href="compare.html" class="site-nav">Compare Page Style1</a></li>
-                            <li><a href="compare-style2.html" class="site-nav last">Compare Page Style2</a></li>
-                            <li><a href="cart.html" class="site-nav">Cart Page Style1</a></li>
-                            <li><a href="cart-style2.html" class="site-nav">Cart Page Style2</a></li>
-                            <li><a href="checkout.html" class="site-nav">Checkout Page Style1</a></li>
-                            <li><a href="checkout-style2.html" class="site-nav">Checkout Page Style2</a></li>
-                            <li><a href="checkout-success.html" class="site-nav">Checkout Success</a></li>
-                            <li><a href="shop-search-results.html" class="site-nav">Search Results</a></li>
-                            <li><a href="collection-5columns.html" class="site-nav last">Collection 5 Columns</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li class="lvl1 parent megamenu">
-                <a href="product-layout1.html">Features <i class="an an-plus"></i></a>
-                <ul>
-                    <li>
-                        <a href="#" class="site-nav">Product Page<i class="an an-plus"></i></a>
-                        <ul>
-                            <li><a href="product-layout1.html" class="site-nav">Product Layout1</a></li>
-                            <li><a href="product-layout2.html" class="site-nav">Product Layout2</a></li>
-                            <li><a href="product-layout3.html" class="site-nav">Product Layout3</a></li>
-                            <li><a href="product-layout4.html" class="site-nav">Product Layout4</a></li>
-                            <li><a href="product-layout5.html" class="site-nav">Product Layout5</a></li>
-                            <li><a href="product-layout6.html" class="site-nav">Product Layout6</a></li>
-                            <li><a href="product-layout7.html" class="site-nav">Product Layout7</a></li>
-                            <li><a href="product-layout8.html" class="site-nav last">Product Layout8</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#" class="site-nav">Product Types <i class="an an-plus"></i></a>
-                        <ul>
-                            <li><a href="product-accordian.html" class="site-nav">Product Accordian</a></li>
-                            <li><a href="product-layout3.html" class="site-nav">Product Tabs Left</a></li>
-                            <li><a href="product-layout6.html" class="site-nav">Product Tabs Center</a></li>
-                            <li><a href="product-standard.html" class="site-nav">Standard Product</a></li>
-                            <li><a href="product-variable.html" class="site-nav">Variable Product</a></li>
-                            <li><a href="product-grouped.html" class="site-nav">Grouped Product</a></li>
-                            <li><a href="product-pre-orders.html" class="site-nav">Product Pre-orders</a></li>
-                            <li><a href="product-call-for-price.html" class="site-nav last">Product Call for Price</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#" class="site-nav">Product Types <i class="an an-plus"></i></a>
-                        <ul>
-                            <li><a href="product-layout6.html" class="site-nav">Products Coundown</a></li>
-                            <li><a href="product-layout1.html" class="site-nav">New Product</a></li>
-                            <li><a href="product-layout2.html" class="site-nav">Sale Product</a></li>
-                            <li><a href="product-outofstock.html" class="site-nav">Out Of Stock Product</a></li>
-                            <li><a href="product-external-affiliate.html" class="site-nav">External / Affiliate Product</a></li>
-                            <li><a href="product-layout1.html" class="site-nav">Variable Image</a></li>
-                            <li><a href="product-layout3.html" class="site-nav">Variable Select</a></li>
-                            <li><a href="product-360-degree-view.html" class="site-nav last">360 Degree view</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li class="lvl1 parent megamenu">
-                <a href="#">Pages <i class="an an-plus"></i></a>
-                <ul>
-                    <li>
-                        <a href="my-account.html" class="site-nav">My Account <i class="an an-plus"></i></a>
-                        <ul>
-                            <li><a href="login.html" class="site-nav">Login</a></li>
-                            <li><a href="my-account.html" class="site-nav">My Account</a></li>
-                            <li><a href="register.html" class="site-nav">Register</a></li>
-                            <li><a href="forgot-your-password.html" class="site-nav">Forgot Password</a></li>
-                            <li><a href="empty-cart.html" class="site-nav last">Empty cart</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="about-us-style1.html" class="site-nav">About Us <i class="an an-plus"></i></a>
-                        <ul>
-                            <li><a href="about-us-style1.html" class="site-nav">About Us 01</a></li>
-                            <li><a href="about-us-style2.html" class="site-nav">About Us 02</a></li>
-                            <li><a href="about-us-style3.html" class="site-nav">About Us 03</a></li>
-                            <li><a href="cms-page.html" class="site-nav">CMS Page</a></li>
-                            <li><a href="empty-category.html" class="site-nav last">Empty category</a></li>
-                        </ul>
-                    </li>
-                    <li class="grid__item lvl-1 col">
-                        <a href="#" class="site-nav  lvl-1">Others Pages <i class="an an-plus"></i></a>
-                        <ul>
-                            <li><a href="contactus-style1.html" class="site-nav">Contact Us 01</a></li>
-                            <li><a href="contactus-style2.html" class="site-nav">Contact Us 02</a></li>
-                            <li><a href="faqs-style1.html" class="site-nav">FAQs 01</a></li>
-                            <li><a href="faqs-style2.html" class="site-nav">FAQs 02</a></li>
-                            <li><a href="empty-compare.html" class="site-nav last">Empty compare</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#" class="site-nav">Others Pages <i class="an an-plus"></i></a>
-                        <ul>
-                            <li><a href="404.html" class="site-nav">404 Error</a></li>
-                            <li><a href="size-guide.html" class="site-nav">Size Guide</a></li>
-                            <li><a href="privacy-policy.html" class="site-nav">Privacy Policy</a></li>
-                            <li><a href="brands-page.html" class="site-nav">Brands Page</a></li>
-                            <li><a href="empty-search.html" class="site-nav last">Empty search</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#" class="site-nav">Others Pages <i class="an an-plus"></i></a>
-                        <ul>
-                            <li><a href="coming-soon-style1.html" class="site-nav">Coming soon 01</a></li>
-                            <li><a href="coming-soon-style2.html" class="site-nav">Coming soon 02</a></li>
-                            <li><a href="coming-soon-style3.html" class="site-nav">Coming soon 03</a></li>
-                            <li><a href="coming-soon-style4.html" class="site-nav">Coming soon 04</a></li>
-                            <li><a href="empty-wishlist.html" class="site-nav last">Empty wishlist</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li class="lvl1 parent megamenu">
-                <a href="lookbook-2columns.html">Lookbook <i class="an an-plus"></i></a>
-                <ul>
-                    <li><a href="lookbook-2columns.html" class="site-nav">2 Columns</a></li>
-                    <li><a href="lookbook-3columns.html" class="site-nav">3 Columns</a></li>
-                    <li><a href="lookbook-4columns.html" class="site-nav">4 Columns</a></li>
-                    <li><a href="lookbook-5columns.html" class="site-nav">5 Columns + Fullwidth</a></li>
-                    <li><a href="lookbook-shop.html" class="site-nav last">Lookbook Shop</a></li>
-                </ul>
-            </li>
-            <li class="lvl1 parent megamenu">
-                <a href="blog-left-sidebar.html">Blog <i class="an an-plus"></i></a>
-                <ul>
-                    <li><a href="blog-left-sidebar.html" class="site-nav">Left Sidebar</a></li>
-                    <li><a href="blog-right-sidebar.html" class="site-nav">Right Sidebar</a></li>
-                    <li><a href="blog-grid-view.html" class="site-nav">Grid View</a></li>
-                    <li><a href="blog-list-view.html" class="site-nav">List View</a></li>
-                    <li><a href="blog-fullwidth.html" class="site-nav">Fullwidth</a></li>
-                    <li><a href="blog-masonry.html" class="site-nav">Masonry</a></li>
-                    <li><a href="blog-single-post.html" class="site-nav last">Single Post</a></li>
-                </ul>
-            </li>
+            @endforeach
         </ul>
     </div>
     <!-- End Mobile Menu -->
+
 
     <!-- Body Content -->
    @yield('content')

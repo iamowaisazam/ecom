@@ -52,21 +52,38 @@ Route::get('/admin/status', [App\Http\Controllers\Admin\DashboardController::cla
 
 
 //Users
-Route::get('/admin/users/index', [App\Http\Controllers\Admin\UserController::class, 'index']);
-Route::get('/admin/users/create', [App\Http\Controllers\Admin\UserController::class, 'create']);
-Route::post('/admin/users/store', [App\Http\Controllers\Admin\UserController::class, 'store']);
-Route::get('/admin/users/edit/{id}', [App\Http\Controllers\Admin\UserController::class, 'edit']);
-Route::post('/admin/users/update/{id}', [App\Http\Controllers\Admin\UserController::class, 'update']);
-Route::get('/admin/users/delete/{id}', [App\Http\Controllers\Admin\UserController::class, 'delete']);
+    Route::get('/admin/users/index', [App\Http\Controllers\Admin\UserController::class, 'index']);
+    Route::get('/admin/users/create', [App\Http\Controllers\Admin\UserController::class, 'create']);
+    Route::post('/admin/users/store', [App\Http\Controllers\Admin\UserController::class, 'store']);
+    Route::get('/admin/users/edit/{id}', [App\Http\Controllers\Admin\UserController::class, 'edit']);
+    Route::post('/admin/users/update/{id}', [App\Http\Controllers\Admin\UserController::class, 'update']);
+    Route::get('/admin/users/delete/{id}', [App\Http\Controllers\Admin\UserController::class, 'delete']);
 
 //Roles
-Route::get('/admin/roles/index', [App\Http\Controllers\Admin\RoleController::class, 'index']);
-Route::get('/admin/roles/create', [App\Http\Controllers\Admin\RoleController::class, 'create']);
-Route::post('/admin/roles/store', [App\Http\Controllers\Admin\RoleController::class, 'store']);
-Route::get('/admin/roles/edit/{id}', [App\Http\Controllers\Admin\RoleController::class, 'edit']);
-Route::post('/admin/roles/update/{id}', [App\Http\Controllers\Admin\RoleController::class, 'update']);
-Route::get('/admin/roles/delete/{id}', [App\Http\Controllers\Admin\RoleController::class, 'delete']);
+    Route::get('/admin/roles/index', [App\Http\Controllers\Admin\RoleController::class, 'index']);
+    Route::get('/admin/roles/create', [App\Http\Controllers\Admin\RoleController::class, 'create']);
+    Route::post('/admin/roles/store', [App\Http\Controllers\Admin\RoleController::class, 'store']);
+    Route::get('/admin/roles/edit/{id}', [App\Http\Controllers\Admin\RoleController::class, 'edit']);
+    Route::post('/admin/roles/update/{id}', [App\Http\Controllers\Admin\RoleController::class, 'update']);
+    Route::get('/admin/roles/delete/{id}', [App\Http\Controllers\Admin\RoleController::class, 'delete']);
 
+//Menus
+  Route::get('/admin/menus/index', [App\Http\Controllers\Admin\MenuController::class, 'index']);
+  Route::get('/admin/menus/create', [App\Http\Controllers\Admin\MenuController::class, 'create']);
+  Route::post('/admin/menus/store', [App\Http\Controllers\Admin\MenuController::class, 'store']);
+  Route::get('/admin/menus/edit/{id}', [App\Http\Controllers\Admin\MenuController::class, 'edit']);
+  Route::post('/admin/menus/update/{id}', [App\Http\Controllers\Admin\MenuController::class, 'update']);
+  Route::get('/admin/menus/delete/{id}', [App\Http\Controllers\Admin\MenuController::class, 'delete']);
+
+//Menus Items
+  Route::get('/admin/menus_items/{menu}/index', [App\Http\Controllers\Admin\MenuItemController::class,'index']);
+  Route::post('/admin/menus_items/store', [App\Http\Controllers\Admin\MenuItemController::class,'store']);
+  
+  Route::get('/admin/menus_items/edit/{id}', [App\Http\Controllers\Admin\MenuItemController::class, 'edit']);
+  Route::post('/admin/menus_items/update/{id}', [App\Http\Controllers\Admin\MenuItemController::class, 'update']);
+  
+  Route::get('/admin/menus_items/delete/{id}', [App\Http\Controllers\Admin\MenuItemController::class, 'delete']);
+  
 
 //products
     Route::get('/admin/products/index', [App\Http\Controllers\Admin\ProductController::class, 'index']);
@@ -76,32 +93,37 @@ Route::get('/admin/roles/delete/{id}', [App\Http\Controllers\Admin\RoleControlle
     Route::post('/admin/products/update/{id}', [App\Http\Controllers\Admin\ProductController::class, 'update']);
     Route::get('/admin/products/remove-image/{id}', [App\Http\Controllers\Admin\ProductController::class, 'remove_image']);
     Route::get('/admin/products/delete/{id}', [App\Http\Controllers\Admin\ProductController::class, 'delete']);
+    Route::post('/admin/products/variations/{id}', [App\Http\Controllers\Admin\ProductController::class, 'variations']);
+    Route::get('/admin/products/remove-variation/{id}', [App\Http\Controllers\Admin\ProductController::class, 'remove_variation']);
 
-
-//Sliders
+  //Sliders
     Route::get('/admin/sliders/index', [App\Http\Controllers\Admin\SliderController::class, 'index']);
     Route::get('/admin/sliders/create', [App\Http\Controllers\Admin\SliderController::class, 'create']);
     Route::post('/admin/sliders/store', [App\Http\Controllers\Admin\SliderController::class, 'store']);
     Route::get('/admin/sliders/edit/{id}', [App\Http\Controllers\Admin\SliderController::class, 'edit']);
     Route::post('/admin/sliders/update/{id}', [App\Http\Controllers\Admin\SliderController::class, 'update']);
     Route::get('/admin/sliders/delete/{id}', [App\Http\Controllers\Admin\SliderController::class, 'delete']);
-    Route::post('/admin/products/variations/{id}', [App\Http\Controllers\Admin\ProductController::class, 'variations']);
-    Route::get('/admin/products/remove-variation/{id}', [App\Http\Controllers\Admin\ProductController::class, 'remove_variation']);
+  
 
+   //Collections
+    Route::get('/admin/collections/index', [App\Http\Controllers\Admin\CollectionController::class, 'index']);
+    Route::get('/admin/collections/create', [App\Http\Controllers\Admin\CollectionController::class, 'create']);
+    Route::post('/admin/collections/store', [App\Http\Controllers\Admin\CollectionController::class, 'store']);
+    Route::get('/admin/collections/edit/{id}', [App\Http\Controllers\Admin\CollectionController::class, 'edit']);
+    Route::post('/admin/collections/update/{id}', [App\Http\Controllers\Admin\CollectionController::class, 'update']);
+    Route::get('/admin/collections/delete/{id}', [App\Http\Controllers\Admin\CollectionController::class, 'delete']);
+   
 
-
- //products category
+  //products category
     Route::get('/admin/categories/index', [App\Http\Controllers\Admin\CategoryController::class, 'index']);
     Route::get('/admin/categories/create', [App\Http\Controllers\Admin\CategoryController::class, 'create']);
     Route::post('/admin/categories/store', [App\Http\Controllers\Admin\CategoryController::class, 'store']);
+    Route::get('/admin/categories/sort', [App\Http\Controllers\Admin\CategoryController::class, 'sort']);
     Route::get('/admin/categories/edit/{id}', [App\Http\Controllers\Admin\CategoryController::class, 'edit']);
     Route::post('/admin/categories/update/{id}', [App\Http\Controllers\Admin\CategoryController::class, 'update']);
     Route::get('/admin/categories/delete/{id}', [App\Http\Controllers\Admin\CategoryController::class, 'delete']);
 
-
-
-
- //filemanager
+  //filemanager
     Route::get('admin/filemanager',[App\Http\Controllers\Admin\FilemanagerController::class,'index']);
     Route::get('admin/filemanager/create',[App\Http\Controllers\Admin\FilemanagerController::class,'create']);
     Route::post('admin/filemanager/store',[App\Http\Controllers\Admin\FilemanagerController::class,'store']);
@@ -109,7 +131,7 @@ Route::get('/admin/roles/delete/{id}', [App\Http\Controllers\Admin\RoleControlle
     Route::post('admin/filemanager/update/{id}',[App\Http\Controllers\Admin\FilemanagerController::class,'update']);
     Route::get('admin/filemanager/delete/{id}',[App\Http\Controllers\Admin\FilemanagerController::class,'delete']);
 
-    //Settings
+  //Settings
     Route::get('admin/settings/edit', [App\Http\Controllers\Admin\SettingController::class, 'edit']);
     Route::post('admin/settings/update', [App\Http\Controllers\Admin\SettingController::class, 'update']);
 

@@ -12,7 +12,6 @@ class Category extends Model
 
     /**
      * The attributes that are mass assignable.
-     *
      * @var array<int, string>
      */
     protected $fillable = [
@@ -20,7 +19,7 @@ class Category extends Model
         'title',
         'slug',
         'details',
-        'image',
+        'image_id',
         'parent_id',
         'level',
         'meta_title',
@@ -48,6 +47,70 @@ class Category extends Model
     public function img()
     {
         return $this-> belongsTo(Filemanager::class, 'image');
+    }
+
+    public static function get_category_dropdown(){
+
+        $html = "";
+
+        foreach(Category::all() as $category){
+        
+           $subcats = $category->children; 
+
+           $html .="  <option value='".$category->id."'>".$category->title." </option> ";
+
+                    foreach($subcats as $child){
+       
+                        $html .=" <option  
+                         value='".$child->id."'>---- ".$child->title."</option>";
+
+                        foreach($child->children as $subchild){
+                            $html .= "<option  value='".$subchild->id."' >--------- ".$subchild->title."</option>";
+                        }
+
+                    }   
+
+        }
+
+        return $html;
+
+    }
+
+    public static function get_categories_options (){
+
+        $html = "";
+        foreach(Category::where('is_enable',1)->get() as $category){
+
+          $subcats = $category->children;
+          $level = count($subcats) ? "sub-level" : '';
+        
+
+          $html .=" <li class='level1 ".$level."'>
+            <a href='#;' class='site-nav'> ".$category->title."</a>";
+
+                if(count($subcats)){
+                    $html .= '<ul class="sublinks">';
+                        foreach($subcats as $child){
+                            $html .=  '<li class="level2" >';
+                            $html .=  ' <a href="#" class="site-nav"> '.$child->title.'</a>';
+                                if(count($child->children)){
+                                    $html .=  '<ul>';
+                                        foreach($child->children as $subchild){
+                                            $html .=   '<li>'.$subchild->title.'</li>';
+                                        }
+                                        $html .=  '</ul>';
+                                }
+                                $html .=  '</li>';
+                        }
+                        $html .=  '</ul>';
+                }
+
+                $html .=  '</li>' ;
+        }
+
+
+        return $html;
+
     }
 
 

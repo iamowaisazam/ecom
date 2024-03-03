@@ -30,5 +30,10 @@ class VariationAttribute extends Model
           return $this->belongsTo(Attribute::class, 'attribute_id');
       }
 
+      public function values()
+      {
+          return $this->belongsTo(Value::class, 'value_id');
+      }
+
      
 }

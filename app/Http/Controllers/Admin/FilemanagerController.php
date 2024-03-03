@@ -48,44 +48,53 @@ class FilemanagerController extends Controller
     public function store(Request $request)
     {
 
+   
+
         $request->validate([
             'title' => ['max:255'],
             'short_description' =>['max:255'],
-            'myfile' => ['required','file','mimes:jpg,png,pdf','max:2048'],
+            'files.*' => ['required','file','mimes:jpg,png,pdf','max:2048'],
         ]);
 
-        if($request->file('myfile')){
+        // dd($request->all());
 
-            $myfile = $request->file('myfile');
-            $fileExtension = $myfile->getClientOriginalExtension();
-            $fileSizeInBytes = $myfile->getSize();
-            $mimeType = $myfile->getMimeType();
-            $fileTitle = pathinfo($myfile->getClientOriginalName(), PATHINFO_FILENAME);        
-            $filename = time().'.'.$fileExtension;
-            $path = 'filemanager/'.$filename;
-            $upload_path = base_path('public/filemanager');
-            // dd($upload_path);
-            $request->file('myfile')->move($upload_path,$filename);
+        
 
-            $filemanager = new Filemanager();
-            $filemanager->filename = $filename;
-            if($request->title == ''){
-                $filemanager->title = $filename;
-            }else{
-                $filemanager->title = $fileTitle;
+        foreach ($request->files as $files) {
+        
+            foreach ($files as $myfile) {
+             
+        
+                $fileExtension = $myfile->getClientOriginalExtension();
+                $fileSizeInBytes = $myfile->getSize();
+                $mimeType = $myfile->getMimeType();
+                $fileTitle = pathinfo($myfile->getClientOriginalName(), PATHINFO_FILENAME);        
+                $filename = uniqid().'.'.$fileExtension;
+                $path = 'filemanager/'.$filename;
+                $upload_path = base_path('public/filemanager');
+                // dd($upload_path);
+                $myfile->move($upload_path,$filename);
+
+                $filemanager = new Filemanager();
+                $filemanager->filename = $filename;
+                if($request->title == ''){
+                    $filemanager->title = $filename;
+                }else{
+                    $filemanager->title = $fileTitle;
+                }
+                
+                $filemanager->size = $fileSizeInBytes;
+                $filemanager->type = $mimeType;
+                $filemanager->extension = $fileExtension;
+                $filemanager->path = $path;
+                $filemanager->preview = asset($path);
+                $filemanager->save();
+
             }
-            
-            $filemanager->size = $fileSizeInBytes;
-            $filemanager->type = $mimeType;
-            $filemanager->extension = $fileExtension;
-            $filemanager->path = $path;
-            $filemanager->preview = asset($path);
-            $filemanager->save();
-
-            return redirect('/admin/filemanager')->with('success','File Uploaded');
-
 
         }
+
+        return redirect('/admin/filemanager')->with('success','File Uploaded');
 
 
     }

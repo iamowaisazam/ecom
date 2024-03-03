@@ -136,6 +136,9 @@
                             </div>
                         </header>
                         <div class="card-body variations ">
+                            <div class="table-responsive">
+
+                            
                            <table class="table" >
                             <thead>
                                 <tr>
@@ -154,15 +157,15 @@
                                            name="variation[{{$key}}][id]" 
                                            class="form-control" 
                                            value="{{$variation->id}}" />
-                                        <input readonly name="variation[{{$key}}][sku]" 
+                                        <input style="width: 124px;" readonly name="variation[{{$key}}][sku]" 
                                            class="form-control" 
                                            value="{{$variation->sku}}" />
                                     </td>
                                     <td><input required name="variation[{{$key}}][quantity]" class="form-control" 
-                                        value="{{$variation->quantity}}" /></td>
-                                    <td><input required name="variation[{{$key}}][price]" class="form-control" 
+                                        style="width: 70px;" value="{{$variation->quantity}}" /></td>
+                                    <td><input style="width: 70px;" required name="variation[{{$key}}][price]" class="form-control" 
                                         value="{{$variation->price}}" /></td>
-                                    <td><input name="variation[{{$key}}][thumbnail]" class="form-control" 
+                                    <td><input style="width: 70px;" name="variation[{{$key}}][thumbnail]" class="form-control" 
                                         value="{{$variation->image}}" /></td>
                                     <td>
                                         <a class="btn btn-danger" 
@@ -174,6 +177,7 @@
                             </tbody>
                            </table>
                         </div>
+                        </div>
                     </section>
 
                     @include('admin.products.description')
@@ -184,7 +188,7 @@
                 <div class="col-md-3">
                 
                     @include('admin.products.thumbnail')
-                    
+                    @include('admin.products.collections')
                     @include('admin.products.category')
                     @include('admin.products.tags')
                     @include('admin.products.details')

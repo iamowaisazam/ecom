@@ -53,10 +53,18 @@
                                     <div class="my-2 row">
                                         <div class="col-md-12">
                                               <label class="form-label">File</label>
-                                              <input type="file" name="myfile" class="form-control" >
-                                              @if($errors->has('myfile'))
-                                                <p class="pt-2" style="color: red">{{ $errors->first('myfile')}}</p>
-                                              @endif
+                                              <input type="file" multiple name="files[]" class="form-control" >
+                                              @if ($errors->has('files.*'))
+                                                    <div class="alert alert-danger">
+                                                        <ul>
+                                                            @foreach ($errors->get('files.*') as $fileErrors)
+                                                                @foreach ($fileErrors as $error)
+                                                                    <li>{{ $error }}</li>
+                                                                @endforeach
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                             @endif
                                         </div>
                                     </div>
 

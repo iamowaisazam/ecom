@@ -7,6 +7,8 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Attribute;
+use App\Models\Collection;
+use App\Models\ProductCollection;
 use App\Models\Variation;
 use App\Models\VariationAttribute;
 use App\Models\Role;
@@ -16,6 +18,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Carbon\Carbon;
 use Auth;
+use Collator;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\Rule;
@@ -43,21 +46,42 @@ class ProductController extends Controller
     public function index(Request $request)
     {
 
+        $categoryDropdown = Category::get_category_dropdown();
+
+
         if($request->ajax()){
 
             $query = Product::Query();
 
-            //Search
-            $search = $request->get('search')['value'];
-            if($search != ""){
-               $query = $query->where(function ($s) use($search) {
-                   $s->where('products.title','like','%'.$search.'%')
-                   ->orwhere('products.slug','like','%'.$search.'%')
-                   ->orwhere('products.type','like','%'.$search.'%');
-               });
+    
+            if($request->title){
+                $query->where('title','like','%'.$request->title.'%');
             }
 
+            if($request->slug){
+                $query->where('slug','like','%'.$request->slug.'%');
+            }
+
+            if($request->price){
+                $query->where('price',$request->price);
+            }
+
+            if($request->has('category_id') && $request->category_id != '' ){
+                $query->where('category_id',$request->category_id);
+            }
+
+            if($request->has('is_enable') && $request->is_enable != ''){
+                $query->where('is_enable',$request->is_enable);
+            }
+
+            if($request->has('is_featured') &&  $request->is_featured != ''){
+                $query->where('is_featured',$request->is_featured);
+            }
+
+
+
             $count = $query->get();
+
             $records = $query->skip($request->start)
             ->take($request->length)
             ->get();
@@ -79,17 +103,20 @@ class ProductController extends Controller
                 $img = '<img  style="width:100px;height:50px" src="'.asset($thumb_path).'" />';
 
                 array_push($data,[
+                    $action,
                     $value->id,
+                   
+                    $value->get_category() ? $value->get_category()->title : '-',
                     $img,
                     $value->title,
                     $value->slug,
                     $value->price,
-                    $value->get_category() ? $value->get_category()->title : '-',
+                   
                     '<div class="switchery-demo m-b-30">
                     <input data-id="'.Crypt::encryptString($value->id).'" '.$is_enable.' type="checkbox"  class="is_enable js-switch" data-color="#009efb"/></div>',
                     '<div class="switchery-demo m-b-30">
                     <input data-id="'.Crypt::encryptString($value->id).'" '.$is_featured.' type="checkbox"  class="is_featured js-switch" data-color="#009efb"/></div>',
-                    $action,
+                    
                  ]
                 );
                 
@@ -108,7 +135,7 @@ class ProductController extends Controller
         $categories = Category::all();
         
         
-        return view('admin.products.index',compact('categories'));
+        return view('admin.products.index',compact('categories','categoryDropdown'));
     }
 
     
@@ -136,11 +163,21 @@ class ProductController extends Controller
     public function store(Request $request)
     {
 
-      
+        $validator = Validator::make($request->all(), [
+            "title" => 'required|max:255',
+            'slug' => [ 'required','max:255',Rule::unique('products'),
+            ],
+        ]);
+
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
 
         $product = Product::create([
             'title' => $request->title,
-            'slug' => uniqid(),
+            'slug' => $request->slug,
             'is_enable' => 0,
         ]);
 
@@ -166,9 +203,12 @@ class ProductController extends Controller
          $categories = Category::all();
          $brands = Brand::all();
          $attributes = Attribute::with('values')->get();
+         $collections = Collection::where('is_enable',1)->get();
+
+        //  dd($product->collection);
 
 
-        return view('admin.products.edit',compact('product','categories','brands','attributes'));
+        return view('admin.products.edit',compact('product','categories','brands','attributes','collections'));
     }
 
     function generateAttributeCombinations($attributes) {
@@ -197,6 +237,9 @@ class ProductController extends Controller
      */
     public function update(Request $request,$id)
     {
+
+        // dd($request->all());
+
         
         $id = Crypt::decryptString($id);
         $validator = Validator::make($request->all(), [
@@ -235,6 +278,18 @@ class ProductController extends Controller
                     "price" => $v['price'],
                     "image" => $v['thumbnail'],
                 ]);
+            }
+        }
+
+        ProductCollection::where('product_id',$product->id)->delete();
+        if($request->has('collections')){
+            foreach ($request->collections as $collect) {
+                
+                ProductCollection::create([
+                    'product_id' =>    $product->id,
+                    'collection_id' => $collect,
+                ]);
+
             }
         }
 
@@ -280,9 +335,11 @@ class ProductController extends Controller
     public function delete($id)
     {
         $product = Product::find(Crypt::decryptString($id));
+
         if($product == false){
             return back()->with('warning','Record Not Found');
         }else{
+            ProductCollection::where('product_id',$product->id)->delete();
             $product->delete();
             return redirect('/admin/products/index')->with('success','Record Deleted Success'); 
         }

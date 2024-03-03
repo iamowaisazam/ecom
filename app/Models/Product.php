@@ -45,6 +45,12 @@ class Product extends Model
         return $this->hasMany(Variation::class, 'product_id');
     }
 
+     // Relationship to itself for parent-child relationship
+     public function collection()
+     {
+         return $this->hasMany(ProductCollection::class, 'product_id');
+     }
+
     function generateAttributeCombinations($atts) {
 
 
@@ -83,9 +89,14 @@ class Product extends Model
 
     public function get_gallery()
     {  
+
         $img = explode(',',$this->images);
         array_push($img,$this->image);
         array_push($img,$this->hover_image);
+
+        foreach ($this->variations->pluck('image')->toArray() as $val) {
+            array_push($img,$val);
+        }
 
         return Filemanager::whereIn('id',array_map('intval',$img))->get();
     }

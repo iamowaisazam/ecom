@@ -49,34 +49,16 @@ class SettingController extends Controller
      */
     public function update(Request $request)
     {
-
-        // if($request->has('file')){
-        //     dd($request->has('file'));
-        // }
-
-        // dd($request->all());
-
         
-
         foreach ($request->all() as $key => $value) {
             if(isset($value['value'])){
-
-                if(in_array($value['type'],['text','textarea','keywords'])){
+                if(in_array($value['type'],['text','textarea','keywords','image'])){
                      Setting::where('field',$key)->update(["value" => $value['value']]);
-                }
-
-                if($value['type'] == 'image'){
-                    $filename = 'settings_'.$key.'_'.uniqid().'.'.$value['value']->getClientOriginalExtension();
-                    $value['value']->move(public_path('admin/uploads'), $filename);
-                    Setting::where('field',$key)->update(["value" => $filename]);
-                }
-               
+                }       
             }
         }
-
-        
-
         return back()->with('success','Record Updated');
+        
     }
   
 }

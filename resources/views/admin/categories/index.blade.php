@@ -6,8 +6,7 @@ href="{{asset('admin/assets/node_modules/datatables.net-bs4/css/dataTables.boots
 <link rel="stylesheet" type="text/css"
 href="{{asset('admin/assets/node_modules/datatables.net-bs4/css/responsive.dataTables.min.css')}}">
 <link href="{{asset('admin/assets/node_modules/switchery/dist/switchery.min.css')}}" rel="stylesheet" type="text/css" />
-
-
+ 
 <style>
     
     table td{
@@ -19,12 +18,10 @@ href="{{asset('admin/assets/node_modules/datatables.net-bs4/css/responsive.dataT
     }
 
     @media (max-width: 767px){
-        .container-fluid, .container-sm, .container-md, .container-lg, .container-xl, .container-xxl {
-           
+        .container-fluid, .container-sm, .container-md, .container-lg, .container-xl, .container-xxl {       
             overflow: scroll!important;
         }
     }
-
 
 </style>
 @endsection
@@ -79,7 +76,8 @@ href="{{asset('admin/assets/node_modules/datatables.net-bs4/css/responsive.dataT
 
 @endsection
  @section('js')
-
+ 
+      
        <!-- This is data table -->
        <script src="{{asset('admin/assets/node_modules/datatables.net/js/jquery.dataTables.min.js')}}"></script>
        <script src="{{asset('admin/assets/node_modules/datatables.net-bs4/js/dataTables.responsive.min.js')}}"></script>
@@ -88,7 +86,8 @@ href="{{asset('admin/assets/node_modules/datatables.net-bs4/css/responsive.dataT
 
        <script>
         $(function () {
-          
+
+        
             var application_table = $('.mydatatable').DataTable({
             processing: true,
             "searching": true,  
@@ -123,10 +122,7 @@ href="{{asset('admin/assets/node_modules/datatables.net-bs4/css/responsive.dataT
             application_table.draw();
         });
 
-        $("#example23 thead .row-checkbox").change(function (e) { 
-            var isChecked = $(this).prop('checked');
-            $('#example23 tbody .row-checkbox').prop('checked', isChecked);
-        });
+    
 
         $(".mydatatable").delegate(".is_enable", "change", function(){
             var isChecked = $(this).prop('checked');
@@ -172,6 +168,7 @@ href="{{asset('admin/assets/node_modules/datatables.net-bs4/css/responsive.dataT
         });
 
 
+      
       });
     </script>
 @endsection

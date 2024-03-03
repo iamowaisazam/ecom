@@ -10,21 +10,27 @@
 
 @endsection
 @section('content')
-<div class="row">
-    <div class="col-lg-12">
-        <section class="card">
-            <header class="card-headers">
-                EDIT YOUR {{ ucwords(str_ireplace("_", " ",$group))}}
-            </header>
-           
-        </section>
+
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h4 class="text-themecolor">{{ ucwords(str_ireplace("_", " ",$group))}}</h4>
+    </div>
+    <div class="col-md-7 align-self-center text-end">
+        <div class="d-flex justify-content-end align-items-center">
+            <ol class="breadcrumb justify-content-end">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                <li class="breadcrumb-item active">Settings</li>
+            </ol>
+        </div>
     </div>
 </div>
 
 <div class="row">
     <div class="col-lg-12">
         <section class="card">            
-            <header class="card-header">Fill this Form & Edit {{ ucwords(str_ireplace("_", " ",$group))}}</header>
+            <header class="card-header bg-info">
+                <h4 class="mb-0 text-white"> Fill this Form & Edit {{ ucwords(str_ireplace("_", " ",$group))}}</h4>
+                </header>
             <div class="card-body">
                 <form method="post" 
                 enctype="multipart/form-data" 
@@ -55,16 +61,17 @@
                                 <div class="form-group">
                                     <label>{{ ucwords(str_ireplace("_", " ",$item->field))}} :</label>
                                     <input 
-                                      class="image"
-                                      type="file" 
+                                      class="image form-control"
+                                      type="text" 
                                       value="{{$item->value}}"  
                                       placeholder="{{ ucwords(str_ireplace("_", " ",$item->field))}}" 
                                       name="{{$item->field}}[value]" >
                                       <input type="hidden" name="{{$item->field}}[type]"
                                       value="{{$item->type}}" >
                                       <br>
-
-                                      <img style="width:100px;height:100px;" src="{{asset('/admin/uploads/')}}/{{$item->value}}" />
+                                      @if($item->image)
+                                      <img style="width:100px;height:100px;" src="{{asset('/admin/uploads/')}}/{{$item->image->path}}" />
+                                      @endif
                                 </div>
                             </div>
                             @break

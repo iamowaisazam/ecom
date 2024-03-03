@@ -34,7 +34,7 @@ class Slider extends Model
 
     public function image()
     {
-        return $this-> belongsTo(Filemanager::class, 'image_id');
+        return $this->belongsTo(Filemanager::class, 'image_id');
     }
 
 
