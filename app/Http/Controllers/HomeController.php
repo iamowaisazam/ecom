@@ -9,6 +9,7 @@ use App\Models\Attribute;
 use App\Models\Value;
 use App\Models\Category;
 use App\Models\Collection;
+use App\Models\ProductCollection;
 use App\Models\Variation;
 use App\Models\VariationAttribute;
 use App\Models\Slider;
@@ -114,13 +115,12 @@ class HomeController extends Controller
      */
     public function product($id)
     {
-        // $id = Crypt::decryptString($id);
+       
         $releated_products = Product::query()->limit(5)->get();
         $product = Product::with(['variations.attributes.values','variations.attributes.attribute'])
         ->where('slug',$id)
         ->first();
 
-    
         $attributes = [];
         $values = [];
         $variations = [];
@@ -162,16 +162,43 @@ class HomeController extends Controller
      * Show the application dashboard.
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function shop()
+    public function shop(Request $request)
     {
-        $data = Product::paginate(5);
-        $categories = Category::with('children.children')->where('parent_id', 0)->get();
-        return view('theme.shop',compact('data','categories'));
+
+        $data = Product::query();
+
+        if($request->has('category') && $request->category != ''){
+           $category = Category::where('slug',$request->category)->first(); 
+           if(!$category){
+             return back();
+            }
+            $data = $data->where('category_id',$category->id);
+        }
+
+        
+        if($request->has('collection') && $request->collection != ''){
+            $collection = Collection::where('slug',$request->collection)->first(); 
+            if(!$collection){
+              return back();
+             }
+
+                $ProductCollection = ProductCollection::where('collection_id',$collection->id)->get()->pluck('product_id');
+                $data = $data->whereIn('id',$ProductCollection);
+            
+        }
+        
+        
+        $data = $data->paginate(10);
+
+
+        $categories = Category::with('children.children')->where('parent_id', NULL)->get();
+        $collections = Collection::where('is_enable',1)->get();
+
+        return view('theme.shop',compact('data','categories','collections'));
     }
 
     /**
      * Show the application dashboard.
-     *
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function add_to_cart(Request $request)

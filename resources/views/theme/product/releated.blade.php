@@ -7,19 +7,20 @@
     <div class="productPageSlider">
       @foreach ($releated_products as $rel)
       <?php 
-            $thumb = $product->get_thumbnail() ? asset($product->get_thumbnail()->path) : '';
-            $img_hover = $product->get_hover_image() ? asset($product->get_hover_image()->path) : '';
+          
         ?>
           
         <div class="col-12 item">
             <div class="product-image">
                 <a href="{{URL::to('/products')}}/{{$rel->slug}}">
                     <img class="primary blur-up lazyload" 
-                    data-src="{{asset($thumb)}}" 
-                    src="{{asset($thumb)}}" alt="image" title="product" />
+                    data-src="{{asset($rel->get_thumbnail ? $rel->get_thumbnail->path : '')}}" 
+                    src="{{asset($rel->get_thumbnail ? $rel->get_thumbnail->path : '')}}" 
+                    alt="image" 
+                    title="product" />
                     <img class="hover blur-up lazyload" 
-                    data-src="{{asset($img_hover)}}" 
-                    src="{{asset($img_hover)}}" 
+                    data-src="{{asset($rel->get_hover_image ? $rel->get_hover_image->path : '')}}" 
+                    src="{{asset($rel->get_hover_image ? $rel->get_hover_image->path : '')}}" 
                      alt="image" title="product" />
                   
                 </a>

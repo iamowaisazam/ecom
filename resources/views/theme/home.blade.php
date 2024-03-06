@@ -5,7 +5,7 @@
 @endphp
 
 @section('metatags')
-    <title>Erha Wears</title>
+    <title>{{$global_d['site_title']}}</title>
 
 @endsection
 
@@ -27,12 +27,15 @@
                     @foreach ($sliders as $slide)
                         <div class="slide slide1 d-block">
                             <div class="slideimg blur-up lazyload">
+                                <a href="{{$slide->link}}">
                                 <img class="blur-up lazyload" 
                                 data-src="{{ asset($slide->image ? $slide->image->path : '')}}" 
                                 src="{{asset($slide->image ? $slide->image->path : '')}}" 
                                 alt="Welcome to Diva" title="Welcome to Diva" />
-                                <div class="slideshow__text-wrap slideshow__overlay">
-                                    <div class="slideshow__text-content mt-0 center">
+                              </a>
+
+                                <div class="d-none slideshow__text-wrap slideshow__overlay">
+                                    <div class=" slideshow__text-content mt-0 center">
                                         <div class="container">
                                             <div class="wrap-caption {{$slide->alignment}}">
                                                 <h2 class="h1 mega-title slideshow__title">{{$slide->title}}</h2>
@@ -69,7 +72,7 @@
                                 <img class="blur-up lazyload" 
                                 data-src="{{asset($collect->image? $collect->image->path : '')}}" 
                                 src="{{asset($collect->image? $collect->image->path : '')}}" />
-                                <a href="{{URL::to('/shop')}}" class="collection-grid-item__title-wrapper">
+                                <a href="{{URL::to('/shop')}}?collection={{$collect->slug}}" class="collection-grid-item__title-wrapper">
                                     <div class="title-wrapper">
                                         <h3 class="collection-grid-item__title fw-bold">
                                             {{$collect->title}}</h3>
@@ -122,8 +125,7 @@
                     <div class="row">
                         @foreach ($products as $product)
                          <?php 
-                            $thumb = $product->get_thumbnail() ? asset($product->get_thumbnail()->path) : '';
-                            $img_hover = $product->get_hover_image() ? asset($product->get_hover_image()->path) : '';
+                       
                          ?>
                         
                         <div class="col-6 col-sm-6 col-md-4 col-lg-3 item">
@@ -131,14 +133,14 @@
                                 <a href="{{URL::to('/products')}}/{{$product->slug}}">
                                     
                                     <img class="primary blur-up lazyload" 
-                                    data-src="{{$thumb}}"
-                                    src="{{$thumb}}" 
+                                    data-src="{{$product->get_thumbnail ? asset($product->get_thumbnail->path) : ''}}"
+                                    src="{{$product->get_thumbnail ? asset($product->get_thumbnail->path) : ''}}" 
                                     alt="image" 
                                     title="product" />
 
                                     <img class="hover blur-up lazyload" 
-                                    data-src="{{$img_hover}}" 
-                                    src="{{$img_hover}}" 
+                                    data-src="{{$product->get_hover_image ? asset($product->get_hover_image->path) : ''}}" 
+                                    src="{{$product->get_hover_image ? asset($product->get_hover_image->path) : ''}}" 
                                     alt="image" 
                                     title="product" />
                                     

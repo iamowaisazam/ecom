@@ -1,5 +1,6 @@
 /node_modules
 /public/hot
+/public/filemanager
 /public/storage
 /storage/*.key
 .env

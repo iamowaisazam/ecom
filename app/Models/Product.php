@@ -103,12 +103,12 @@ class Product extends Model
 
     public function get_thumbnail()
     {   
-        return Filemanager::where('id',$this->image)->first();
+        return $this->belongsTo(Filemanager::class, 'image');
     }
 
     public function get_hover_image()
     {
-        return Filemanager::where('id',$this->hover_image)->first();
+        return $this->belongsTo(Filemanager::class, 'hover_image');
     }
 
     public function get_category()

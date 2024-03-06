@@ -50,9 +50,8 @@
                     <div class="zoompro-wrap product-zoom-right pl-20">
                         <div class="zoompro-span">
                             <img class="blur-up lazyload zoompro" 
-                            data-zoom-image="{{asset($product->get_thumbnail()->path)}}" 
-                            alt="" 
-                            src="{{asset($product->get_thumbnail()->path)}}" />               
+                            data-zoom-image="{{asset($product->get_thumbnail ? $product->get_thumbnail->path : '')}}"  
+                            src="{{asset($product->get_thumbnail ? $product->get_thumbnail->path : '')}}" />               
                         </div>
                    
                         <div class="product-buttons">
@@ -374,9 +373,9 @@
 
 
         <script>
-            $(function () {
+            $(function(){
 
-                $('.variation_change').change(function (e) { 
+                $('.variation_change').change(function(e){ 
                    
                    let forms = {
                      qty:$('.qty').val(),

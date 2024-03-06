@@ -18,7 +18,7 @@
     @yield('css')
 </head>
 <body class="template-index diva home8-simple">
-
+    <?php //dd($carts); ?>
   <!-- Page Loader -->
   <div id="pre-loader">
      <img src="{{asset('theme/assets/images/loader.gif')}}" />
@@ -126,7 +126,7 @@
                         <!-- End Desktop Logo -->
                         
                         <!-- Desktop Navigation -->
-                        <div class="col-2 col-sm-3 col-md-3 col-lg-6 d-none d-lg-block">
+                        <div class="col-2 col-sm-3 col-md-3 col-lg-7 col-xl-8 d-none d-lg-block">
                             <!-- Desktop Menu -->
                             <nav class="grid__item" id="AccessibleNav">
                                 <ul id="siteNav" class="d-flex flex-wrap site-nav medium left ms-0 hidearrow">
@@ -154,7 +154,7 @@
                         <!-- End Desktop Navigation -->
 
                         <!-- Right Side -->
-                        <div class="col-4 col-sm-4 col-md-5 col-lg-4">
+                        <div class="col-4 col-sm-4 col-md-5 col-lg-3 col-xl-2">
                             <div class="right-action text-action d-flex-align-center justify-content-end">
                                 <!-- Search -->
                                 {{-- <div class="item site-header__search d-none d-lg-inline-block">
@@ -305,7 +305,7 @@
         </div>
     </footer>
     <!-- End Footer -->
-
+  
     <!-- Scoll Top -->
     <div id="site-scroll"><i class="icon an an-angle-up"></i></div>
 
@@ -320,15 +320,15 @@
                     <h4 class="modal-title" id="myModalLabel2">Shopping Cart <strong>{{count($carts)}}</strong> items</h4>
                 </div>
                 <div class="minicart-body">
-
+                   
                     <div style="display: {{count($carts) ? 'none' : 'block'}}" class="empty-cart">
                         <p>You have no items in your shopping cart.</p>
                     </div>
                     <div id="drawer-minicart" class="block block-cart">
                         <ul class="mini-products-list">
+                            <?php $total = 0;?>
                             @foreach ($carts as $item)
-                            
-                                
+                    
                             <li class="item">
                                 <a class="product-image" href="{{URL::to('/products')}}/{{$item['slug']}}">
                                 <img src="{{asset($item['image'])}}" ></a>
@@ -340,24 +340,15 @@
                                         title="Remove">
                                        <i class="an an-times" aria-hidden="true"></i>
                                     </a>
-
-                                    <a href="{{URL::to('/cart')}}" 
-                                        class="edit-i remove" 
-                                        data-bs-toggle="tooltip" 
-                                        data-bs-placement="top" 
-                                        title="Edit">
-                                        <i class="an an-edit" aria-hidden="true"></i>
-                                    </a>
-
                                     <a class="pName" 
-                                            href="{{URL::to('/products')}}/{{$item['slug']}}">{{$item['title']}}
+                                        href="{{URL::to('/products')}}/{{$item['slug']}}">
+                                        {{$item['title']}}
                                     </a>
 
-                                    <div class="variant-cart">SKU:{{$item['sku']}}</div>
+                                    <div class="variant-cart">SKU:{{$item['sku']}}</div>  
                                     <div class="m-0 wrapQtyBtn clearfix">
                                         <span class=" label">Qty:{{$item['quantity']}}</span>
                                     </div>
-
                                     <div class="m-0 priceRow clearfix">
                                         <div class="product-price">
                                             Price:<span class="money">${{$item['price']}}</span>
@@ -365,6 +356,7 @@
                                     </div>
                                 </div>
                             </li>
+                            <?php $total += $item['price'] * $item['quantity']; ?>
                             @endforeach
 
                             
@@ -378,7 +370,11 @@
                         <p class="label"><b>Shipping:</b><span class="item product-price"><span class="shipping">$10.00</span></span></p>
                         <p class="label"><b>Tax:</b><span class="item product-price"><span class="tax">$0.00</span></span></p> --}}
 
-                        <p class="label"><b>Total:</b><span class="item product-price"><span class="totals">$0.00</span></span></p>
+                        <p class="label"><b>Total:</b>
+                            <span class="item product-price">
+                                <span class="totals">${{number_format($total,2)}}</span>
+                            </span>
+                        </p>
                     </div>
                     <div class="buttonSet d-flex flex-row align-items-center text-center">
                         <a href="{{URL::to('/cart')}}" class="btn btn-secondary w-50 me-3">View Cart</a>
