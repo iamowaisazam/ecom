@@ -131,7 +131,7 @@
                               <span class="money">
                                 @if($product->selling_price)
                                     <span class="old-price" style="font-size: 20px;">
-                                    ${{$product->selling_price}}
+                                        {{$global_d['site_currency']}} {{$product->selling_price}}
                                     </span>
                                 @endif
                                 <span class="r-price" >{{$product->price}}</span>
@@ -233,7 +233,7 @@
                             <div class="product-form__item--submit">
                                     <button 
                                     name="cart-type"
-                                    type="submit" 
+                                    type="button" 
                                     value="cart"
                                     class="btn product-form__cart-submit">
                                     <span>Add to cart</span>
@@ -243,7 +243,7 @@
                                     <button 
                                         name="cart-type" 
                                         value="buy" 
-                                        type="submit" 
+                                        type="button" 
                                         class="payment-button__button payment-button__button--unbranded">
                                         Buy it now
                                     </button>
@@ -424,7 +424,7 @@
                     if(findSku){
 
                         $('.variant-sku').text(findSku.sku);
-                        $('.r-price').text('$'+findSku.price);
+                        $('.r-price').text("{{$global_d['site_currency']}} "+findSku.price);
                         $('.instock').text('In Stock');
                         $('.instock').css('color','green');
                         $('.product-form__item--quantity').show();
@@ -447,6 +447,12 @@
                 });
 
                 $('.variation_change').trigger('change');
+
+
+
+               
+
+
 
             });
         </script>

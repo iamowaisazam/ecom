@@ -248,8 +248,8 @@
                           <a href="{{URL::to('/products')}}/{{$item->slug}}">{{$item->title}}</a>
                       </div>
                       <div class="product-price">
-                          <span class="old-price">${{$item->selling_price}}</span>
-                          <span class="price">${{$item->price}}</span>
+                          <span class="old-price">{{$global_d['site_currency']}} {{$item->selling_price}}</span>
+                          <span class="price">{{$global_d['site_currency']}} {{$item->price}}</span>
                       </div>
                       <div class="product-review">
                           <i class="an an-star"></i>

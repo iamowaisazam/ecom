@@ -100,12 +100,11 @@ class HomeController extends Controller
     {
         
       
-        $categories = Collection::all();
-        $brands = Brand::all();
+        $collections = Collection::where('is_enable',1)->where('is_featured',1)->get();
         $sliders = Slider::where('is_enable',1)->get(); 
-        $products = Product::where('is_enable',1)->get();
+        $products = Product::where('is_enable',1)->where('is_featured',1)->get();
        
-        return view('theme.home',compact('categories','brands','products','sliders'));
+        return view('theme.home',compact('collections','products','sliders'));
     }
 
 
@@ -197,68 +196,15 @@ class HomeController extends Controller
         return view('theme.shop',compact('data','categories','collections'));
     }
 
-    /**
-     * Show the application dashboard.
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function add_to_cart(Request $request)
-    {
-
-        // dd($request->all());
-
-        $cart = session()->get('cart', []);
-        $sku = Variation::where('id',$request->sku)->first();
-
-        if(isset($cart[$request->sku])) {
-            $cart[$request->sku]['quantity']++;
-        } else {
-            $cart[$request->sku] = [
-                "sku" => $request->sku,
-                "quantity" => $request->quantity,
-                "price" => $sku->price,
-                "attributes" => $request->attr,
-            ];
-        }
-        session()->put('cart', $cart);
-
-        return back()->with('success','Product Added In Cart'); 
-            
-    }
 
 
 
-     /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function cart_remove($id)
-    {
-
-        $cart = session()->get('cart', []);
-        if (isset($cart[$id])) {
-            unset($cart[$id]);
-            session()->put('cart', $cart);
-        }
-
-        return back()->with('success','Item Removed In Cart'); 
-            
-    }
-
+    
 
     
     
 
-     /**
-     * Show the application dashboard.
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function cart()
-    {
-
-        $data = Product::all();
-        return view('theme.cart',compact('data'));
-    }
+  
 
   
 }

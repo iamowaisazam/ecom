@@ -14,6 +14,7 @@
        <link href="{{asset('admin/assets/node_modules/toast-master/css/jquery.toast.css')}}" rel="stylesheet">
        <link rel="stylesheet" href="{{asset('theme/assets/css/style.css')}}" />
        <link rel="stylesheet" href="{{asset('theme/assets/css/responsive.css')}}" />
+       <link href="{{asset('admin/assets/node_modules/toast-master/css/jquery.toast.css')}}" rel="stylesheet">
 
     @yield('css')
 </head>
@@ -173,7 +174,7 @@
                                 <!-- End Wishlist -->
                                 <!-- Minicart -->
                                 <div class="item site-cart">
-                                    <a href="{{URL::to('/cart')}}" class="icon-cart site-header-cart btn-minicart text-capitalize" data-bs-toggle="modal" data-bs-target="#minicart-drawer"><i class="icon an an-shopping-bag"></i><span class="text align-middle ms-1 d-none d-md-inline-block">Cart</span><span id="CartCount" class="site-header__cart-count1 ms-1" data-cart-render="item_count">({{count($carts)}})</span></a>
+                                    <a href="{{URL::to('/cart')}}" class="icon-cart site-header-cart btn-minicart text-capitalize" data-bs-toggle="modal" data-bs-target="#minicart-drawer"><i class="icon an an-shopping-bag"></i><span class="text align-middle ms-1 d-none d-md-inline-block">Cart</span><span id="CartCount" class="site-header__cart-count1 ms-1" data-cart-render="item_count">(0)</span></a>
                                 </div>
                                 <!-- End Minicart -->
                             </div>
@@ -317,47 +318,16 @@
             <div class="modal-content">
                 <div class="minicart-header">
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><i class="an an-times" aria-hidden="true" data-bs-toggle="tooltip" data-bs-placement="left" title="Close"></i></button>
-                    <h4 class="modal-title" id="myModalLabel2">Shopping Cart <strong>{{count($carts)}}</strong> items</h4>
+                    <h4 class="modal-title" id="myModalLabel2">Shopping Cart <strong>0</strong> items</h4>
                 </div>
                 <div class="minicart-body">
                    
-                    <div style="display: {{count($carts) ? 'none' : 'block'}}" class="empty-cart">
+                    {{-- <div style="display: {{count($carts) ? 'none' : 'block'}}" class="empty-cart">
                         <p>You have no items in your shopping cart.</p>
-                    </div>
+                    </div> --}}
                     <div id="drawer-minicart" class="block block-cart">
                         <ul class="mini-products-list">
-                            <?php $total = 0;?>
-                            @foreach ($carts as $item)
-                    
-                            <li class="item">
-                                <a class="product-image" href="{{URL::to('/products')}}/{{$item['slug']}}">
-                                <img src="{{asset($item['image'])}}" ></a>
-                                <div class="product-details">
-                                    <a href="{{URL::to('/cart/remove')}}/{{$item['variation_id']}}" 
-                                        class="remove" 
-                                        data-bs-toggle="tooltip" 
-                                        data-bs-placement="top" 
-                                        title="Remove">
-                                       <i class="an an-times" aria-hidden="true"></i>
-                                    </a>
-                                    <a class="pName" 
-                                        href="{{URL::to('/products')}}/{{$item['slug']}}">
-                                        {{$item['title']}}
-                                    </a>
-
-                                    <div class="variant-cart">SKU:{{$item['sku']}}</div>  
-                                    <div class="m-0 wrapQtyBtn clearfix">
-                                        <span class=" label">Qty:{{$item['quantity']}}</span>
-                                    </div>
-                                    <div class="m-0 priceRow clearfix">
-                                        <div class="product-price">
-                                            Price:<span class="money">${{$item['price']}}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <?php $total += $item['price'] * $item['quantity']; ?>
-                            @endforeach
+                        
 
                             
                        
@@ -372,7 +342,7 @@
 
                         <p class="label"><b>Total:</b>
                             <span class="item product-price">
-                                <span class="totals">${{number_format($total,2)}}</span>
+                                <span class="totals">{{$global_d['site_currency']}} 0</span>
                             </span>
                         </p>
                     </div>
@@ -445,24 +415,25 @@
         <script src="{{asset('theme/assets/js/plugins.js')}}"></script>
         <script src="{{asset('theme/assets/js/main.js')}}"></script>
         <script src="{{asset('admin/assets/node_modules/toast-master/js/jquery.toast.js')}}"></script>
-
+        <script src="{{asset('theme/assets/js/cart.js')}}"></script>
+        
         @if(Session::get('success'))
         <script> 
-        $.toast({
-                heading: "{{Session::get('success')}}",
-                // text: "{{Session::get('success')}}",
-                position: 'top-right',
-                loaderBg: '#ff6849',
-                icon: 'info',
-                hideAfter: 3500,
-                stack: 6,
-            });
+            $.toast({
+                    heading: "{{Session::get('success')}}",
+                    // text: "{{Session::get('success')}}",
+                    position: 'top-right',
+                    loaderBg: '#ff6849',
+                    icon: 'info',
+                    hideAfter: 3500,
+                    stack: 6,
+                });
         </script>
         @endif
     
         @if(Session::get('error'))
         <script> 
-          $.toast({
+            $.toast({
                 heading: "{{Session::get('error')}}",
                 // text: "{{Session::get('success')}}",
                 position: 'top-right',
@@ -487,7 +458,14 @@
             });
         </script>
         @endif
-  
+
         @yield('js')
+
+
+        <script>
+
+            let site_url = "{{URL::to('')}}";
+                
+        </script>
    </body>
   </html>

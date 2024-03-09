@@ -31,8 +31,8 @@
                 </div>
                 
                 <div class="product-price">
-                    <span class="old-price">${{$rel->selling_price}}</span>
-                    <span class="price">${{$rel->price}}</span>
+                    <span class="old-price">{{$global_d['site_currency']}} {{$rel->selling_price}}</span>
+                    <span class="price">{{$global_d['site_currency']}} {{$rel->price}}</span>
                 </div>
                 <div class="product-review">
                     <i class="an an-star"></i>

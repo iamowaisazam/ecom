@@ -6,7 +6,6 @@
 
 @section('metatags')
     <title>{{$global_d['site_title']}}</title>
-
 @endsection
 
 @section('css')
@@ -66,7 +65,7 @@
                     </div>
                 </div>
                 <div class="row collection-grids">
-                    @foreach ($categories as $collect)
+                    @foreach ($collections as $collect)
                         <div class="col-12 col-sm-6 col-md-4 item">
                             <div class="collection-grid-item">
                                 <img class="blur-up lazyload" 
@@ -157,8 +156,8 @@
                                     <a href="{{URL::to('/products')}}/{{$product->slug}}">{{$product->title}}</a>
                                 </div>
                                 <div class="product-price">
-                                    <span class="old-price">${{$product->selling_price}}</span>
-                                    <span class="price">${{$product->price}}</span>
+                                    <span class="old-price">{{$global_d['site_currency']}} {{$product->selling_price}}</span>
+                                    <span class="price">{{$global_d['site_currency']}} {{$product->price}}</span>
                                 </div>
                                 <div class="product-review">
                                     <i class="an an-star"></i>
@@ -187,39 +186,6 @@
 
 
 
-   
-     <!-- Instagram -->
-     <div class="d-none section home-instagram no-pb-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                    <div class="section-header text-center">
-                        <h2 class="h2">POPULAR BRANDS</h2>
-                        <p>Phasellus lorem malesuada ligula pulvinar commodo maecenas suscipit auctom.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Instagram Slider -->
-            <div class="instagram-section instagram-slider">
-                @foreach($brands as $brand)
-                    <div class="instagram-item">
-                        <a href="#">
-                            <img class="blur-up lazyload" 
-                              src="{{asset('theme/'.$brand->image)}}" 
-                              data-src="{{asset('theme/'.$brand->image)}}" 
-                              alt="image" 
-                              title="" />
-                        </a>
-                    </div>
-                @endforeach
-            </div>
-            <div class="followus text-center mt-3 d-none">
-                <a href="#" target="_blank" class="btn">View Gallery</a>
-            </div>
-        </div>
-    </div>
-    <!-- End Instagram -->
 
 
     <!-- Store Feature -->

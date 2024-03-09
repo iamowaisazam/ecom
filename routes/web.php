@@ -24,12 +24,21 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'home'])->name('hom
 Route::get('/products/{id}', [App\Http\Controllers\HomeController::class, 'product']);
 
 Route::get('/shop', [App\Http\Controllers\HomeController::class, 'shop']);
-Route::get('/cart', [App\Http\Controllers\HomeController::class, 'cart']);
 
-Route::post('/cart/add_to_cart', [App\Http\Controllers\HomeController::class, 'add_to_cart']);
-Route::get('/cart/remove/{id}', [App\Http\Controllers\HomeController::class, 'cart_remove']);
+
+// Route::post('/cart/add_to_cart', [App\Http\Controllers\HomeController::class, 'add_to_cart']);
+
 Route::get('/combination_maker', [App\Http\Controllers\HomeController::class, 'combination_maker']);
 Route::get('/blogs/categories/{id}', [App\Http\Controllers\HomeController::class, 'blog_categories']);
+
+
+Route::get('/cart', [App\Http\Controllers\CartController::class, 'cart']);
+Route::get('/cart/add_to_cart', [App\Http\Controllers\CartController::class, 'add_to_cart']);
+Route::get('/cart/get_cart_details', [App\Http\Controllers\CartController::class, 'get_cart_details']);
+Route::get('/cart/cart_clear', [App\Http\Controllers\CartController::class, 'cart_clear']);
+Route::get('/cart/remove/{id}', [App\Http\Controllers\CartController::class, 'cart_remove']);
+
+
 
 
 
