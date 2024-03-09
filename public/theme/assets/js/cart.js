@@ -81,11 +81,8 @@ $(document).ready(function () {
             dataType: "json",
             success: function (response) {
 
-                // $('.minicart-header .modal-title strong').text(response.cart_items.length);
-                // $('#CartCount').text('('+response.cart_items.length+')');
+                $('.grand_total_amount').text("PKR "+response.total);
 
-                $('.grand_total_amount').text("PKR "+response.total)
-                
                 response.cart_items.forEach(element => {
 
                     let attr = "";
@@ -178,11 +175,11 @@ $(document).ready(function () {
                 success: function (response) {
                 
                     $.toast({
-                        heading: "success",
+                        heading:"success",
                         text: response.message,
-                        position: 'top-right',
-                        loaderBg: '#ff6849',
-                        icon: 'info',
+                        position:'top-right',
+                        loaderBg:'#ff6849',
+                        icon:'success',
                         hideAfter: 3500,
                         stack: 6,
                     });
@@ -193,11 +190,11 @@ $(document).ready(function () {
                 error:function (response) {
 
                     $.toast({
-                        heading: "success",
+                        heading: "error",
                         text: response.message ? response.message : 'Error Found' ,
                         position: 'top-right',
                         loaderBg: '#ff6849',
-                        icon: 'info',
+                        icon: 'error',
                         hideAfter: 3500,
                         stack: 6,
                     });
@@ -241,7 +238,7 @@ $(document).ready(function () {
                             text: response.message,
                             position: 'top-right',
                             loaderBg: '#ff6849',
-                            icon: 'info',
+                            icon: 'success',
                             hideAfter: 3500,
                             stack: 6,
                         });
@@ -249,11 +246,11 @@ $(document).ready(function () {
                     },
                     error:function (response) {
                         $.toast({
-                            heading: "success",
+                            heading: "error",
                             text: response.message ? response.message : 'Error Found' ,
-                            position: 'top-right',
-                            loaderBg: '#ff6849',
-                            icon: 'info',
+                            position:'top-right',
+                            loaderBg:'#ff6849',
+                            icon: 'error',
                             hideAfter: 3500,
                             stack: 6,
                         });
@@ -282,7 +279,7 @@ $(document).ready(function () {
                     text: response.message,
                     position: 'top-right',
                     loaderBg: '#ff6849',
-                    icon: 'info',
+                    icon: 'success',
                     hideAfter: 3500,
                     stack: 6,
                 });
@@ -294,11 +291,11 @@ $(document).ready(function () {
             error:function (response) {
 
                 $.toast({
-                    heading: "success",
+                    heading: "error",
                     text: response.message ? response.message : 'Error Found' ,
                     position: 'top-right',
                     loaderBg: '#ff6849',
-                    icon: 'info',
+                    icon: 'error',
                     hideAfter: 3500,
                     stack: 6,
                 });
@@ -311,14 +308,8 @@ $(document).ready(function () {
 
 
     });
-
-
- 
     
-
-
-
-
     getCarts();
     get_cart_form();
+
 });

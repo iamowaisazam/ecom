@@ -1,8 +1,3 @@
-/*********************************************************************************
-   Template Name: Diva Multipurpose eCommerce Bootstrap 5 Template
-   Description: A perfect template to build beautiful and unique Fashion websites. It comes with nice and clean design.
-   Version: 1.0
-**********************************************************************************/
 
 @media only screen and (max-width: 1450px) {
     .slideshow .slideshow__title { font-size:50px; }
@@ -383,7 +378,7 @@
     .container { padding-left:15px; padding-right:15px; }
     .container-fluid { padding: 0 15px; }
 
-    /*.template-index-diva .home-slideshow { padding-top:55px; } */
+
     .btn--large { padding:0 15px; height:37px; }
     .pb-section { padding-bottom:18px; }
     .section { padding-top:18px; padding-bottom:18px; }

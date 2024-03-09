@@ -72,6 +72,7 @@ class MenuController extends Controller
                 array_push($data,[
                     $value->id,
                     $value->title,
+                    $value->slug,
                     $value->is_enable ? 'Approved' : 'Pending',
                     $action
                     ]
@@ -110,6 +111,7 @@ class MenuController extends Controller
 
         $validator = Validator::make($request->all(),[
             "title" => 'required|max:255',
+            "slug" => [ 'required','max:255',Rule::unique('menus')],
             "is_enable" => 'integer|required',
         ]);
 
@@ -121,6 +123,7 @@ class MenuController extends Controller
         
         Menu::create([
             'title' => $request->title,
+            'slug' => $request->slug,
             "is_enable" => $request->is_enable,
         ]);
 
@@ -157,6 +160,8 @@ class MenuController extends Controller
         $id = Crypt::decryptString($id);
         $validator = Validator::make($request->all(),[
             "title" => 'required|max:255',
+            'slug' => ['required','max:255',Rule::unique('menus')->ignore($id)],
+            "slug" => 'required|max:255',
             "is_enable" => 'integer|required',
         ]);
 
@@ -172,6 +177,7 @@ class MenuController extends Controller
         }
 
         $model->title  = $request->title;
+        $model->slug  = $request->slug;
         $model->is_enable  = $request->is_enable;
         $model->save();
 
@@ -198,93 +204,5 @@ class MenuController extends Controller
     }
 
 
-    /**
-     * Create a new controller instance.
-     * @return void
-     */
-    public function menu_items(Request $request,$id)
-    {
-        
-        $drodowns = MenuItem::get_menu_drop_down($data->id,$item_id);
-        $data = Menu::find(Crypt::decryptString($id));
-        $menu_items = MenuItem::where('menu_id',$data->id)
-        ->where('parent_id',NULL)
-        ->orderBy('sort')
-        ->get();
-
-        
-        if($data == false){
-            return back()->with('warning','Record Not Found');
-        
-        }else{
-
-            $edit = Crypt::decryptString($request->id);
-            $page = Crypt::decryptString($request->id);
-           
-            return view('admin.menus.manage',compact('data','menu_items','drodowns','page')); 
-        }
-
-    }
-
-
-   /**
-     * Create a new controller instance.
-     * @return void
-     */
-    public function add_new_page(Request $request)
-    {
-        
-        MenuItem::create([
-            "menu_id" => $request->menu_id,
-            "title" => $request->title,
-            "subtitle" => $request->subtitle,
-            "target" => $request->target,
-            "link" => $request->link,
-            "parent_id" => $request->parent_id,
-            "sort" => $request->sort,
-        ]);
-
-        return back()->with('success','Record Created Success');
-    }
-
-
-    /**
-     * Create a new controller instance.
-     * @return void
-     */
-    public function update_new_page(Request $request)
-    {
-        
-        MenuItem::where('id',$request->id)
-        ->update([
-            "title" => $request->title,
-            "subtitle" => $request->subtitle,
-            "target" => $request->target,
-            "link" => $request->link,
-            "parent_id" => $request->parent_id,
-            "sort" => $request->sort,
-        ]);
-        return back()->with('success','Record Updated Success');
-
-    }
-
-
-
-    /**
-     * Create a new controller instance.
-     * @return void
-     */
-    public function delete_page($id)
-    {
-
-        $data = MenuItem::find(Crypt::decryptString($id));
-        if($data == false){
-            return back()->with('warning','Record Not Found');
-        }else{
-            $data->delete();
-            return back()->with('success','Record Deleted Success');
-        }
-
-    }
 
 }

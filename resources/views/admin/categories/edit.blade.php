@@ -61,25 +61,43 @@
                             <input readonly class="form-control" type="text" value="{{$model->parent ? $model->parent->title : 'None' }}" />
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Sort</label>
+                            <input readonly type="number" required value="{{$model->sort}}" name="sort" class="form-control" placeholder="Sort"> 
+                        </div>
+                    </div> 
                     
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="form-label" >Image</label>
-                              <input type="text" value="{{$model->image}}" name="image" class="form-control" placeholder="Image"> 
-                              @if($errors->has('image'))
-                              <p class="invalid-feedback" >{{ $errors->first('image') }}</p>
+                              <input type="text" value="{{$model->image_id}}" name="image_id" class="form-control" placeholder="Image"> 
+                              @if($errors->has('image_id'))
+                              <p class="invalid-feedback" >{{ $errors->first('image_id') }}</p>
                               @endif 
                           </div>
                     </div>
+                    
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="form-label">Sort</label>
-                            <input type="number" required value="{{$model->sort}}" name="sort" class="form-control" placeholder="Sort"> 
-                            @if($errors->has('sort'))
-                            <p class="invalid-feedback" >{{ $errors->first('sort') }}</p>
-                            @endif 
+                            <label class="form-label">Details</label>
+                             <textarea placeholder="Details" name="details" class="form-control" >{{$model->details}}</textarea>
+                              @if($errors->has('details'))
+                              <p class="invalid-feedback" >{{ $errors->first('details') }}</p>
+                              @endif 
                         </div>
-                    </div> 
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Description</label>
+                             <textarea placeholder="Description" name="description" class="form-control" >{{$model->details}}</textarea>
+                              @if($errors->has('description'))
+                              <p class="invalid-feedback" >{{ $errors->first('description') }}</p>
+                              @endif 
+                        </div>
+                    </div>
+
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="form-label">Meta Title</label>
@@ -110,15 +128,7 @@
                             @endif
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="form-label">Details</label>
-                             <textarea placeholder="Details" name="details" class="form-control" >{{$model->details}}</textarea>
-                              @if($errors->has('details'))
-                              <p class="invalid-feedback" >{{ $errors->first('details') }}</p>
-                              @endif 
-                        </div>
-                    </div>
+                    
                     <div class="col-md-12 text-center">
                         <button type="submit" class="btn btn-info">Submit</button>
                     </div>

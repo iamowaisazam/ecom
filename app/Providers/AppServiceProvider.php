@@ -41,6 +41,9 @@ class AppServiceProvider extends ServiceProvider
              }
              $global_d['grouping'] = implode(',',array_unique($groups)); 
              $global_d['menus'] = Menu::with('children.children.children')->get();
+
+            
+
              $view->with('global_d', $global_d);
            
         });

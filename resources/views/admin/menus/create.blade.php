@@ -36,10 +36,20 @@
 
                     <div class="form-group">
                         <label class="form-label" >Title</label>
-                        <input required type="text" value="{{old('title')}}" name="title" class="form-control " 
+                        <input required type="text" value="{{old('title')}}" name="title" class="form-control title" 
                         placeholder="Title">
                         @if($errors->has('title'))
                          <p class="invalid-feedback" >{{ $errors->first('title') }}</p>
+                        @endif 
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" >Slug</label>
+                        <input required type="text" value="{{old('slug')}}" name="slug" 
+                        class="form-control slug " 
+                        placeholder="slug">
+                        @if($errors->has('slug'))
+                         <p class="invalid-feedback" >{{ $errors->first('slug') }}</p>
                         @endif 
                     </div>
 
@@ -71,6 +81,12 @@
 
 <script>
 
+ $(".title").keyup(function() {
+            var Text = $(this).val();
+            Text = Text.toLowerCase();
+            Text = Text.replace(/[^a-zA-Z0-9]+/g,'-');
+            $(".slug").val(Text);        
+    });
 
 </script>
     

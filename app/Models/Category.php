@@ -44,9 +44,9 @@ class Category extends Model
         return $this->belongsTo(Category::class, 'parent_id');
     }
 
-    public function img()
+    public function image()
     {
-        return $this-> belongsTo(Filemanager::class, 'image');
+        return $this-> belongsTo(Filemanager::class, 'image_id');
     }
 
     public static function get_category_dropdown(){

@@ -70,7 +70,7 @@
                                       value="{{$item->type}}" >
                                       <br>
                                       @if($item->image)
-                                      <img style="width:100px;height:100px;" src="{{asset('/admin/uploads/')}}/{{$item->image->path}}" />
+                                      <img style="width:100px;height:100px;" src="{{asset($item->image->path)}}" />
                                       @endif
                                 </div>
                             </div>

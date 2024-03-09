@@ -30,7 +30,7 @@
                                 <img class="blur-up lazyload" 
                                 data-src="{{ asset($slide->image ? $slide->image->path : '')}}" 
                                 src="{{asset($slide->image ? $slide->image->path : '')}}" 
-                                alt="Welcome to Diva" title="Welcome to Diva" />
+                                 />
                               </a>
 
                                 <div class="d-none slideshow__text-wrap slideshow__overlay">
@@ -65,16 +65,16 @@
                     </div>
                 </div>
                 <div class="row collection-grids">
-                    @foreach ($collections as $collect)
+                    @foreach ($categories as $category)
                         <div class="col-12 col-sm-6 col-md-4 item">
                             <div class="collection-grid-item">
                                 <img class="blur-up lazyload" 
-                                data-src="{{asset($collect->image? $collect->image->path : '')}}" 
-                                src="{{asset($collect->image? $collect->image->path : '')}}" />
-                                <a href="{{URL::to('/shop')}}?collection={{$collect->slug}}" class="collection-grid-item__title-wrapper">
+                                data-src="{{asset($category->image? $category->image->path : '')}}" 
+                                src="{{asset($category->image? $category->image->path : '')}}" />
+                                <a href="{{URL::to('/category')}}/{{$category->slug}}" class="collection-grid-item__title-wrapper">
                                     <div class="title-wrapper">
                                         <h3 class="collection-grid-item__title fw-bold">
-                                            {{$collect->title}}</h3>
+                                            {{$category->title}}</h3>
                                         <span class="btn btn--secondary border-btn-1">Shop Now</span>
                                     </div>
                                 </a>
@@ -94,10 +94,10 @@
                 <div class="hero__inner">
                     <div class="container">
                         <div class="wrap-text center text-medium font-bold">
-                            <span>Lookbook</span>
-                            <h2 class="h1 mega-title text-black">Spring summer 2018</h2>
+                            <span>Welcome To</span>
+                            <h2 class="h1 mega-title text-black">Irha Wears Store</h2>
                             <div class="rte-setting mega-subtitle text-black">We enjoy working on the Services & Products. we provide as much as you need them. This help us in delivering your Goals easily. Browse through the wide range of services we provide.</div>
-                            <a href="shop-left-sidebar.html" class="btn border-btn-2">Get Your set Today</a>
+                            <a href="{{URL::to('/shop')}}" class="btn border-btn-2">Visit Our Store</a>
                         </div>
                     </div>
                 </div>
@@ -123,10 +123,7 @@
                 <div class="grid-products grid--view-items ">
                     <div class="row">
                         @foreach ($products as $product)
-                         <?php 
-                       
-                         ?>
-                        
+                          
                         <div class="col-6 col-sm-6 col-md-4 col-lg-3 item">
                             <div class="product-image">
                                 <a href="{{URL::to('/products')}}/{{$product->slug}}">

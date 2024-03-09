@@ -82,7 +82,7 @@ class CategoryController extends Controller
                 $action .= '<a class="btn btn-danger" href="'.URL::to('admin/categories/delete/'.Crypt::encryptString($value->id)).'">Delete</a>';
 
                 $action .= '</div>';
-                $img = $value->img ? asset($value->img->path) : '';
+                $img = $value->image ? asset($value->image->path) : '';
 
                 array_push($data,[
                     $value->id,
@@ -225,7 +225,7 @@ class CategoryController extends Controller
         $ProductCategory = Category::create([
             'title' => $request->title,
             "slug" => $request->slug,
-            "image" => $request->image,
+            "image_id" => $request->image,
             "sort" => $request->sort,
             "level" => $level,
             "parent_id" => $parent_id,
@@ -272,6 +272,8 @@ class CategoryController extends Controller
      */
     public function update(Request $request,$id)
     {
+        // dd($request->all());
+
     
         $id = Crypt::decryptString($id);
         $validator = Validator::make($request->all(), [
@@ -283,7 +285,7 @@ class CategoryController extends Controller
             ],
             "details" => 'max:500',
             "description" => 'max:9000',
-            "parent_id" => 'integer|required',
+            "image_id" => 'required',
             'meta_title' => 'max:255',
             'meta_description' => 'max:255',
             'meta_keywords' => 'max:255',
@@ -295,22 +297,20 @@ class CategoryController extends Controller
                 ->withInput();
         }
 
-        $product = Category::find($id);
-        if($product == false){  
+        $category = Category::find($id);
+        if($category == false){  
            return back()->with('error','Record Not Found');
         }
 
 
-        $product->title = $request->title;
-        $product->slug = $request->slug;
-        $product->details = $request->details;
-        $product->image = $request->image;
-        $product->parent_id = $request->parent_id;
-        $product->meta_title = $request->meta_title;
-        $product->meta_description = $request->meta_description;
-        $product->meta_keywords = $request->meta_keywords;
-        $product->sort = $request->sort;
-        $product->save();
+        $category->title = $request->title;
+        $category->slug = $request->slug;
+        $category->details = $request->details;
+        $category->image_id = $request->image_id;
+        $category->meta_title = $request->meta_title;
+        $category->meta_description = $request->meta_description;
+        $category->meta_keywords = $request->meta_keywords;
+        $category->save();
 
 
         return back()->with('success','Record Updated');

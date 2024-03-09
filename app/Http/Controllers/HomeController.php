@@ -100,11 +100,11 @@ class HomeController extends Controller
     {
         
       
-        $collections = Collection::where('is_enable',1)->where('is_featured',1)->get();
+        $categories = Category::where('is_enable',1)->where('is_featured',1)->where('parent_id',null)->get();
         $sliders = Slider::where('is_enable',1)->get(); 
         $products = Product::where('is_enable',1)->where('is_featured',1)->get();
        
-        return view('theme.home',compact('collections','products','sliders'));
+        return view('theme.home',compact('categories','products','sliders'));
     }
 
 
@@ -195,6 +195,27 @@ class HomeController extends Controller
 
         return view('theme.shop',compact('data','categories','collections'));
     }
+
+
+    /**
+     * Show the application dashboard.
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function category($id)
+    {
+
+        $category = Category::where('slug',$id)->first(); 
+        if(!$category){
+          return back();
+        }
+
+        $categories = Category::where('parent_id',$category->id)->get(); 
+
+
+        return view('theme.category',compact('category','categories'));
+
+    }
+
 
 
 

@@ -1,3 +1,15 @@
+
+<?php 
+
+   $main_menu = $global_d['menus']->where('slug','main-menu')->first();
+//    dd($main_menu); 
+
+   $footer_menu1 = $global_d['menus']->where('slug','footer-menu-1')->first();
+   $footer_menu2 = $global_d['menus']->where('slug','footer-menu-2')->first();
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +31,7 @@
     @yield('css')
 </head>
 <body class="template-index diva home8-simple">
-    <?php //dd($carts); ?>
+  
   <!-- Page Loader -->
   <div id="pre-loader">
      <img src="{{asset('theme/assets/images/loader.gif')}}" />
@@ -28,14 +40,6 @@
 
   <!-- Page Wrapper -->
   <div class="pageWrapper">
-
-    <!-- Promotion Bar -->
-        <div class="notification-bar mobilehide">
-            <a href="#" class="notification-bar__message">10% off your very first purchase,
-                use promo code: diva 2018</a>
-            <span class="close-announcement icon an an-times"></span>
-        </div>
-    <!-- End Promotion Bar -->
 
     <!-- Search Form Drawer -->
     <div class="search">
@@ -49,30 +53,32 @@
     </div>
     <!-- End Search Form Drawer -->
 
+
     <!-- Main Header -->
     <div class="header-section clearfix animated hdr-sticky">
         
         <!-- Desktop Header -->
         <div class="header-7">
 
-            <div class="top-header d-block d-lg-none">
+            <div class="top-header d-block ">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-10 col-sm-8 col-md-7 col-lg-4">
                             <p class="phone-no float-start"><i class="icon an an-phone me-1"></i>
-                                <a href="tel:+4400(111)044833">+440 0(111) 044 833</a></p>
+                                <a href="tel:+4400(111)044833">{{$global_d['phone_number']}}</a></p>
                         </div>
                         <div class="col-sm-4 col-md-4 col-lg-4 d-none d-md-none d-lg-block">
                             <div class="text-center">
-                                <p class="top-header_middle-text">Free Ground Shipping Over $250</p>
+                                <p class="top-header_middle-text">{{$global_d['topbar_title']}}</p>
                             </div>
                         </div>
                         <div class="col-2 col-sm-4 col-md-5 col-lg-4 text-end d-none d-sm-block d-md-block d-lg-block">
                             <div class="header-social">
                                 <ul class="justify-content-end list--inline social-icons">
+                                    @if($global_d['facebook_link'])
                                     <li>
                                         <a class="social-icons__link" 
-                                            href="#" 
+                                            href="{{$global_d['facebook_link']}}" 
                                             target="_blank" 
                                             data-bs-toggle="tooltip" 
                                             data-bs-placement="bottom" 
@@ -80,24 +86,30 @@
                                             <span class="icon__fallback-text">Facebook</span>
                                         </a>
                                     </li>
+                                    @endif
 
-                                    <li><a class="social-icons__link" href="#" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Twitter"><i class="icon an an-twitter"></i> <span class="icon__fallback-text">Twitter</span></a></li>
-                                    <li><a class="social-icons__link" href="#" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Pinterest"><i class="icon an an-pinterest-p"></i> <span class="icon__fallback-text">Pinterest</span></a></li>
-                                    <li><a class="social-icons__link" href="#" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Instagram"><i class="icon an an-instagram"></i> <span class="icon__fallback-text">Instagram</span></a></li>
-                                    <li><a class="social-icons__link" href="#" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom" title="YouTube"><i class="icon icon an an-youtube"></i> <span class="icon__fallback-text">YouTube</span></a></li>
+                                    @if($global_d['twitter_link'])
+                                    <li><a class="social-icons__link" href="{{$global_d['twitter_link']}}" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Twitter"><i class="icon an an-twitter"></i><span class="icon__fallback-text">Twitter</span></a></li>
+                                    @endif
+
+
+                                    @if($global_d['facebook_link'])
+                                    <li><a class="social-icons__link" href="{{$global_d['facebook_link']}}" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Instagram"><i class="icon an an-instagram"></i> <span class="icon__fallback-text">Instagram</span></a></li>
+                                    @endif
+
+                                    @if($global_d['youtube_link'])
+                                    <li><a class="social-icons__link" href="{{$global_d['youtube_link']}}" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom" title="YouTube"><i class="icon icon an an-youtube"></i> <span class="icon__fallback-text">YouTube</span></a></li>
+                                    @endif
+
                                 </ul>
                             </div>
                         </div>
                         <div class="col-2 col-sm-4 col-md-5 col-lg-4 text-end d-block d-sm-none d-md-none d-lg-none">
                             <!-- Mobile User Links -->
                             <div class="user-menu-dropdown">
-                                <span class="user-menu"><i class="an an-user-alt"></i></span>
-                                <ul class="customer-links list-inline" style="display:none;">
-                                    <li class="item"><a href="login.html">Login</a></li>
-                                    <li class="item"><a href="register.html">Register</a></li>
-                                    <li class="item"><a href="my-account.html">Orders</a></li>
-                                    <li class="item"><a href="compare.html">Compare</a></li>
-                                </ul>
+                                <a href="{{URL::to('/admin/login')}}">
+                                    <span class="user-menu"><i class="an an-user-alt"></i></span>
+                                </a>
                             </div>
                             <!-- End Mobile User Links -->
                         </div>
@@ -128,27 +140,27 @@
                         
                         <!-- Desktop Navigation -->
                         <div class="col-2 col-sm-3 col-md-3 col-lg-7 col-xl-8 d-none d-lg-block">
-                            <!-- Desktop Menu -->
                             <nav class="grid__item" id="AccessibleNav">
                                 <ul id="siteNav" class="d-flex flex-wrap site-nav medium left ms-0 hidearrow">
-                                   <?php $menus = $global_d['menus']->where('id',1)[0]; ?>
-                                      @foreach ($menus->children->where('parent_id',null) as $page)
-                                            <li class="lvl1 parent dropdown">
-                                                <a href="{{$page->link}} ">{{$page->title}} 
-                                                <i class="an an-angle-down"></i>
-                                                </a>
-                                            @if(count($page->children) > 0)
-                                                <ul class="dropdown">
-                                                    @foreach ($page->children as $chil_page)
-                                                    <li>
-                                                        <a href="{{$chil_page->link}}" 
-                                                        class="site-nav">{{$chil_page->title}}</a>
-                                                    </li>
-                                                    @endforeach
-                                                </ul>
-                                            @endif
-                                        </li>  
-                                    @endforeach
+                                      @if($main_menu)
+                                        @foreach ($main_menu->children->where('parent_id',null) as $page)
+                                                <li class="lvl1 parent dropdown">
+                                                    <a href="{{$page->link}} ">{{$page->title}} 
+                                                    <i class="an an-angle-down"></i>
+                                                    </a>
+                                                @if(count($page->children) > 0)
+                                                    <ul class="dropdown">
+                                                        @foreach ($page->children as $chil_page)
+                                                        <li>
+                                                            <a href="{{$chil_page->link}}" 
+                                                            class="site-nav">{{$chil_page->title}}</a>
+                                                        </li>
+                                                        @endforeach
+                                                    </ul>
+                                                @endif
+                                            </li>  
+                                        @endforeach
+                                    @endif
                                 </ul>
                             </nav>
                         </div>
@@ -157,62 +169,48 @@
                         <!-- Right Side -->
                         <div class="col-4 col-sm-4 col-md-5 col-lg-3 col-xl-2">
                             <div class="right-action text-action d-flex-align-center justify-content-end">
-                                <!-- Search -->
-                                {{-- <div class="item site-header__search d-none d-lg-inline-block">
-                                    <button type="button" class="search-trigger"><i class="icon an an-search"></i><span class="text align-middle ms-1 d-none d-md-inline-block">Search</span></button>
-                                </div> --}}
-                                <!-- End Search -->
-                                <!-- User Links -->
+
                                 <div class="item site-user-menu d-none d-sm-inline-block">
                                     <a href="{{URL::to('/admin/login')}}" class="icon-login text-capitalize text-nowrap"><i class="icon an an-user-alt"></i><span class="text align-middle ms-1 d-none d-md-inline-block">Login</span></a>
                                 </div>
-                                <!-- End User Links -->
-                                <!-- Wishlist -->
-                                {{-- <div class="item site-header-wishlist">
-                                    <a href="wishlist.html" class="icon-wishlist text-capitalize"><i class="icon an an-heart"></i><span class="text align-middle ms-1 d-none d-md-inline-block">Wishlist</span><span id="WishCount" class="site-header-wish-count1 ms-1" data-cart-render="item_count">(0)</span></a>
-                                </div> --}}
-                                <!-- End Wishlist -->
-                                <!-- Minicart -->
+                              
                                 <div class="item site-cart">
                                     <a href="{{URL::to('/cart')}}" class="icon-cart site-header-cart btn-minicart text-capitalize" data-bs-toggle="modal" data-bs-target="#minicart-drawer"><i class="icon an an-shopping-bag"></i><span class="text align-middle ms-1 d-none d-md-inline-block">Cart</span><span id="CartCount" class="site-header__cart-count1 ms-1" data-cart-render="item_count">(0)</span></a>
                                 </div>
-                                <!-- End Minicart -->
                             </div>
                         </div>
-                        <!-- End Right Side -->
                     </div>
                 </div>
             </div>
-            <!-- End Header -->
         </div>
-        <!-- End Desktop Header -->
     </div>
     <!-- End Main Header -->
-    <?php //dd($menus->children); ?>
+
 
     <!-- Mobile Menu -->
     <div class="mobile-nav-wrapper" role="navigation">
         <div class="closemobileMenu"><i class="icon an an-times-circle closemenu"></i> Close Menu</div>
         <ul id="MobileNav" class="mobile-nav">
 
-           
-            @foreach ($menus->children->where('parent_id',null) as $page)
-            <li class="lvl1  parent megamenu">
-                <a href="{{$page->link}}">{{$page->title}} 
-                    @if(count($page->children) > 0) 
-                     <i class="an an-plus"></i>
-                    @endif 
-                </a>
+            @if($main_menu)
+                @foreach ($main_menu->children->where('parent_id',null) as $page)
+                <li class="lvl1  parent megamenu">
+                    <a href="{{$page->link}}">{{$page->title}} 
+                        @if(count($page->children) > 0) 
+                        <i class="an an-plus"></i>
+                        @endif 
+                    </a>
 
-                @if(count($page->children) > 0)
-                <ul>
-                    @foreach ($page->children as $chil_page)
-                     <li><a href="{{$chil_page->link}}" class="site-nav">{{$chil_page->title}}</a></li>
-                    @endforeach
-                </ul>
-                @endif
-            </li>
-            @endforeach
+                    @if(count($page->children) > 0)
+                    <ul>
+                        @foreach ($page->children as $chil_page)
+                        <li><a href="{{$chil_page->link}}" class="site-nav">{{$chil_page->title}}</a></li>
+                        @endforeach
+                    </ul>
+                    @endif
+                </li>
+                @endforeach
+            @endif
         </ul>
     </div>
     <!-- End Mobile Menu -->
@@ -229,29 +227,61 @@
                 <div class="container">
                     <!-- Footer Links -->
                     <div class="row">
+
                         <div class="col-12 col-sm-12 col-md-3 col-lg-3 footer-links">
-                            <h4 class="h4">About Store</h4>
+                            <img src="{{asset('black.png')}}" class="pb-3" />
+                            <p>{{$global_d['site_short_details']}}</p>
+
+                            <div class="item">
+                                {{-- <h4 class="h4 mt-4 mt-md-0">Stay Connected</h4> --}}
+                                <ul class="list--inline site-footer__social-icons social-icons social-colorfull">
+                                    @if($global_d['facebook_link'])
+                                    <li><a class="social-icons__link d-inline-block" 
+                                        href="{{$global_d['facebook_link']}}" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Facebook"><i class="icon an an-facebook"></i></a></li>
+                                    @endif
+                                    
+                                    @if($global_d['twitter_link'])
+                                    <li><a class="social-icons__link d-inline-block" href="{{$global_d['twitter_link']}}" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitter"><i class="icon an an-twitter"></i> <span class="icon__fallback-text">Twitter</span></a></li>
+                                    @endif
+
+                                   
+                                    @if($global_d['instagram_link'])
+                                    <li><a class="social-icons__link d-inline-block" 
+                                        href="{{$global_d['instagram_link']}}" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Instagram"><i class="icon an an-instagram"></i> <span class="icon__fallback-text">Instagram</span></a>
+                                    </li>
+                                    @endif
+
+                                    @if($global_d['youtube_link'])
+                                    <li><a class="social-icons__link d-inline-block" href="{{$global_d['youtube_link']}}" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="YouTube"><i class="icon an an-youtube"></i> <span class="icon__fallback-text">YouTube</span></a></li>
+                                    @endif
+
+                                </ul>
+                            </div>
+
+                        </div>
+
+                        @if($footer_menu1)
+                        <div class="col-12 col-sm-12 col-md-3 col-lg-3 footer-links">
+                            <h4 class="h4">Important Link</h4>
                             <ul>
-                                <li><a href="#">About us</a></li>
-                                <li><a href="#">Careers</a></li>
-                                <li><a href="#">Privacy policy</a></li>
-                                <li><a href="#">Terms &amp; condition</a></li>
-                                <li><a href="#">My Account</a></li>
-                                <li><a href="#">Orders and Returns</a></li>
+                                @foreach ($footer_menu1->children as $item)
+                                 <li><a target="{{$item->target}}" href="{{$item->link}}">{{$item->title}}</a></li>
+                                @endforeach
                             </ul>
                         </div>
+                        @endif
+
+                        @if($footer_menu2)
                         <div class="col-12 col-sm-12 col-md-3 col-lg-3 footer-links">
-                            <h4 class="h4">Help</h4>
+                            <h4 class="h4">Help & Policies</h4>
                             <ul>
-                                <li><a href="#">FAQs</a></li>
-                                <li><a href="#">My Orders</a></li>
-                                <li><a href="#">Terms And Conditions</a></li>
-                                <li><a href="#">Shipping Policy</a></li>
-                                <li><a href="#">Returns &amp; Exchange</a></li>
-                                <li><a href="#">Ordering &amp; Payment</a></li>
+                                @foreach ($footer_menu2->children as $item)
+                                 <li><a target="{{$item->target}}" href="{{$item->link}}">{{$item->title}}</a></li>
+                                @endforeach
                             </ul>
                         </div>
-                        <div class="col-12 col-sm-12 col-md-3 col-lg-3 newsletter">
+                        @endif
+                        <div class=" col-12 col-sm-12 col-md-3 col-lg-3 newsletter">
                             <div class="display-table">
                                 <div class="display-table-cell footer-newsletter">
                                     <form action="#" method="post">
@@ -266,28 +296,36 @@
                                     </form>
                                 </div>
                             </div>
+                            
                         </div>
-                        <div class="col-12 col-sm-12 col-md-3 col-lg-3 socialPayment">
+
+                        <div class="d-none col-12 col-sm-12 col-md-3 col-lg-3 socialPayment">
                             <div class="item">
                                 <h4 class="h4 mt-4 mt-md-0">Stay Connected</h4>
                                 <ul class="list--inline site-footer__social-icons social-icons social-colorfull">
-                                    <li><a class="social-icons__link d-inline-block" href="#" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Facebook"><i class="icon an an-facebook"></i></a></li>
-                                    <li><a class="social-icons__link d-inline-block" href="#" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitter"><i class="icon an an-twitter"></i> <span class="icon__fallback-text">Twitter</span></a></li>
-                                    <li><a class="social-icons__link d-inline-block" href="#" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Pinterest"><i class="icon an an-pinterest-p"></i> <span class="icon__fallback-text">Pinterest</span></a></li>
-                                    <li><a class="social-icons__link d-inline-block" href="#" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Instagram"><i class="icon an an-instagram"></i> <span class="icon__fallback-text">Instagram</span></a></li>
-                                    <li><a class="social-icons__link d-inline-block" href="#" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="YouTube"><i class="icon an an-youtube"></i> <span class="icon__fallback-text">YouTube</span></a></li>
+                                    @if($global_d['facebook_link'])
+                                    <li><a class="social-icons__link d-inline-block" 
+                                        href="{{$global_d['facebook_link']}}" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Facebook"><i class="icon an an-facebook"></i></a></li>
+                                    @endif
+                                    
+                                    @if($global_d['twitter_link'])
+                                    <li><a class="social-icons__link d-inline-block" href="{{$global_d['twitter_link']}}" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitter"><i class="icon an an-twitter"></i> <span class="icon__fallback-text">Twitter</span></a></li>
+                                    @endif
+
+                                   
+                                    @if($global_d['instagram_link'])
+                                    <li><a class="social-icons__link d-inline-block" 
+                                        href="{{$global_d['instagram_link']}}" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Instagram"><i class="icon an an-instagram"></i> <span class="icon__fallback-text">Instagram</span></a>
+                                    </li>
+                                    @endif
+
+                                    @if($global_d['youtube_link'])
+                                    <li><a class="social-icons__link d-inline-block" href="{{$global_d['youtube_link']}}" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="YouTube"><i class="icon an an-youtube"></i> <span class="icon__fallback-text">YouTube</span></a></li>
+                                    @endif
+
                                 </ul>
                             </div>
-                            <div class="item">
-                                <h4 class="h4 mt-4 mt-md-4">Payment Options</h4>
-                                <ul class="payment-icons list--inline">
-                                    <li><i class="icon an an-cc-visa" aria-hidden="true"></i></li>
-                                    <li><i class="icon an an-cc-mastercard" aria-hidden="true"></i></li>
-                                    <li><i class="icon an an-cc-amex" aria-hidden="true"></i></li>
-                                    <li><i class="icon an an-cc-paypal" aria-hidden="true"></i></li>
-                                    <li><i class="icon an an-cc-discover" aria-hidden="true"></i></li>
-                                </ul>
-                            </div>
+                            
                         </div>
                     </div>
                     <!-- End Footer Links -->
@@ -298,7 +336,9 @@
                 <div class="container">
                     <div class="row">
                         <!-- Footer Copyright -->
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 copyright text-center"><span>&copy; 2021 DIVA.</span> All Rights Reserved.</div>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 copyright text-center">
+                            <span>&copy; 2024 Azamsolutions</span> All Rights Reserved.
+                        </div>
                         <!-- End Footer Copyright -->
                     </div>
                 </div>
@@ -317,29 +357,23 @@
           <div class="modal-dialog">
             <div class="modal-content">
                 <div class="minicart-header">
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><i class="an an-times" aria-hidden="true" data-bs-toggle="tooltip" data-bs-placement="left" title="Close"></i></button>
-                    <h4 class="modal-title" id="myModalLabel2">Shopping Cart <strong>0</strong> items</h4>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="an an-times" aria-hidden="true" data-bs-toggle="tooltip" data-bs-placement="left" title="Close"></i>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel2">Shopping Cart 
+                        <strong>0</strong> items
+                    </h4>
                 </div>
                 <div class="minicart-body">
-                   
-                    {{-- <div style="display: {{count($carts) ? 'none' : 'block'}}" class="empty-cart">
-                        <p>You have no items in your shopping cart.</p>
-                    </div> --}}
                     <div id="drawer-minicart" class="block block-cart">
                         <ul class="mini-products-list">
                         
 
-                            
-                       
                         </ul>
                     </div>
                 </div>
                 <div class="minicart-footer minicart-action">
                     <div class="total-in">
-                        {{-- <p class="label"><b>Subtotal:</b><span class="item product-price"><span class="money">$427.00</span></span></p>
-                        <p class="label"><b>Shipping:</b><span class="item product-price"><span class="shipping">$10.00</span></span></p>
-                        <p class="label"><b>Tax:</b><span class="item product-price"><span class="tax">$0.00</span></span></p> --}}
-
                         <p class="label"><b>Total:</b>
                             <span class="item product-price">
                                 <span class="totals">{{$global_d['site_currency']}} 0</span>
@@ -356,48 +390,11 @@
     </div>
     <!-- End Minicart Drawer -->
 
-    <!-- Addtocart Added Popup -->
-    <div id="open-addtocart-popup" class="addtocart-popup magnific-popup mfp-hide">
-        <div class="addtocart-inner text-center clearfix">
-            <h4>Added to your shopping cart.</h4>
-            <div class="pro-img">
-                <img class="img-fluid blur-up lazyload" src="{{asset('theme/assets/images/product-images/addtocart-popup.jpg')}}" data-src="{{asset('theme/assets/images/product-images/addtocart-popup.jpg')}}" alt="image" title="image" />
-            </div>
-            <div class="pro-details">
-                <p class="pro-name mb-0">Floral Lined Jacket</p>
-                <p class="pro-cz mb-0">Gray / XL</p>
-                <p class="mb-0 qty-tol">1 X $113.88</p>
-                <div class="addcart-total">
-                    Total: <b class="price">$113.88</b>
-                </div>
-                <div class="button-action">
-                    <button class="btn btn-secondary continue-shopping close-popup">Continue Shopping</button>
-                    <a href="cart.html" class="btn btn-primary view-cart">View Cart</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Addtocart Added Popup -->
+   
 
    
 
-    <!-- Wishlist Added Popup -->
-    <div id="open-wishlist-popup" class="wishlist-popup magnific-popup mfp-hide">
-        <div class="wishlist-inner text-center clearfix">
-            <h4>Successfully added in wishlist</h4>
-            <div class="pro-img">
-                <img class="img-fluid blur-up lazyload" src="{{asset('theme/assets/images/product-images/addwishlist-popup.jpg')}}" data-src="{{asset('theme/assets/images/product-images/addwishlist-popup.jpg')}}" alt="image" title="image" />
-            </div>
-            <div class="pro-details">
-                <p class="pro-name mb-2">Frayed Layered Sleeve</p>
-                <div class="button-action">
-                    <button class="btn btn-secondary mb-2 continue-shopping close-popup">Continue Shopping</button>
-                    <a href="wishlist.html" class="btn btn-primary view-wishlist">View Wishlist</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Wishlist Added Popup -->
+   
 
 </div>
 <!-- End Page Wrapper -->
@@ -405,11 +402,6 @@
 
 
 
-
-
-   
-
-        
 
         <!-- Including Javascript -->
         <script src="{{asset('theme/assets/js/plugins.js')}}"></script>
@@ -421,10 +413,9 @@
         <script> 
             $.toast({
                     heading: "{{Session::get('success')}}",
-                    // text: "{{Session::get('success')}}",
                     position: 'top-right',
                     loaderBg: '#ff6849',
-                    icon: 'info',
+                    icon: 'success',
                     hideAfter: 3500,
                     stack: 6,
                 });
@@ -435,7 +426,6 @@
         <script> 
             $.toast({
                 heading: "{{Session::get('error')}}",
-                // text: "{{Session::get('success')}}",
                 position: 'top-right',
                 loaderBg: '#ff6849',
                 icon: 'error',
@@ -445,19 +435,7 @@
         </script>
         @endif
     
-        @if(Session::get('warning'))
-        <script> 
-          $.toast({
-                heading: "{{Session::get('warning')}}",
-                // text: "{{Session::get('success')}}",
-                position: 'top-right',
-                loaderBg: '#ff6849',
-                icon: 'warning',
-                hideAfter: 3500,
-                stack: 6,
-            });
-        </script>
-        @endif
+
 
         @yield('js')
 

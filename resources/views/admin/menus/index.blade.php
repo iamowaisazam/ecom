@@ -59,6 +59,7 @@ href="{{asset('admin/assets/node_modules/datatables.net-bs4/css/responsive.dataT
                                         <tr class="" >
                                             <th>#</th>
                                             <th>Title</th>
+                                            <th>Slug</th>
                                             <th>Status</th>
                                             <th class="hidden-phone">Action</th>
                                         </tr>
