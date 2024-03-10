@@ -33,12 +33,17 @@ Route::get('/shop', [App\Http\Controllers\HomeController::class, 'shop']);
 Route::get('/combination_maker', [App\Http\Controllers\HomeController::class, 'combination_maker']);
 Route::get('/blogs/categories/{id}', [App\Http\Controllers\HomeController::class, 'blog_categories']);
 
-
+//Carts
 Route::get('/cart', [App\Http\Controllers\CartController::class, 'cart']);
 Route::get('/cart/add_to_cart', [App\Http\Controllers\CartController::class, 'add_to_cart']);
 Route::get('/cart/get_cart_details', [App\Http\Controllers\CartController::class, 'get_cart_details']);
 Route::get('/cart/cart_clear', [App\Http\Controllers\CartController::class, 'cart_clear']);
 Route::get('/cart/remove/{id}', [App\Http\Controllers\CartController::class, 'cart_remove']);
+
+//Checkout
+Route::get('/checkout', [App\Http\Controllers\CheckoutController::class, 'index']);
+Route::get('/order-confirmaton/{id}', [App\Http\Controllers\CheckoutController::class, 'order_confirmaton']);
+Route::post('/checkout/submit', [App\Http\Controllers\CheckoutController::class, 'checkout_submit']);
 
 
 
@@ -51,14 +56,11 @@ Route::post('/admin/login_submit', [App\Http\Controllers\Admin\AuthController::c
 
 Route::middleware(['web', 'auth'])->group(function () {
 
-    
 Route::get('/admin/update_file_url', [App\Http\Controllers\Admin\DashboardController::class, 'update_file_url']);
-
 Route::get('/admin/logout', [App\Http\Controllers\Admin\AuthController::class, 'logout']);
 Route::get('/admin/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'dashboard']);
 Route::get('/admin/changepassword', [App\Http\Controllers\Admin\DashboardController::class, 'changepassword']);
 Route::post('/admin/changepassword_submit', [App\Http\Controllers\Admin\DashboardController::class, 'changepassword_submit']);
-
 Route::get('/admin/status', [App\Http\Controllers\Admin\DashboardController::class, 'status']);
 
 
@@ -89,10 +91,8 @@ Route::get('/admin/status', [App\Http\Controllers\Admin\DashboardController::cla
 //Menus Items
   Route::get('/admin/menus_items/{menu}/index', [App\Http\Controllers\Admin\MenuItemController::class,'index']);
   Route::post('/admin/menus_items/store', [App\Http\Controllers\Admin\MenuItemController::class,'store']);
-  
   Route::get('/admin/menus_items/edit/{id}', [App\Http\Controllers\Admin\MenuItemController::class, 'edit']);
   Route::post('/admin/menus_items/update/{id}', [App\Http\Controllers\Admin\MenuItemController::class, 'update']);
-  
   Route::get('/admin/menus_items/delete/{id}', [App\Http\Controllers\Admin\MenuItemController::class, 'delete']);
   
 

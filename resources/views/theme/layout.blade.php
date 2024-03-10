@@ -21,7 +21,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     
     <!-- Plugins CSS -->
-       <link rel="shortcut icon" href="{{asset('web/images/short_icon.png')}}">
+       <link rel="shortcut icon" href="{{asset($global_d['logo'] ? $global_d['logo']->path : '')}}">
        <link rel="stylesheet" href="{{asset('theme/assets/css/plugins.css')}}" />
        <link href="{{asset('admin/assets/node_modules/toast-master/css/jquery.toast.css')}}" rel="stylesheet">
        <link rel="stylesheet" href="{{asset('theme/assets/css/style.css')}}" />
@@ -134,7 +134,11 @@
 
                         <!-- Desktop Logo -->
                         <div class="logo col-4 col-sm-4 col-md-2 col-lg-2 align-self-center">
-                            <a href="{{URL::to('/')}}"><img src="{{asset('black.png')}}" width="100" alt="theme/assets/images/logo.png" /></a>
+                            <a href="{{URL::to('/')}}">
+                                <img 
+                                   src="{{asset($global_d['logo'] ? $global_d['logo']->path : '')}}" width="100" 
+                                   />
+                            </a>
                         </div>
                         <!-- End Desktop Logo -->
                         
@@ -229,7 +233,9 @@
                     <div class="row">
 
                         <div class="col-12 col-sm-12 col-md-3 col-lg-3 footer-links">
-                            <img src="{{asset('black.png')}}" class="pb-3" />
+                            <a href="{{URL::to('/')}}">
+                                <img src="{{asset($global_d['logo'] ? $global_d['logo']->path : '')}}" class="pb-3" />
+                            </a>
                             <p>{{$global_d['site_short_details']}}</p>
 
                             <div class="item">
@@ -382,7 +388,7 @@
                     </div>
                     <div class="buttonSet d-flex flex-row align-items-center text-center">
                         <a href="{{URL::to('/cart')}}" class="btn btn-secondary w-50 me-3">View Cart</a>
-                        <a href="checkout.html" class="btn btn-secondary w-50">Checkout</a>
+                        <a href="{{URL::to('/checkout')}}" class="btn btn-secondary w-50">Checkout</a>
                     </div>
                 </div>
             </div>

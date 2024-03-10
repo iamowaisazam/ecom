@@ -24,7 +24,7 @@ class Setting extends Model
 
     public function image()
     {
-        return $this-> belongsTo(Filemanager::class, 'value');
+        return $this->belongsTo(Filemanager::class, 'value');
     }
 
 

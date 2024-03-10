@@ -7,7 +7,8 @@ ALTER TABLE `product_categories` ADD `is_featured` INT NULL DEFAULT '0' AFTER `i
 INSERT INTO `settings` (`id`, `field`, `value`, `type`, `sort`, `grouping`) 
 VALUES (NULL, 'site_currency', 'Erha Wear', 'text', '5', 'site_settings');
 
-ALTER TABLE `menu_items` ADD CONSTRAINT `menu_parent_id_relation` FOREIGN KEY (`menu_id`) REFERENCES `menus`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+ALTER TABLE `menu_items` ADD CONSTRAINT `menu_parent_id_relation` 
+FOREIGN KEY (`menu_id`) REFERENCES `menus`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 ALTER TABLE `menus` ADD `slug` VARCHAR(255) NULL DEFAULT NULL AFTER `title`;
 

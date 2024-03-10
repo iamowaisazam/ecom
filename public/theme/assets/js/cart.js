@@ -24,12 +24,10 @@ $(document).ready(function () {
                         <a class="product-image" href="${element.link}">
                         <img src="${element.image}"></a>
                         <div class="product-details">
-                            <a 
-                               data-id="${element.variation_id}"
+                            <a href="${site_url+"/cart/remove/"+element.variation_id}"
                                class="remove" 
                                data-bs-toggle="tooltip" 
-                               data-bs-placement="top" 
-                                title="" 
+                               data-bs-placement="top"  
                                 style="cursor: pointer;"
                                 data-bs-original-title="Remove">
                             <i class="an an-times" aria-hidden="true"></i>
@@ -100,17 +98,53 @@ $(document).ready(function () {
                         </a>
                     </td>
                     <td class="cart__meta small--text-left cart-flex-item">
+                        
+                        
                         <div class="list-view-item__title">
-                            <a href="${element.title}">
-                             ${element.title}
+                            <a href="${element.link}">
+                             ${element.title} - ${element.sku} 
                             </a>
                         </div>
                         <div class="cart__meta-text">${attr}</div>
+                        <div class="d-block d-md-none cart__meta-text">
+                            Price: ${response.currency} ${element.price}<br>
+                            Quantity: ${element.cart_qty}<br>
+                            Total: ${response.currency}  ${element.total} 
+                       </div>
+                        <div class="d-block d-md-none cart__qty text-left mt-2">
+                            <div class="qtyField m-0">
+                                <a class="qtyBtn minus" 
+                                     data-id="${element.variation_id}"
+                                     data-action="decreament"
+                                    href="javascript:void(0);">
+                                    <i class="icon an an-minus"></i>
+                                </a>
+                                <input readOnly class="qty" type="text"  
+                                  value="${element.cart_qty}" 
+                                  pattern="[0-9]*">
+                                <a   class="qtyBtn plus"
+                                     data-id="${element.variation_id}"
+                                     data-action="increament" 
+                                     href="javascript:void(0);">
+                                    <i class="icon an an-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="d-block d-md-none text-center">
+                            <a data-id="${element.variation_id}" 
+                               class="m-auto btn btn--secondary cart__remove" 
+                               data-bs-toggle="tooltip" 
+                               data-bs-placement="top" 
+                               data-bs-original-title="Remove item">
+                               <i class="icon an an-times"></i>
+                            </a>
+                        </div>
+                        
                     </td>
-                    <td class="cart__price-wrapper cart-flex-item text-center">
+                    <td class="d-none d-md-table-cell cart__price-wrapper cart-flex-item text-center">
                         <span class="money">${response.currency} ${element.price}</span>
                     </td>
-                    <td class="cart__update-wrapper cart-flex-item text-center">
+                    <td style="width: 150px;" class="d-none d-md-table-cell cart__update-wrapper cart-flex-item text-center">
                         <div class="cart__qty text-center">
                             <div class="qtyField">
                                 <a class="qtyBtn minus" 
@@ -131,10 +165,10 @@ $(document).ready(function () {
                             </div>
                         </div>
                     </td>
-                    <td class="small--hide cart-price text-center">
+                    <td class="d-none d-md-table-cell cart-price text-center">
                         <span class="money">${response.currency} ${element.total}</span>
                     </td>
-                    <td class="text-center small--hide">
+                    <td class="d-none d-md-table-cell text-center">
                         <a  data-id="${element.variation_id}" 
                             class="btn btn--secondary cart__remove" 
                             data-bs-toggle="tooltip" 
@@ -266,7 +300,7 @@ $(document).ready(function () {
 
 
       //Remove Cart
-    $(".mini-products-list,.my_cart_form").delegate(".remove,.cart__remove", "click", function(){
+    $(".my_cart_form").delegate(".cart__remove", "click", function(){
         let vid = $(this).data('id');
         $.ajax({
             type:"get",

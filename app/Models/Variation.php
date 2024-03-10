@@ -32,6 +32,11 @@ class Variation extends Model
          return $this->hasMany(VariationAttribute::class, 'variation_id');
      }
 
+     public function product()
+     {
+         return $this->belongsTo(Product::class, 'product_id');
+     }
+
   
 
      

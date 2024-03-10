@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Attribute;
+use App\Models\Cart;
 use App\Models\Value;
 use App\Models\Category;
 use App\Models\Collection;
@@ -22,7 +23,6 @@ class CartController extends Controller
 
     /**
      * Create a new controller instance.
-     *
      * @return void
      */
     public function __construct()
@@ -38,6 +38,12 @@ class CartController extends Controller
      */
     public function cart()
     {
+
+        $cart = session()->get('cart', []);
+
+        if(count($cart) == 0){
+            return redirect('/shop')->with('error','Cart Is Empty');
+        }
 
      
         return view('theme.cart');
@@ -63,11 +69,8 @@ class CartController extends Controller
         $cart = session()->get('cart', []);
             
         if(isset($cart[$sku->id])) {
-            
-
+        
                     $old_qty = $cart[$sku->id]['quantity'];
-
-                    // dd($old_qty);
             
                     if($action == 'increament'){
                         $cart[$sku->id]['quantity'] = $old_qty + $quantity;
@@ -105,118 +108,44 @@ class CartController extends Controller
     }
 
 
-
-
     public function get_cart_details(Request $request){
 
-        // session()->put('cart', []);
-
-        $total = 0;
-        $cart_items = [];   
-        $cart = session()->get('cart', []);
-        //  dd($cart);
-       
-        foreach ($cart as $key => $c) {
-            
-            $products = Variation::select([
-                'products.id',
-                'products.title',
-                'products.slug',
-                'variations.id as variation_id',
-                'variations.sku as sku',
-                'filemanager.path as image',
-                'variations.quantity as quantity',
-                'variations.price'
-            ])
-            ->join('products','products.id','=','variations.product_id')
-            ->join('filemanager','filemanager.id','=','variations.image')
-            ->where('variations.id',$c['sku'])
-            ->first()
-            ->toArray();
-
-            $attributes = [];
-           if($c['attributes']){
-                $attributes = Value::select([
-                    'attributes.title as attribute_title',
-                    'attributes.id as attribute_id',
-                    'values.id as values_id',
-                    'values.title as values_title',
-                ])
-                ->join('attributes','attributes.id','=','values.attribute_id')
-                ->whereIn('values.id',array_values($c['attributes']))
-                ->get()
-                ->toArray();
-           }
-
-           
-           $total += $products['price'] * $c['quantity']; 
-
-           array_push($cart_items,[
-              "id" => Crypt::encryptString($products['id']),
-              "title" => $products['title'],
-              "sku" => $c['sku'],
-              "slug" => $products['slug'],
-              "variation_id" => $products['variation_id'],
-              "image" => asset($products['image']),
-              "quantity" => $products['quantity'],
-              "price" => $products['price'],
-              "total" => $products['price'] * $c['quantity'],
-              "cart_qty" => $c['quantity'],
-              "link" => URL::to('/products').'/'.$products['slug'],
-              "remove" => URL::to('/cart/remove/').'/'.$products['variation_id'],
-              "attributes" => $attributes,
-           ]);
-
-          
-
-        }
-
-        return response()->json([
-            'currency' => 'PKR',
-            'total' => number_format($total,2),
-            'cart_items' => $cart_items
-        ],200);
+        
+        return response()->json(Cart::get_cart_details(),200);
     
     }
 
 
      /**
      * Show the application dashboard.
-     *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function cart_remove($id)
+    public function cart_remove(Request $request,$id)
     { 
-
-        // $id = Crypt::decryptString($id);
         $cart = session()->get('cart', []);
         if (isset($cart[$id])) {
             unset($cart[$id]);
             session()->put('cart', $cart);
         }
 
-        return response()->json(["message" => "Item Removed From Cart"],200);
+        if($request->ajax()){
+            return response()->json(["message" => "Item Removed From Cart"],200);
+        }else{
+            return  back()->with('success',"Item Removed From Cart");
+        }
 
     }
 
        /**
      * Show the application dashboard.
-     *
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function cart_clear()
     { 
-
         session()->put('cart', []);
         return back()->with('success','Cart Empty');
 
     }
 
     
-
-
-    
-
-
-
 }
