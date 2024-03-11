@@ -166,6 +166,19 @@ class HomeController extends Controller
 
         $data = Product::query();
 
+        if($request->has('search') && $request->search != ''){
+        
+            $data->where('title','LIKE',"%{$request->search}%")
+            ->orWhere('slug', 'LIKE', "%{$request->search}%") 
+            ->orWhere('sku', 'LIKE', "%{$request->search}%")
+            ->orWhere('details', 'LIKE', "%{$request->search}%")
+            ->orWhere('description', 'LIKE', "%{$request->search}%") 
+            ->orWhere('meta_title', 'LIKE', "%{$request->search}%") 
+            ->orWhere('meta_description', 'LIKE', "%{$request->searchm}%") 
+            ->orWhere('meta_keywords', 'LIKE', "%{$request->search}%"); 
+        }
+
+
         if($request->has('category') && $request->category != ''){
            $category = Category::where('slug',$request->category)->first(); 
            if(!$category){

@@ -66,6 +66,21 @@
       <div class="col-12 col-sm-12 col-md-3 col-lg-3 sidebar filterbar">
         <div class="closeFilter d-block d-md-block d-lg-none"><i class="icon an an-times"></i></div>
         <div class="sidebar_tags">
+
+            <form action="{{URL::to('/shop')}}">
+                <div class="input-group mb-3">
+                    <input type="text" 
+                        class="form-control"
+                        name="search"
+                        value="{{request()->has('search') ? request()->search : ''}}" 
+                        placeholder="Search Here" />
+                    <button type="submit" style="background:black;color:white;" 
+                    class="input-group-text">
+                    <i class="icon an an-search"></i>
+                    </button>     
+                </div>
+            </form>
+
             <!-- Categories -->
             <div class="sidebar_widget filterBox categories filter-widget">
                 <div class="widget-title"><h2>Categories</h2></div>
@@ -73,9 +88,7 @@
                     <ul class="sidebar_categories">
 
                         @foreach($categories as $category)
-                        <?php 
-                          $subcats = $category->children;
-                        ?>
+                        <?php $subcats = $category->children; ?>
 
                            <li class="level1 {{count($subcats) ? 'sub-level' : '' }}">
                             <a  @if(count($subcats) == 0) 
@@ -100,7 +113,6 @@
                                     </ul>
                                 @endif
                             </li>
-
                         @endforeach
                     </ul>
                 </div>

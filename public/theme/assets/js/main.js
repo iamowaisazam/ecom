@@ -710,15 +710,16 @@
     function price_slider() {
         $("#slider-range").slider({
             range: true,
-            min: 12,
-            max: 200,
-            values: [0, 100],
+            min: 2,
+            max: 1000,
+            values: [0, 500],
             slide: function (event, ui) {
-                $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+                $("#amount").val("PKR " + ui.values[0] + " - PKR " + ui.values[1]);
             }
         });
-        $("#amount").val("$" + $("#slider-range").slider("values", 0) +
-                " - $" + $("#slider-range").slider("values", 1));
+
+        $("#amount").val("PKR " + $("#slider-range").slider("values", 0) +
+                " - PKR " + $("#slider-range").slider("values", 1));
     }
     price_slider();
 
