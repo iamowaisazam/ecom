@@ -45,6 +45,12 @@ class AppServiceProvider extends ServiceProvider
              }
              $global_d['grouping'] = implode(',',array_unique($groups)); 
              $global_d['menus'] = Menu::with('children.children.children')->get();
+             $global_d['order_status'] = [
+                'pending',
+                'approved',
+                'rejected',
+                'completed'
+             ];
 
         
              $view->with('global_d', $global_d);
