@@ -17,3 +17,8 @@ VALUES (NULL, 'topbar_title', 'Welcome To Irha wears', 'text', '1', 'site_settin
 
 INSERT INTO `settings` (`id`, `field`, `value`, `type`, `sort`, `grouping`) 
 VALUES (NULL, 'site_short_details', 'Irha Wears', 'text', '1', 'site_settings');
+
+
+INSERT INTO `settings` (`id`, `field`, `value`, `type`, `sort`, `grouping`) 
+VALUES (NULL, 'home_page_banner', '', 'image', '1', 'site_settings');
+

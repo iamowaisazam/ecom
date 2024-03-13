@@ -17,11 +17,14 @@ use App\Models\Slider;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
+use Mpdf\Mpdf;
+
 
 class CheckoutController extends Controller
 {
@@ -148,6 +151,51 @@ class CheckoutController extends Controller
 
      
         return view('theme.order_confirmation',compact('order'));
+
+    }
+
+    /**
+     * Show the application dashboard.
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function order_tracking(Request $request)
+    {
+
+        if($request->has('tracking_id') && $request->tracking_id != ''){
+            $order = Order::where('tracking_id',$request->tracking_id)->first();
+            if($order == null){
+                return back()->with('error','Incorrect Tracking ID');
+            }else{
+               return redirect('/order-confirmaton/'.$order->tracking_id);
+            }
+        }
+
+        return view('theme.order_tracking');
+
+    }
+
+     /**
+     * Show the application dashboard.
+     */
+    public function get_invoice(Request $request)
+    {
+
+        $data = Order::first();
+        $mpdf = new \Mpdf\Mpdf([
+            'mode' => 'utf-8',
+            'orientation' => 'L',
+            'format'      => 'A4',
+        ]);
+
+
+        $html = Blade::render('theme.invoice',compact('data'));
+
+        // echo $html;
+         // Write HTML content to PDF
+         $mpdf->WriteHTML($html);
+         
+         // Output the PDF as a downloadable file
+         $mpdf->Output();
 
     }
 

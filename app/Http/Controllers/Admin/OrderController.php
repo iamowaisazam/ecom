@@ -93,13 +93,17 @@ class OrderController extends Controller
             $data = [];
             foreach ($records as $key => $value) {
 
+      
+                $track = '<a class="" target="_blank" href="'.URL::to('/order-confirmaton/'.$value->tracking_id).'">'.$value->tracking_id.'</a>';
+
+
                 $action = '<a class="" href="'.URL::to('admin/orders/edit/'.Crypt::encryptString($value->id)).'">#'.$value->id.'</a>';
 
                 array_push($data,[
                     $action,
                     $value->order_status,
                     $value->payment_status,  
-                    $value->tracking_id,  
+                    $track,  
                     $value->customer_name,
                     $value->customer_phone,
                     str_replace('_', ' ',$value->payment_method),
@@ -156,15 +160,15 @@ class OrderController extends Controller
         $validator = Validator::make($request->all(), [
             "customer_name" => "required",
             "customer_phone" => "required",
-            "customer_email" => "required",
+            // "customer_email" => "required",
             "country" => "required",
             "city" => "required",
-            "address" => "required",
+            // "address" => "required",
             "tracking_id" => "required",
             "order_status" => "required",
             "payment_method" => "required",
             "payment_status" => "required",
-            "order_notes" => "required",
+            // "order_notes" => "required",
         ]);
 
         if ($validator->fails()) {

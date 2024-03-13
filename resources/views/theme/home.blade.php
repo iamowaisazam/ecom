@@ -90,7 +90,7 @@
          <!-- Parallax Section -->
          <div class="section hero-background">
             <div class="hero hero--large bg-size background-parallax" data-stellar-background-ratio="0.08" data-stellar-vertical-offset="0">
-                <img class="bg-img blur-up" src="{{asset('theme/assets/images/parallax-banners/home3-parallax-banner.jpg')}}" alt="image" />
+                <img class="bg-img blur-up" src="{{asset($global_d['home_page_banner'] ? $global_d['home_page_banner']->path : '')}}" alt="image" />
                 <div class="hero__inner">
                     <div class="container">
                         <div class="wrap-text center text-medium font-bold">

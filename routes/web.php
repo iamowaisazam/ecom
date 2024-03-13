@@ -41,9 +41,12 @@ Route::get('/cart/cart_clear', [App\Http\Controllers\CartController::class, 'car
 Route::get('/cart/remove/{id}', [App\Http\Controllers\CartController::class, 'cart_remove']);
 
 //Checkout
+Route::get('/order-tracking', [App\Http\Controllers\CheckoutController::class, 'order_tracking']);
+
 Route::get('/checkout', [App\Http\Controllers\CheckoutController::class, 'index']);
 Route::get('/order-confirmaton/{id}', [App\Http\Controllers\CheckoutController::class, 'order_confirmaton']);
 Route::post('/checkout/submit', [App\Http\Controllers\CheckoutController::class, 'checkout_submit']);
+Route::get('/get_invoice', [App\Http\Controllers\CheckoutController::class, 'get_invoice']);
 
 
 
