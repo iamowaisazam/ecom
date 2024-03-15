@@ -2,6 +2,7 @@
 /public/hot
 /public/filemanager
 /public/storage
+/public/error_log
 /storage/*.key
 .env
 .env.backup
