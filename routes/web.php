@@ -46,7 +46,7 @@ Route::get('/order-tracking', [App\Http\Controllers\CheckoutController::class, '
 Route::get('/checkout', [App\Http\Controllers\CheckoutController::class, 'index']);
 Route::get('/order-confirmaton/{id}', [App\Http\Controllers\CheckoutController::class, 'order_confirmaton']);
 Route::post('/checkout/submit', [App\Http\Controllers\CheckoutController::class, 'checkout_submit']);
-Route::get('/get_invoice', [App\Http\Controllers\CheckoutController::class, 'get_invoice']);
+Route::get('/get_invoice/{id}', [App\Http\Controllers\CheckoutController::class, 'get_invoice']);
 
 
 

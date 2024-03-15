@@ -235,6 +235,16 @@ href="{{asset('admin/assets/node_modules/datatables.net-bs4/css/responsive.dataT
                     <textarea class="form-control" name="order_notes">{{$data->order_notes}}</textarea>
                 </div>
             </div>
+
+            <div class="card">
+                <div class="card-header bg-info">
+                    <h5 class="m-b-0 text-white">Invoice</h5>
+                </div>
+                <div class="card-body text-center">
+                    <a class="btn btn-success" href="{{URL::to('/get_invoice/'.$data->id)}}" target="_blank">
+                    Download</a>
+                </div>
+            </div>
             
          </div>
       </div>

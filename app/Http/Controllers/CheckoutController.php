@@ -177,10 +177,10 @@ class CheckoutController extends Controller
      /**
      * Show the application dashboard.
      */
-    public function get_invoice(Request $request)
+    public function get_invoice(Request $request,$id)
     {
 
-        $data = Order::first();
+        $data = Order::find($id);
         $mpdf = new \Mpdf\Mpdf([
             'mode' => 'utf-8',
             'orientation' => 'L',
