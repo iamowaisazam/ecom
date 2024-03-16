@@ -165,13 +165,18 @@ href="{{asset('public/admin/assets/node_modules/datatables.net-bs4/css/responsiv
        
                 }
             },
-            initComplete: function () {     
-
-                $('.js-switch').each(function () {
-                   new Switchery($(this)[0], $(this).data());
-                 }); 
+            initComplete: function () {   
+                // $('.js-switch').each(function () {
+                //    new Switchery($(this)[0], $(this).data());
+                //  }); 
             }
         });
+
+        application_table.on( 'draw', function () {
+            $('.js-switch').each(function () {
+               new Switchery($(this)[0], $(this).data());
+            }); 
+        } );
 
 
         // $('input[type=search]').unbind();
