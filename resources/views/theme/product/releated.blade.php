@@ -14,13 +14,13 @@
             <div class="product-image">
                 <a href="{{URL::to('/products')}}/{{$rel->slug}}">
                     <img class="primary blur-up lazyload" 
-                    data-src="{{asset($rel->get_thumbnail ? $rel->get_thumbnail->path : '')}}" 
-                    src="{{asset($rel->get_thumbnail ? $rel->get_thumbnail->path : '')}}" 
+                    data-src="{{asset($rel->get_thumbnail ? 'public/'.$rel->get_thumbnail->path : '')}}" 
+                    src="{{asset($rel->get_thumbnail ? 'public/'.$rel->get_thumbnail->path : '')}}" 
                     alt="image" 
                     title="product" />
                     <img class="hover blur-up lazyload" 
-                    data-src="{{asset($rel->get_hover_image ? $rel->get_hover_image->path : '')}}" 
-                    src="{{asset($rel->get_hover_image ? $rel->get_hover_image->path : '')}}" 
+                    data-src="{{asset($rel->get_hover_image ? 'public/'.$rel->get_hover_image->path : '')}}" 
+                    src="{{asset($rel->get_hover_image ? 'public/'.$rel->get_hover_image->path : '')}}" 
                      alt="image" title="product" />
                   
                 </a>

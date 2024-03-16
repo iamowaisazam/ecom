@@ -28,8 +28,8 @@
                             <div class="slideimg blur-up lazyload">
                                 <a href="{{$slide->link}}">
                                 <img class="blur-up lazyload" 
-                                data-src="{{ asset($slide->image ? $slide->image->path : '')}}" 
-                                src="{{asset($slide->image ? $slide->image->path : '')}}" 
+                                data-src="{{ asset($slide->image ? 'public/'.$slide->image->path : '')}}" 
+                                src="{{asset($slide->image ? 'public/'.$slide->image->path : '')}}" 
                                  />
                               </a>
 
@@ -69,8 +69,8 @@
                         <div class="col-12 col-sm-6 col-md-4 item">
                             <div class="collection-grid-item">
                                 <img class="blur-up lazyload" 
-                                data-src="{{asset($category->image? $category->image->path : '')}}" 
-                                src="{{asset($category->image? $category->image->path : '')}}" />
+                                data-src="{{asset($category->image? 'public/'.$category->image->path : '')}}" 
+                                src="{{asset($category->image? 'public/'.$category->image->path : '')}}" />
                                 <a href="{{URL::to('/category')}}/{{$category->slug}}" class="collection-grid-item__title-wrapper">
                                     <div class="title-wrapper">
                                         <h3 class="collection-grid-item__title fw-bold">
@@ -90,7 +90,7 @@
          <!-- Parallax Section -->
          <div class="section hero-background">
             <div class="hero hero--large bg-size background-parallax" data-stellar-background-ratio="0.08" data-stellar-vertical-offset="0">
-                <img class="bg-img blur-up" src="{{asset($global_d['home_page_banner'] ? $global_d['home_page_banner']->path : '')}}" alt="image" />
+                <img class="bg-img blur-up" src="{{asset('public/'.$global_d['home_page_banner'] ? $global_d['home_page_banner']->path : '')}}"  />
                 <div class="hero__inner">
                     <div class="container">
                         <div class="wrap-text center text-medium font-bold">
@@ -129,19 +129,18 @@
                                 <a href="{{URL::to('/products')}}/{{$product->slug}}">
                                     
                                     <img class="primary blur-up lazyload" 
-                                    data-src="{{$product->get_thumbnail ? asset($product->get_thumbnail->path) : ''}}"
-                                    src="{{$product->get_thumbnail ? asset($product->get_thumbnail->path) : ''}}" 
-                                    alt="image" 
-                                    title="product" />
+                                    data-src="{{$product->get_thumbnail ? asset('public/'.$product->get_thumbnail->path) : ''}}"
+                                    src="{{$product->get_thumbnail ? asset('public/'.$product->get_thumbnail->path) : ''}}" 
+                                     />
 
                                     <img class="hover blur-up lazyload" 
-                                    data-src="{{$product->get_hover_image ? asset($product->get_hover_image->path) : ''}}" 
-                                    src="{{$product->get_hover_image ? asset($product->get_hover_image->path) : ''}}" 
-                                    alt="image" 
-                                    title="product" />
+                                    data-src="{{$product->get_hover_image ? asset('public/'.$product->get_hover_image->path) : ''}}" 
+                                    src="{{$product->get_hover_image ? asset('public/'.$product->get_hover_image->path) : ''}}" 
+                                     />
                                     
                                     @if($product->is_popular)
-                                    <div class="product-labels"><span class="lbl pr-label3">Popular</span></div>
+                                    <div class="product-labels">
+                                        <span class="lbl pr-label3">Popular</span></div>
                                     @endif
                                 </a>
                             </div>

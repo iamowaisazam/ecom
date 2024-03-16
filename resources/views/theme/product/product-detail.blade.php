@@ -50,8 +50,8 @@
                     <div class="zoompro-wrap product-zoom-right pl-20">
                         <div class="zoompro-span">
                             <img class="blur-up lazyload zoompro" 
-                            data-zoom-image="{{asset($product->get_thumbnail ? $product->get_thumbnail->path : '')}}"  
-                            src="{{asset($product->get_thumbnail ? $product->get_thumbnail->path : '')}}" />               
+                            data-zoom-image="{{asset($product->get_thumbnail ? 'public/'.$product->get_thumbnail->path : '')}}"  
+                            src="{{asset($product->get_thumbnail ? 'public/'.$product->get_thumbnail->path : '')}}" />               
                         </div>
                    
                         <div class="product-buttons">
@@ -64,16 +64,20 @@
                         <div id="gallery" class="product-dec-slider-1 product-tab-left">
                        
                           @foreach ($product->get_gallery() as $img) 
-                            <a data-image="{{asset($img->path)}}" 
-                            data-zoom-image="{{asset($img->path)}}" class="slick-slide slick-cloned active" data-slick-index="-4" aria-hidden="true" tabindex="-1">
-                                <img class="blur-up lazyload" src="{{asset($img->path)}}"/>
+                            <a  data-image="{{asset('public/'.$img->path)}}" 
+                                data-zoom-image="{{asset('public/'.$img->path)}}" 
+                                class="slick-slide slick-cloned active" 
+                                data-slick-index="-4" 
+                                aria-hidden="true" 
+                                tabindex="-1">
+                                <img class="blur-up lazyload" src="{{asset('public/'.$img->path)}}"/>
                             </a>
                             @endforeach
                         </div>
                     </div>
                     <div class="lightboximages">
                         @foreach ($product->get_gallery() as $img) 
-                        <a href="{{asset($img->path)}}" data-size="1462x2048"></a>
+                        <a href="{{asset('public/'.$img->path)}}" data-size="1462x2048"></a>
                         @endforeach
                     </div>
                     <!-- End Product Images -->
@@ -319,8 +323,8 @@
 </script>
 
         <!-- Photoswipe Gallery -->
-        <script src="{{asset('theme/assets/js/vendor/photoswipe.min.js')}}"></script>
-        <script src="{{asset('theme/assets/js/vendor/photoswipe-ui-default.min.js')}}"></script>
+        <script src="{{asset('public/theme/assets/js/vendor/photoswipe.min.js')}}"></script>
+        <script src="{{asset('public/theme/assets/js/vendor/photoswipe-ui-default.min.js')}}"></script>
         <script>
             $(function () {
 

@@ -53,7 +53,7 @@
     <div class="collection-header">
       <div class="collection-hero">
           <div class="collection-hero__image blur-up lazyload" 
-          style="background-image:url('{{asset('theme/assets/images/collection/women-collection-bnr.jpg')}}');"></div>
+          style="background-image:url('{{asset('public/theme/assets/images/collection/women-collection-bnr.jpg')}}');"></div>
           <div class="collection-hero__title-wrapper">
             <h1 class="collection-hero__title page-width">Shop</h1></div>
       </div>
@@ -190,7 +190,7 @@
 
             <!-- Banner -->
             <div class="sidebar_widget static-banner">
-                <a href="#"><img class="blur-up lazyload" data-src="{{asset('theme/assets/images/side-banner-2.jpg')}}" src="{{asset('theme/assets/images/side-banner-2.jpg')}}" alt="image" /></a>
+                <a href="#"><img class="blur-up lazyload" data-src="{{asset('public/theme/assets/images/side-banner-2.jpg')}}" src="{{asset('public/theme/assets/images/side-banner-2.jpg')}}" alt="image" /></a>
             </div>
             <!-- End Banner -->
 
@@ -234,21 +234,21 @@
           <div class="row">
             @foreach ($data as $item)    
             <?php 
-            $thumb = $item->get_thumbnail ? asset($item->get_thumbnail->path) : '';
-            $img_hover = $item->get_hover_image ? asset($item->get_hover_image->path) : '';
+            $thumb = $item->get_thumbnail ? asset('public/'.$item->get_thumbnail->path) : '';
+            $img_hover = $item->get_hover_image ? asset('public/'.$item->get_hover_image->path) : '';
          ?>
               <div class="col-6 col-sm-6 col-md-4 col-lg-4 item">
                   <div class="product-image">
                       <a href="{{URL::to('/products')}}/{{$item->slug}}">
                           <img class="primary blur-up lazyload" 
-                          data-src="{{asset($item->get_thumbnail ? asset($item->get_thumbnail->path) : '')}}" 
-                          src="{{asset($item->get_thumbnail ? asset($item->get_thumbnail->path) : '')}}" 
+                          data-src="{{asset($item->get_thumbnail ? asset('public/'.$item->get_thumbnail->path) : '')}}" 
+                          src="{{asset($item->get_thumbnail ? asset('public/'.$item->get_thumbnail->path) : '')}}" 
                           alt="image" 
                           title="product" />
 
                           <img class="hover blur-up lazyload" 
-                            data-src="{{asset($item->get_hover_image ? asset($item->get_hover_image->path) : '')}}" 
-                            src="{{asset($item->get_hover_image ? asset($item->get_hover_image->path) : '')}}" 
+                            data-src="{{asset($item->get_hover_image ? asset('public/'.$item->get_hover_image->path) : '')}}" 
+                            src="{{asset($item->get_hover_image ? asset('public/'.$item->get_hover_image->path) : '')}}" 
                             alt="image" 
                             title="product" />
                           

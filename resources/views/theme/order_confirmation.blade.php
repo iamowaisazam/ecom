@@ -25,8 +25,8 @@
             <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="checkout-success-banner mb-4 mb-lg-5">
                     <img class="blur-up lazyload" 
-                      data-src="{{asset('theme/assets/images/checkout-success-banner.jpg')}}" 
-                      src="assets/images/checkout-success-banner.jpg" 
+                      data-src="{{asset('public/theme/assets/images/checkout-success-banner.jpg')}}" 
+                      src="{{asset('public/theme/assets/images/checkout-success-banner.jpg')}}" 
                       />
                 </div>
             </div>

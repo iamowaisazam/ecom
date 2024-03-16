@@ -76,7 +76,7 @@
                         Proceed To Checkout
                     </a>
                     <div class="paymnet-img">
-                        <img src="{{asset('theme/assets/images/payment-img.jpg')}}"/>
+                        <img src="{{asset('public/theme/assets/images/payment-img.jpg')}}"/>
                     </div>
                 </div>
             </div>

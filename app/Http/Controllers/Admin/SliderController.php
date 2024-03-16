@@ -71,7 +71,7 @@ class SliderController extends Controller
                 $action .= '<a class="btn btn-danger" href="'.URL::to('admin/sliders/delete/'.Crypt::encryptString($value->id)).'">Delete</a>';
 
                 $action .= '</div>';
-                $img = $value->image ? asset($value->image->path) : '';
+                $img = $value->image ? asset('public/'.$value->image->path) : '';
 
                 array_push($data,[
                     $value->id,

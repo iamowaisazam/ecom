@@ -21,12 +21,12 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     
     <!-- Plugins CSS -->
-       <link rel="shortcut icon" href="{{asset($global_d['logo'] ? $global_d['logo']->path : '')}}">
-       <link rel="stylesheet" href="{{asset('theme/assets/css/plugins.css')}}" />
-       <link href="{{asset('admin/assets/node_modules/toast-master/css/jquery.toast.css')}}" rel="stylesheet">
-       <link rel="stylesheet" href="{{asset('theme/assets/css/style.css')}}" />
-       <link rel="stylesheet" href="{{asset('theme/assets/css/responsive.css')}}" />
-       <link href="{{asset('admin/assets/node_modules/toast-master/css/jquery.toast.css')}}" rel="stylesheet">
+       <link rel="shortcut icon" href="{{asset($global_d['logo'] ? 'public/'.$global_d['logo']->path : '')}}">
+       <link rel="stylesheet" href="{{asset('public/theme/assets/css/plugins.css')}}" />
+       <link href="{{asset('public/admin/assets/node_modules/toast-master/css/jquery.toast.css')}}" rel="stylesheet">
+       <link rel="stylesheet" href="{{asset('public/theme/assets/css/style.css')}}" />
+       <link rel="stylesheet" href="{{asset('public/theme/assets/css/responsive.css')}}" />
+       <link href="{{asset('public/admin/assets/node_modules/toast-master/css/jquery.toast.css')}}" rel="stylesheet">
 
     @yield('css')
 </head>
@@ -34,7 +34,7 @@
   
   <!-- Page Loader -->
   <div id="pre-loader">
-     <img src="{{asset('theme/assets/images/loader.gif')}}" />
+     <img src="{{asset('public/theme/assets/images/loader.gif')}}" />
    </div>
   <!-- End Page Loader -->
 
@@ -136,7 +136,7 @@
                         <div class="logo col-4 col-sm-4 col-md-2 col-lg-2 align-self-center">
                             <a href="{{URL::to('/')}}">
                                 <img 
-                                   src="{{asset($global_d['logo'] ? $global_d['logo']->path : '')}}" width="100" 
+                                   src="{{asset($global_d['logo'] ? 'public/'.$global_d['logo']->path : '')}}" width="100" 
                                    />
                             </a>
                         </div>
@@ -234,7 +234,7 @@
 
                         <div class="col-12 col-sm-12 col-md-3 col-lg-3 footer-links">
                             <a href="{{URL::to('/')}}">
-                                <img src="{{asset($global_d['logo'] ? $global_d['logo']->path : '')}}" class="pb-3" />
+                                <img src="{{asset($global_d['logo'] ? 'public/'.$global_d['logo']->path : '')}}" class="pb-3" />
                             </a>
                             <p>{{$global_d['site_short_details']}}</p>
 
@@ -282,7 +282,9 @@
                             <h4 class="h4">Help & Policies</h4>
                             <ul>
                                 @foreach ($footer_menu2->children as $item)
-                                 <li><a target="{{$item->target}}" href="{{$item->link}}">{{$item->title}}</a></li>
+                                 <li>
+                                    <a target="{{$item->target}}" href="{{$item->link}}">{{$item->title}}</a>
+                                </li>
                                 @endforeach
                             </ul>
                         </div>
@@ -410,10 +412,10 @@
 
 
         <!-- Including Javascript -->
-        <script src="{{asset('theme/assets/js/plugins.js')}}"></script>
-        <script src="{{asset('theme/assets/js/main.js')}}"></script>
-        <script src="{{asset('admin/assets/node_modules/toast-master/js/jquery.toast.js')}}"></script>
-        <script src="{{asset('theme/assets/js/cart.js')}}"></script>
+        <script src="{{asset('public/theme/assets/js/plugins.js')}}"></script>
+        <script src="{{asset('public/theme/assets/js/main.js')}}"></script>
+        <script src="{{asset('public/admin/assets/node_modules/toast-master/js/jquery.toast.js')}}"></script>
+        <script src="{{asset('public/theme/assets/js/cart.js')}}"></script>
         
         @if(Session::get('success'))
         <script> 

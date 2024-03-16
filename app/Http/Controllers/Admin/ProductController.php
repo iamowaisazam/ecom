@@ -99,7 +99,7 @@ class ProductController extends Controller
 
                 $action .= '</div>';
 
-                $thumb_path = $value->get_thumbnail ? $value->get_thumbnail->path : ''; 
+                $thumb_path = $value->get_thumbnail ? 'public/'.$value->get_thumbnail->path : ''; 
                 $img = '<img  style="width:100px;height:50px" src="'.asset($thumb_path).'" />';
 
                 array_push($data,[

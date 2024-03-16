@@ -2,8 +2,8 @@
 
 @section('css')
 
-    <link href="{{asset('admin/assets/css/pages/user-card.css')}}" rel="stylesheet"> 
-    <link href="{{asset('admin/assets/node_modules/Magnific-Popup-master/dist/magnific-popup.css')}}" rel="stylesheet">
+    <link href="{{asset('public/admin/assets/css/pages/user-card.css')}}" rel="stylesheet"> 
+    <link href="{{asset('public/admin/assets/node_modules/Magnific-Popup-master/dist/magnific-popup.css')}}" rel="stylesheet">
 
     <style>
 
@@ -118,8 +118,8 @@
 
 @section('js')
 
-<script src="{{asset('admin/assets/node_modules/Magnific-Popup-master/dist/jquery.magnific-popup.min.js')}}">
+<script src="{{asset('public/admin/assets/node_modules/Magnific-Popup-master/dist/jquery.magnific-popup.min.js')}}">
 </script>
-<script src="{{asset('admin/assets/node_modules/Magnific-Popup-master/dist/jquery.magnific-popup-init.js')}}"></script>
+<script src="{{asset('public/admin/assets/node_modules/Magnific-Popup-master/dist/jquery.magnific-popup-init.js')}}"></script>
 
 @endsection

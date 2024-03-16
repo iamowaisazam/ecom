@@ -53,7 +53,7 @@
         <div class="collection-header">
         <div class="collection-hero">
             <div class="collection-hero__image blur-up lazyload" 
-            style="background-image:url('{{asset('theme/assets/images/collection/women-collection-bnr.jpg')}}');"></div>
+            style="background-image:url('{{asset('public/theme/assets/images/collection/women-collection-bnr.jpg')}}');"></div>
             <div class="collection-hero__title-wrapper">
                 <h1 class="collection-hero__title page-width">{{$category->title}}</h1></div>
         </div>
@@ -73,8 +73,8 @@
                             <div class="col-12 col-sm-6 col-md-6 col-lg-6 grid-lookbook">
                                 <div class="inner position-relative overflow-hidden">
                                     <img class="blur-up lazyload" 
-                                    data-src="{{asset($cat->image ? $cat->image->path : '')}}" 
-                                    src="{{asset($cat->image ? $cat->image->path : '')}}" 
+                                    data-src="{{asset($cat->image ? 'public/'.$cat->image->path : '')}}" 
+                                    src="{{asset($cat->image ? 'public/'.$cat->image->path : '')}}" 
                                     />
                                     <div class="caption">
                                         <h2>{{$cat->title}}</h2>

@@ -6,12 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" 
+    href="{{asset('public/admin/assets/images/favicon.png')}}">
     
     <title>Login</title>
 
-    <link href="{{asset('/admin/assets/css/pages/login-register-lock.css')}}" rel="stylesheet">
-    <link href="{{asset('/admin/assets/css/style.css')}}" rel="stylesheet">
+    <link href="{{asset('public/admin/assets/css/pages/login-register-lock.css')}}" rel="stylesheet">
+    <link href="{{asset('public/admin/assets/css/style.css')}}" rel="stylesheet">
     <style>
       .error{
         color: red!important;
@@ -34,7 +35,8 @@
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
     <section id="wrapper">
-        <div class="login-register" style="background-image:url(../assets/images/background/login-register.jpg);">
+        <div class="login-register" 
+        style="background-image:url({{asset('public/admin/assets/images/background/login-register.jpg')}});">
             <div class="login-box card">
                 <div class="card-body">
                     <form method="post" class="form-horizontal form-material"  id="loginform" action="{{URL::to('/admin/login_submit')}}">
@@ -56,38 +58,11 @@
                                 @endif  
                               </div>
                         </div>
-{{-- 
-                        <div class="form-group row">
-                            <div class="col-md-12">
-                                <div class="d-flex no-block align-items-center">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="customCheck1">
-                                        <label class="form-check-label" for="customCheck1">Remember me</label>
-                                    </div> 
-                                    <div class="ms-auto">
-                                        <a href="javascript:void(0)" id="to-recover" class="text-muted"><i class="fas fa-lock m-r-5"></i> Forgot pwd?</a> 
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
                         <div class="form-group text-center">
                             <div class="col-xs-12 p-b-20">
                                 <button class="btn w-100 btn-lg btn-info btn-rounded text-white" type="submit">Log In</button>
                             </div>
                         </div>
-                        {{-- <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-12 m-t-10 text-center">
-                                <div class="social">
-                                    <button class="btn  btn-facebook" data-bs-toggle="tooltip" title="Login with Facebook"> <i aria-hidden="true" class="fab fa-facebook-f"></i> </button>
-                                    <button class="btn btn-googleplus" data-bs-toggle="tooltip" title="Login with Google"> <i aria-hidden="true" class="fab fa-google-plus-g"></i> </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group m-b-0">
-                            <div class="col-sm-12 text-center">
-                                Don't have an account? <a href="pages-register.html" class="text-info m-l-5"><b>Sign Up</b></a>
-                            </div>
-                        </div> --}}
                     </form>
                     <form class="form-horizontal" id="recoverform" action="index.html">
                         <div class="form-group ">
@@ -111,8 +86,8 @@
         </div>
     </section>
     
-    <script src="{{asset('/admin/assets/node_modules/jquery/dist/jquery.min.js')}}"></script>
-    <script src="{{asset('/admin/assets/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('public/admin/assets/node_modules/jquery/dist/jquery.min.js')}}"></script>
+    <script src="{{asset('public/admin/assets/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
     
     <!--Custom JavaScript -->
     <script type="text/javascript">

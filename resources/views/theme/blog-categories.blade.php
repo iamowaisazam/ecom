@@ -1,6 +1,6 @@
 @extends('theme.layout')
 @php
-     $bg = asset('admin/uploads/'.$global_d['blog_banner']);
+     $bg = asset('public/admin/uploads/'.$global_d['blog_banner']);
 @endphp
 
 @section('metatags')
@@ -86,7 +86,7 @@
                 <div class="col-md-4">
                     <div class="latest_page_box">
                         <div class="news_image">
-                            <img src="{{asset('/admin/uploads/'.$item->image)}}" />
+                            <img src="{{asset('public/admin/uploads/'.$item->image)}}" />
                             <div class="price">
                                 <span class="tag_red">{{$item->cat_title}}</span>
                             </div>

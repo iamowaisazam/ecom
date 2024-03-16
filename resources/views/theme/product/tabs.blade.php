@@ -205,7 +205,7 @@
                       </table>
                   </div>
                   <div class="text-center mt-3">
-                      <img src="assets/images/size.jpg" alt="" />
+                      <img src="{{asset('public/theme/assets/images/size.jpg')}}"  />
                   </div>
               </div>
           </div>

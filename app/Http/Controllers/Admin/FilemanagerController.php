@@ -32,6 +32,8 @@ class FilemanagerController extends Controller
     public function index()
     {
        
+        
+
        $data = Filemanager::query();
        $data = $data->paginate(10);
     
@@ -48,6 +50,7 @@ class FilemanagerController extends Controller
     public function store(Request $request)
     {
 
+       
    
 
         $request->validate([
