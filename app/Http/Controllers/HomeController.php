@@ -9,6 +9,7 @@ use App\Models\Attribute;
 use App\Models\Value;
 use App\Models\Category;
 use App\Models\Collection;
+use App\Models\Page;
 use App\Models\ProductCollection;
 use App\Models\Variation;
 use App\Models\VariationAttribute;
@@ -16,6 +17,8 @@ use App\Models\Slider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Mail;
+use Symfony\Component\Mime\Part\HtmlPart;
 
 class HomeController extends Controller
 {
@@ -99,8 +102,8 @@ class HomeController extends Controller
     public function home()
     {
         
-      
         $categories = Category::where('is_enable',1)->where('is_featured',1)->where('parent_id',null)->get();
+        // dd($categories);
         $sliders = Slider::where('is_enable',1)->get(); 
         $products = Product::where('is_enable',1)->where('is_featured',1)->get();
        
@@ -228,10 +231,24 @@ class HomeController extends Controller
         return view('theme.category',compact('category','categories'));
 
     }
-
-
+    public function pageContent($slug){
+        $pageData = Page::where('slug', $slug)->first();
+        if(!$pageData){  
+            return back()->with('error', 'Record Not Found');
+        }
     
-
+        return view('theme.page', compact('pageData'));
+    }
+    public function test(){
+        Mail::send('theme.emails.order-confirmation-email',[], function($message){
+           
+            $message->to("supermanman0300@gmail.com");
+            $message->subject('Order Receipt - ' . '[ID]');
+            $message->from(env('MAIL_USERNAME'), env('MAIL_FROM_NAME'));
+        
+        });
+        
+    }
 
     
 

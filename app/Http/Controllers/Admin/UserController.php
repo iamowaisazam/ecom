@@ -169,6 +169,7 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role_id' => 'customer',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
             'created_by' => Auth::user()->id,
@@ -176,7 +177,7 @@ class UserController extends Controller
         ]);
         
         
-        return redirect('/admin/users/index')->with('success','Record Created Success'); 
+        return redirect('/login')->with('success','Record Created Success'); 
     }
 
      /**

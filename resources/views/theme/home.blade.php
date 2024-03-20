@@ -22,6 +22,7 @@
             <!-- Home Banner slider -->
             <div class="slideshow slideshow-wrapper pb-section">
                 <div class="home-slideshow slideshow--large">
+                
 
                     @foreach ($sliders as $slide)
                         <div class="slide slide1 d-block">
