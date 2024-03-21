@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Menu;
 use App\Models\MenuItem;
 use App\Models\Slider;
@@ -56,6 +57,8 @@ class MenuItemController extends Controller
         return view('admin.menus.menu-items.index',compact('menu','pageItems','dropdowns')); 
 
     }
+
+    
 
 
    /**
@@ -111,6 +114,80 @@ class MenuItemController extends Controller
         return view('admin.menus.menu-items.edit',compact('model','dropdowns')); 
 
     }
+
+     /**
+     * Create a new controller instance.
+     * @return void
+     */
+    public function sort(Request $request,$id)
+    {
+
+        $id = Crypt::decryptString($id);
+        $model = Menu::where('id',$id)->first();
+        if($model == false){
+            return back()->with('warning','Record Not Found');
+        }
+
+
+        if($request->ajax()){
+
+            if($request->has('data')){
+                // dd($request->data);
+
+                foreach ($request->data as $key => $category) {
+                  
+                    MenuItem::where('id',$category['id'])
+                    ->where('menu_id',$id)
+                    ->update([
+                        "sort" => $key,
+                        "parent_id" => null,
+                        "level" => 1,
+                    ]);
+                    
+
+                    if(isset($category['children'])){
+                        foreach ($category['children'] as $subkey => $subCategory) {
+                            MenuItem::where('id',$subCategory['id'])
+                            ->where('menu_id',$id)
+                            ->update([
+                                "sort" => $subkey,
+                                "parent_id" => $category['id'],
+                                "level" => 2,
+                            ]);
+
+                            if(isset($subCategory['children'])){
+                                foreach ($subCategory['children'] as $childkey => $childCategory) {
+                                    MenuItem::where('id',$childCategory['id'])
+                                    ->where('menu_id',$id)
+                                    ->update([
+                                        "sort" => $childkey,
+                                        "parent_id" => $subCategory['id'],
+                                        "level3" => 1,
+                                    ]);
+
+                                }
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            return response()->json($request->all());
+        }
+
+     
+
+        $data = MenuItem::where('menu_id',$id)->where('parent_id',NULL)->get();
+        return view('admin.menus.menu-items.sort',compact('model','data')); 
+
+    }
+
+
+    
 
     /**
      * Create a new controller instance.

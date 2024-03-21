@@ -25,11 +25,13 @@
     </div>
 </div>
 
+@foreach ($data as $kk => $settings)
+
 <div class="row">
     <div class="col-lg-12">
         <section class="card">            
             <header class="card-header bg-info">
-                <h4 class="mb-0 text-white"> Fill this Form & Edit {{ ucwords(str_ireplace("_", " ",$group))}}</h4>
+                <h4 class="mb-0 text-white">{{ ucwords(str_ireplace("_", " ",$kk))}}</h4>
                 </header>
             <div class="card-body">
                 <form method="post" 
@@ -37,7 +39,7 @@
                 action="{{URL::to('admin/settings/update/')}}" >
                     @csrf
                     <div class="row">
-                        @foreach ($data as $key => $item)
+                        @foreach ($settings as $key => $item)
                         @switch($item->type)
                             @case('keywords')
                             <div class="col-md-12">
@@ -57,24 +59,25 @@
                             
 
                             @case('image')
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>{{ ucwords(str_ireplace("_", " ",$item->field))}} :</label>
-                                    <input 
-                                      class="image form-control"
-                                      type="text" 
-                                      value="{{$item->value}}"  
-                                      placeholder="{{ ucwords(str_ireplace("_", " ",$item->field))}}" 
-                                      name="{{$item->field}}[value]" >
-                                      <input type="hidden" name="{{$item->field}}[type]"
-                                      value="{{$item->type}}" >
-                                      <br>
-                                      @if($item->image)
-                                      <img style="width:100px;height:100px;" 
-                                      src="{{asset('public/'.$item->image->path)}}" />
-                                      @endif
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>{{ ucwords(str_ireplace("_", " ",$item->field))}} :</label>
+                                        <input 
+                                        class="image form-control"
+                                        type="text" 
+                                        value="{{$item->value}}"  
+                                        placeholder="{{ ucwords(str_ireplace("_", " ",$item->field))}}" 
+                                        name="{{$item->field}}[value]" >
+                                        <input type="hidden" name="{{$item->field}}[type]"
+                                        value="{{$item->type}}" >
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="col-md-6 text-center">
+                                        @if($item->image)
+                                        <img style="width:100px;height:100px;" 
+                                        src="{{asset('public/'.$item->image->path)}}" />
+                                        @endif
+                                </div>
                             @break
 
                             @case('textarea')
@@ -120,6 +123,8 @@
           </section>
         </div>
     </div>
+
+@endforeach
 @endsection
 
 @section('js')

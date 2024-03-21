@@ -29,15 +29,20 @@ class FilemanagerController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
        
-        
+        $groups = Filemanager::query()->pluck('grouping')->toArray();
+        $groups = array_unique($groups);
 
-       $data = Filemanager::query();
-       $data = $data->paginate(10);
+        $data = Filemanager::query();
+        if($request->has('group') && $request->group != ''){
+          $data = $data->where('grouping',$request->group);
+        }
+
+       $data = $data->paginate(20);
     
-        return view('admin.filemanager.index',compact('data'));
+        return view('admin.filemanager.index',compact('data','groups'));
     } 
 
 
@@ -50,24 +55,21 @@ class FilemanagerController extends Controller
     public function store(Request $request)
     {
 
-       
-   
-
         $request->validate([
             'title' => ['max:255'],
-            'short_description' =>['max:255'],
+            'group' => ['required','max:255'],
+            'description' =>['max:255'],
             'files.*' => ['required','file','mimes:jpg,png,pdf','max:2048'],
         ]);
 
-        // dd($request->all());
-
+        if(count($request->files) == 0){
+            return back()->with('warning','File Not Found');
+        }
         
 
         foreach ($request->files as $files) {
-        
             foreach ($files as $myfile) {
-             
-        
+
                 $fileExtension = $myfile->getClientOriginalExtension();
                 $fileSizeInBytes = $myfile->getSize();
                 $mimeType = $myfile->getMimeType();
@@ -75,7 +77,6 @@ class FilemanagerController extends Controller
                 $filename = uniqid().'.'.$fileExtension;
                 $path = 'filemanager/'.$filename;
                 $upload_path = base_path('public/filemanager');
-                // dd($upload_path);
                 $myfile->move($upload_path,$filename);
 
                 $filemanager = new Filemanager();
@@ -98,8 +99,6 @@ class FilemanagerController extends Controller
         }
 
         return redirect('/admin/filemanager')->with('success','File Uploaded');
-
-
     }
 
     public function edit($id){
@@ -109,10 +108,9 @@ class FilemanagerController extends Controller
             return back();
         }
 
-
         return view('admin.filemanager.edit',compact('filemanager'));
-
     }
+
 
     public function update(Request $request,$id)
     {  
@@ -122,12 +120,14 @@ class FilemanagerController extends Controller
             return back();
         }
 
-        $request->validate([
+         $request->validate([
             'title' => ['max:255'],
+            'group' => ['required','max:255'],
             'description' =>['max:255'],
         ]);
 
         $filemanager->title = $request->title;
+        $filemanager->grouping = $request->group;
         $filemanager->description = $request->description;
         $filemanager->save();
 

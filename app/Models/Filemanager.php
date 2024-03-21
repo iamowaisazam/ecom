@@ -18,6 +18,7 @@ class Filemanager extends Model
         'extension',
         'preview',
         'type',
+        'grouping',
         'path',
         'created_by',
         'created_at',

@@ -94,6 +94,7 @@ Route::get('/admin/status', [App\Http\Controllers\Admin\DashboardController::cla
 //Menus Items
   Route::get('/admin/menus_items/{menu}/index', [App\Http\Controllers\Admin\MenuItemController::class,'index']);
   Route::post('/admin/menus_items/store', [App\Http\Controllers\Admin\MenuItemController::class,'store']);
+  Route::get('/admin/menus_items/sort/{id}', [App\Http\Controllers\Admin\MenuItemController::class, 'sort']);
   Route::get('/admin/menus_items/edit/{id}', [App\Http\Controllers\Admin\MenuItemController::class, 'edit']);
   Route::post('/admin/menus_items/update/{id}', [App\Http\Controllers\Admin\MenuItemController::class, 'update']);
   Route::get('/admin/menus_items/delete/{id}', [App\Http\Controllers\Admin\MenuItemController::class, 'delete']);

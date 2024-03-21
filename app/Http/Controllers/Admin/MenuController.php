@@ -63,6 +63,8 @@ class MenuController extends Controller
                 $action = '<div class="btn-group">';
                 $action .= '<a class="btn btn-info" href="'.URL::to('admin/menus/edit/'.Crypt::encryptString($value->id)).'">Edit</a>';
 
+                $action .= '<a class="btn btn-warning" href="'.URL::to('admin/menus_items/sort/'.Crypt::encryptString($value->id)).'">Sort</a>';
+
                 $action .= '<a class="btn btn-success" href="'.URL::to('admin/menus_items/'.Crypt::encryptString($value->id).'/index').'">Items</a>';
 
                 // $action .= '<a class="btn btn-danger" href="'.URL::to('admin/menus/delete/'.Crypt::encryptString($value->id)).'">Delete</a>';
