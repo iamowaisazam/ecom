@@ -175,6 +175,14 @@
                                 <li><a href="{{URL::to('admin/menus/index')}}">All Menus</a></li>
                             </ul>
                         </li>
+                        <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-google-pages"></i>
+                            <span class="hide-menu"> Pages </span></a>
+                            
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="{{URL::to('admin/page/create')}}">Add New pages</a></li>
+                                <li><a href="{{URL::to('admin/page/index')}}">All pages</a></li>
+                            </ul>
+                        </li>
 
                         <li><a class="has-arrow waves-effect waves-dark" 
                             href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-folder-multiple-image"></i>

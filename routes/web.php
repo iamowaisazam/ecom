@@ -32,6 +32,7 @@ Route::get('/shop', [App\Http\Controllers\HomeController::class, 'shop']);
 
 Route::get('/combination_maker', [App\Http\Controllers\HomeController::class, 'combination_maker']);
 Route::get('/blogs/categories/{id}', [App\Http\Controllers\HomeController::class, 'blog_categories']);
+Route::get('/pages/{slug}', [App\Http\Controllers\HomeController::class, 'pageContent']);
 
 //Carts
 Route::get('/cart', [App\Http\Controllers\CartController::class, 'cart']);
@@ -48,9 +49,22 @@ Route::get('/order-confirmaton/{id}', [App\Http\Controllers\CheckoutController::
 Route::post('/checkout/submit', [App\Http\Controllers\CheckoutController::class, 'checkout_submit']);
 Route::get('/get_invoice/{id}', [App\Http\Controllers\CheckoutController::class, 'get_invoice']);
 
+// testing 
+Route::get('/test', [App\Http\Controllers\HomeController::class, 'test']);
 
+// Website login 
+Route::get('/login', [App\Http\Controllers\WebAuthController::class, 'login'])->name('weblogin');
+Route::get('/register', [App\Http\Controllers\WebAuthController::class, 'register'])->name('register');
+Route::get('/forgotpassword', [App\Http\Controllers\WebAuthController::class, 'forgotPassword'])->name('forgotpassword');
+Route::post('/createaccount', [App\Http\Controllers\WebAuthController::class, 'createAccount']);
+Route::post('/weblogin', [App\Http\Controllers\WebAuthController::class, 'webLogin']);
+Route::post('/password-reset-request', [App\Http\Controllers\WebAuthController::class, 'sendResetLink'])->name('resetpassword');
 
-
+// dashboard login Group 
+Route::middleware(['webLoginChk'])->group(function () {
+  Route::get('/dashboard', [App\Http\Controllers\WebAuthController::class, 'dashboard'])->name('dashboard');
+  Route::get('/logout', [App\Http\Controllers\WebAuthController::class, 'weblogout'])->name('weblogout');
+});
 
 
 //Admin
@@ -134,8 +148,15 @@ Route::get('/admin/status', [App\Http\Controllers\Admin\DashboardController::cla
     Route::get('/admin/collections/edit/{id}', [App\Http\Controllers\Admin\CollectionController::class, 'edit']);
     Route::post('/admin/collections/update/{id}', [App\Http\Controllers\Admin\CollectionController::class, 'update']);
     Route::get('/admin/collections/delete/{id}', [App\Http\Controllers\Admin\CollectionController::class, 'delete']);
-   
-
+    
+    //page
+    Route::get('/admin/page/index', [App\Http\Controllers\Admin\PageController::class, 'index']);
+    Route::get('/admin/page/edit/{id}', [App\Http\Controllers\Admin\PageController::class, 'edit']);
+    Route::get('/admin/page/create', [App\Http\Controllers\Admin\PageController::class, 'create']);
+    Route::post('/admin/page/store', [App\Http\Controllers\Admin\PageController::class, 'store']);
+    Route::post('/admin/page/update/{id}', [App\Http\Controllers\Admin\PageController::class, 'update']);
+    Route::get('/admin/page/delete/{id}', [App\Http\Controllers\Admin\PageController::class, 'delete']);
+    
   //products category
     Route::get('/admin/categories/index', [App\Http\Controllers\Admin\CategoryController::class, 'index']);
     Route::get('/admin/categories/create', [App\Http\Controllers\Admin\CategoryController::class, 'create']);

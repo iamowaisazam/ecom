@@ -107,7 +107,7 @@
                         <div class="col-2 col-sm-4 col-md-5 col-lg-4 text-end d-block d-sm-none d-md-none d-lg-none">
                             <!-- Mobile User Links -->
                             <div class="user-menu-dropdown">
-                                <a href="{{URL::to('/admin/login')}}">
+                                <a href="{{URL::to('/login')}}">
                                     <span class="user-menu"><i class="an an-user-alt"></i></span>
                                 </a>
                             </div>
@@ -175,7 +175,7 @@
                             <div class="right-action text-action d-flex-align-center justify-content-end">
 
                                 <div class="item site-user-menu d-none d-sm-inline-block">
-                                    <a href="{{URL::to('/admin/login')}}" class="icon-login text-capitalize text-nowrap"><i class="icon an an-user-alt"></i><span class="text align-middle ms-1 d-none d-md-inline-block">Login</span></a>
+                                    <a href="{{URL::to('/login')}}" class="icon-login text-capitalize text-nowrap"><i class="icon an an-user-alt"></i><span class="text align-middle ms-1 d-none d-md-inline-block">Login</span></a>
                                 </div>
                               
                                 <div class="item site-cart">
