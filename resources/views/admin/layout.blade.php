@@ -224,6 +224,15 @@
                             <span class="hide-menu"> Orders </span></a>
                         </li>
 
+                        <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-monitor"></i>
+                            <span class="hide-menu"> Report </span></a>
+                            
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="{{URL::to('admin/reports/clients/index')}}">Customer</a></li>
+                                <li><a href="{{URL::to('admin/products/index')}}">Admin Report</a></li>
+                            </ul>
+                        </li>
+
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-folder-multiple-outline"></i>
                             <span class="hide-menu"> Filemanager </span></a>
                             <ul aria-expanded="false" class="collapse">

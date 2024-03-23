@@ -35,9 +35,13 @@ class AuthController extends Controller
      */
     public function login()
     {
-
         if (Auth::check()){
-             return redirect('/admin/dashboard'); 
+            $role_id = Auth::user()->role_id;
+            if ($role_id == 0) {
+                return redirect('/admin/dashboard');
+            } else {
+                return redirect('/dashboard');
+            }
         }
         
         return view('admin.login');

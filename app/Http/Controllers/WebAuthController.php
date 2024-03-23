@@ -18,7 +18,12 @@ class WebAuthController extends Controller
     {
 
         if (Auth::check()){
-             return redirect('/dashboard'); 
+            $role_id = Auth::user()->role_id;
+            if ($role_id == 0) {
+                return redirect('/admin/dashboard');
+            } else {
+                return redirect('/dashboard');
+            }
         }
         // $users = User::all();
         // return view('theme.login',compact('users'));
@@ -69,10 +74,15 @@ class WebAuthController extends Controller
     }
     public function webLogin(Request $request)
     {
-        if (Auth::check()){
-            return redirect('/dashboard'); 
-       }
-
+        if (Auth::check()) {
+            $role_id = Auth::user()->role_id;
+            if ($role_id == 0) {
+                return redirect('/admin/dashboard');
+            } else {
+                return redirect('/dashboard');
+            }
+        }
+        
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|max:255',
             'password' => 'required|string|min:8|max:255',
@@ -86,19 +96,32 @@ class WebAuthController extends Controller
         
         
         $user = User::where('email',$request->email)->first();
-        if($user == null){
+        // dd($user);
+        if($user == null ){
             return back()
             ->withErrors([
                 "email" => ["Wrong Email or password"]
                 ])->withInput();
             }
+        if($user->role_id == 0){
+            return back()
+            ->withErrors([
+                "email" => ["Enter a valid user email !"]
+                ])->withInput();
+        }
             if(Hash::check($request->password, $user->password)) {
                
             
             if (Auth::attempt([
                 'email' =>$request->email,
                 'password' => $request->password])){
-                 return redirect('/dashboard'); 
+                    if($user->role_id == 1){
+                        return redirect('/dashboard'); 
+                        
+                    }else{
+                        return redirect('/admin/dashboard'); 
+
+                    }
             }
 
         } else {

@@ -35,12 +35,14 @@ class FilemanagerController extends Controller
         $groups = Filemanager::query()->pluck('grouping')->toArray();
         $groups = array_unique($groups);
 
+
         $data = Filemanager::query();
+
         if($request->has('group') && $request->group != ''){
           $data = $data->where('grouping',$request->group);
         }
 
-       $data = $data->paginate(20);
+        $data = $data->paginate(20);
     
         return view('admin.filemanager.index',compact('data','groups'));
     } 

@@ -55,7 +55,7 @@ class CollectionController extends Controller
             $count = $query->get();
 
             $records = $query->skip($request->start)
-            ->take($request->length)
+            ->take($request->length)->orderBy('id','desc')
             ->get();
             
             $data = [];

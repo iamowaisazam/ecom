@@ -79,7 +79,7 @@ class RoleController extends Controller
             }
             
             $records = $query->skip($request->start)
-            ->take($request->length)
+            ->take($request->length)->orderBy('id','desc')
             ->get();
             
             $data = [];

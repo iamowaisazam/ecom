@@ -130,6 +130,9 @@ Route::get('/admin/status', [App\Http\Controllers\Admin\DashboardController::cla
     Route::get('/admin/orders/edit/{id}', [App\Http\Controllers\Admin\OrderController::class, 'edit']);
     Route::post('/admin/orders/update/{id}', [App\Http\Controllers\Admin\OrderController::class, 'update']);
     
+    // client Report
+    Route::get('/admin/reports/clients/index', [App\Http\Controllers\Admin\ReportsController::class, 'clientIndex']);
+
 
 
   //Sliders
