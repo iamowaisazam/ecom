@@ -74,7 +74,6 @@ class PageController extends Controller
                     $value->id,
                     $value->title,
                     $value->shortdetails ,
-                    // $value->is_enable ? 'Approved' : 'Pending',
                     $action,
                  ]
                 );       

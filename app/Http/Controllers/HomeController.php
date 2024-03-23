@@ -33,65 +33,7 @@ class HomeController extends Controller
         // $this->middleware('auth');
     }
 
-    function generateAttributeCombinations($attributes) {
-        $result = [[]]; // Initialize with an empty combination
-    
-        foreach ($attributes as $attribute) {
-            $currentResult = [];
-    
-            foreach ($result as $item) {
-                foreach ($attribute['values'] as $value) {
-                    $currentResult[] = array_merge($item, [ $value]);
-                }
-            }
-    
-            $result = $currentResult;
-        }
-    
-        return $result;
-    }
-
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function combination_maker()
-    {
-
-        $attributes = Attribute::with('values')->get()->toArray();
-
-        
-        $results = $this->generateAttributeCombinations($attributes);
-        // dd($results);
-
-        foreach ($results as $values) {
-
-            $sku = [];
-            foreach ($values as $item) {
-                array_push($sku,$item['title']);
-            }
-
-            $ProductVariation = Variation::create([
-                "product_id"=> 3,
-                "title" => implode('-',$sku), 
-                "sku" => implode('-',$sku),
-                "value" => implode('-',$sku) 
-            ]);
-
-            foreach ($values as $item) {
-                VariationAttribute::create([
-                    "variation_id" => $ProductVariation->id,
-                    "attribute_id" => $item['attribute_id'],
-                    "value_id" => $item['id'],
-                    "value" => $item['title'],
-                ]);
-            }
-        }
-
  
-    }
 
 
     /**
