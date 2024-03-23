@@ -34,8 +34,8 @@ class FilemanagerController extends Controller
        
         
 
-       $data = Filemanager::query();
-       $data = $data->paginate(10);
+        $data = Filemanager::orderBy('id', 'desc')->paginate(10);
+    //    dd($data);
     
         return view('admin.filemanager.index',compact('data'));
     } 

@@ -120,7 +120,7 @@
             <!-- End Categories -->
 
             <!-- Price Filter -->
-            <div class="sidebar_widget filterBox filter-widget">
+            <!-- <div class="sidebar_widget filterBox filter-widget">
                 <div class="widget-title">
                     <h2>Price</h2>
                 </div>
@@ -139,7 +139,7 @@
                         </div>
                     </div>
                 </form>
-            </div>
+            </div> -->
             <!-- End Price Filter -->
 
               <!-- Categories -->

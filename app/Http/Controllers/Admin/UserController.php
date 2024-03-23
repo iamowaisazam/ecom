@@ -83,7 +83,7 @@ class UserController extends Controller
             }
             
             $users = $query->skip($request->start)
-            ->take($request->length)
+            ->take($request->length)->orderBy('id','desc')
             ->get();
             
             $data = [];

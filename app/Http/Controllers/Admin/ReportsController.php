@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\Rule;
 use Laravel\Ui\Presets\React;
 
-class OrderController extends Controller
+class ReportsController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
@@ -44,56 +44,55 @@ class OrderController extends Controller
      *
      * @return void
      */
-    public function index(Request $request)
+    public function clientIndex(Request $request)
     {
 
     
         if($request->ajax()){
 
             $query = Order::Query();
-
-            if($request->id){
-                $query->where('id',$request->id);
+            if($request->name){
+                $query->where('customer_name','like','%'.$request->name.'%');
             }
-
-            if($request->order_status){
-                $query->where('order_status',$request->order_status);
+            if($request->email){
+                $query->where('customer_email',$request->email);
             }
-
-            if($request->payment_status){
-                $query->where('payment_status',$request->payment_status);
-            }
-
-            if($request->tracking_id){
-                $query->where('tracking_id',$request->tracking_id);
-            }
-
-            if($request->fullname){
-                $query->where('customer_name','like','%'.$request->fullname.'%');
-            }
-
             if($request->phone){
                 $query->where('customer_phone','like','%'.$request->phone.'%');
             }
-
-            if($request->payment_status){
-                $query->where('payment_status',$request->payment_status);
+            if($request->address){
+                $query->where('address','like','%'.$request->address.'%');
             }
-
-            if($request->grand_total){
-                $query->where('grand_total',$request->grand_total);
+            if($request->orderNumber){
+                $query->where('tracking_id',$request->orderNumber);
             }
+            if($request->totalAmount ){
+                $query->where('grand_total',$request->totalAmount);
+            }
+            if ($request->startDate && $request->endDate) {
+                $query->whereBetween('created_at', [$request->startDate, $request->endDate]);
+            }
+            
+            // if ($request->paymentMethod) {
+            //     $query->where('payment_method', 'like', '%' . $request->paymentMethod . '%');
+            // }
+            // // if($request->orderStatus){
+            //     $query->where('order_status',$request->orderStatus);
+            // }
+            // if($request->paymentStatus){
+            //     $query->where('payment_status',$request->paymentStatus);
+            // }
 
+            $query = $query->orderBy('id', 'desc');
             $count = $query->get();
-
+            
             $records = $query->skip($request->start)
-            ->take($request->length)->orderBy('id','desc')
+            ->take($request->length)
             ->get();
             
             $data = [];
             foreach ($records as $key => $value) {
-
-      
+                
                 $track = '<a class="" target="_blank" href="'.URL::to('/order-confirmaton/'.$value->tracking_id).'">'.$value->tracking_id.'</a>';
 
 
@@ -101,12 +100,16 @@ class OrderController extends Controller
 
                 array_push($data,[
                     $action,
-                    $value->order_status,
-                    $value->payment_status,  
-                    $track,  
+                    $value->created_at->format('Y-m-d'),
                     $value->customer_name,
+                    $value->customer_email,
                     $value->customer_phone,
+                    $value->address,
+                    // $track,  
+                    // $action,
+                    $value->order_status,
                     str_replace('_', ' ',$value->payment_method),
+                    $value->payment_status,  
                     'PKR '.$value->grandtotal,                          
                  ]
                 );
@@ -121,7 +124,7 @@ class OrderController extends Controller
         }
         
         $category = Category::all();    
-        return view('admin.orders.index',compact('category'));
+        return view('admin.reports.clients.index',compact('category'));
     }
 
     
