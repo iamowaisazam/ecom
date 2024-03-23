@@ -36,7 +36,11 @@ class SettingController extends Controller
     public function edit(Request $request)
     {
         $group = $request->group;
-        $data = Setting::where('grouping',$request->group)->orderBy('sort')->get();
+        $data = Setting::where('grouping',$request->group)->orderBy('section_sorting')->get();
+        $data = $data->groupBy('section');
+
+        
+
         return view('admin.settings.edit',compact('data','group'));
     }
 

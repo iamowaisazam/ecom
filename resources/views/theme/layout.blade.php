@@ -149,14 +149,14 @@
                                       @if($main_menu)
                                         @foreach ($main_menu->children->where('parent_id',null) as $page)
                                                 <li class="lvl1 parent dropdown">
-                                                    <a href="{{$page->link}} ">{{$page->title}} 
+                                                    <a href="{{URL::to($page->link)}} ">{{$page->title}} 
                                                     <i class="an an-angle-down"></i>
                                                     </a>
                                                 @if(count($page->children) > 0)
                                                     <ul class="dropdown">
                                                         @foreach ($page->children as $chil_page)
                                                         <li>
-                                                            <a href="{{$chil_page->link}}" 
+                                                            <a href="{{URL::to($chil_page->link)}}" 
                                                             class="site-nav">{{$chil_page->title}}</a>
                                                         </li>
                                                         @endforeach
@@ -199,7 +199,7 @@
             @if($main_menu)
                 @foreach ($main_menu->children->where('parent_id',null) as $page)
                 <li class="lvl1  parent megamenu">
-                    <a href="{{$page->link}}">{{$page->title}} 
+                    <a href="{{URL::to($page->link)}}">{{$page->title}} 
                         @if(count($page->children) > 0) 
                         <i class="an an-plus"></i>
                         @endif 
@@ -208,7 +208,7 @@
                     @if(count($page->children) > 0)
                     <ul>
                         @foreach ($page->children as $chil_page)
-                        <li><a href="{{$chil_page->link}}" class="site-nav">{{$chil_page->title}}</a></li>
+                        <li><a href="{{URL::to($chil_page->link)}}" class="site-nav">{{$chil_page->title}}</a></li>
                         @endforeach
                     </ul>
                     @endif
@@ -271,7 +271,8 @@
                             <h4 class="h4">Important Link</h4>
                             <ul>
                                 @foreach ($footer_menu1->children as $item)
-                                 <li><a target="{{$item->target}}" href="{{$item->link}}">{{$item->title}}</a></li>
+                                 <li>
+                                    <a target="{{$item->target}}" href="{{URL::to($item->link)}}">{{$item->title}}</a></li>
                                 @endforeach
                             </ul>
                         </div>
@@ -283,7 +284,7 @@
                             <ul>
                                 @foreach ($footer_menu2->children as $item)
                                  <li>
-                                    <a target="{{$item->target}}" href="{{$item->link}}">{{$item->title}}</a>
+                                    <a target="{{$item->target}}" href="{{URL::to($item->link)}}">{{$item->title}}</a>
                                 </li>
                                 @endforeach
                             </ul>

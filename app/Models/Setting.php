@@ -20,6 +20,11 @@ class Setting extends Model
     protected $fillable = [
         'name',
         'value',
+        'section_sorting',
+        'section',
+        'type',
+        'sort',
+        'grouping',
     ];
 
     public function image()

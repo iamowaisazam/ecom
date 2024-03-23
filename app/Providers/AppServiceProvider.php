@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
     {
        
         //
-        View::composer('*', function ($view) {
+        // View::composer('*', function ($view) {
           
              $groups = [];
              $global_d = [];
@@ -53,9 +53,11 @@ class AppServiceProvider extends ServiceProvider
              ];
 
         
-             $view->with('global_d', $global_d);
+            //  $view->with('global_d', $global_d);
            
-        });
+        // });
+
+        View::share('global_d',$global_d);
 
     }
 }

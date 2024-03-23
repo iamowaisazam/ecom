@@ -73,35 +73,47 @@
             </header>
             <div class="card-body">
                 <div class="row el-element-overlay">
-                        @foreach($data as $item)
-                                <div class="col-lg-2 col-md-6">
-                                    <div class="card">
-                                        <div class="el-card-item">
-                                            <div class="el-card-avatar el-overlay-1">
-                                                <img src="{{asset($item->path)}}" alt="user" />
-                                                <div class="el-overlay">
-                                                    <ul class="el-info">
-                                                        <li>
-                                                            <a class="btn default btn-outline image-popup-vertical-fit" href="{{asset($item->path)}}">
-                                                                <i class="icon-magnifier"></i>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a class="btn default btn-outline" href="{{URL::to('admin/filemanager/delete/'.$item->id)}}?image={{$item->id}}">
-                                                                <i class="mdi mdi-close"></i>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="el-card-content">
-                                               <h4 class="box-title">{{$item->id}}</h4>
-                                               <small>{{substr($item->title, 0,10) }}</small>
-                                               <br/> 
+
+                    <div style="border-bottom: 1px solid lightgray;margin-bottom: 18px;padding-bottom: 12px;" class="col-12 pb-3">
+                        <a href="{{URL::to('admin/filemanager')}}" class="btn {{request()->group == null ? 'btn-success' : 'btn-info'}}">All</a>
+
+                        @foreach ($groups as $g)
+                           <a href="{{URL::to('admin/filemanager')}}?group={{$g}}" 
+                           class="btn {{request()->group == $g ? 'btn-success' : 'btn-info'}}">{{$g}}</a>
+                        @endforeach
+                    </div>
+
+                    @foreach($data as $item)
+                        <div class="col-lg-3 col-md-6">
+                            <div class="card">
+                                <div class="el-card-item">
+                                    <div class="el-card-avatar el-overlay-1">
+                                        <img style="width: 200px;height:200px" src="{{asset($item->path)}}" alt="user" />
+                                        <div class="el-overlay">
+                                            <ul class="el-info">
+                                                <li>
+                                                    <a class="btn default btn-outline image-popup-vertical-fit" href="{{asset($item->path)}}">
+                                                        <i class="icon-magnifier"></i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="btn default btn-outline" 
+                                                    href="{{URL::to('admin/filemanager/delete/'.$item->id)}}?image={{$item->id}}">
+                                                        <i class="mdi mdi-close"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
                                           </div>
+                                       </div>
+                                    <div class="el-card-content">
+                                        <h4 class="box-title">
+                                            <a href="{{URL::to('/admin/filemanager/edit/'.$item->id)}}">
+                                            {{$item->id}}</a>
+                                        </h4>
                                     </div>
                                 </div>
                             </div>
+                           </div>
                         @endforeach
                     </div>
                  </div>
