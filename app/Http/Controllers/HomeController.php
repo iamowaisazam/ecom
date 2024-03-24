@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
 use Symfony\Component\Mime\Part\HtmlPart;
+use Illuminate\Support\Facades\App;
+
 
 class HomeController extends Controller
 {
@@ -43,6 +45,7 @@ class HomeController extends Controller
      */
     public function home()
     {
+        // session()->put('cart',[]);
         
         $categories = Category::where('is_enable',1)->where('is_featured',1)->where('parent_id',null)->get();
         // dd($categories);
@@ -146,8 +149,6 @@ class HomeController extends Controller
         
         
         $data = $data->paginate(10);
-
-
         $categories = Category::with('children.children')->where('parent_id', NULL)->get();
         $collections = Collection::where('is_enable',1)->get();
 
@@ -166,10 +167,7 @@ class HomeController extends Controller
         if(!$category){
           return back();
         }
-
         $categories = Category::where('parent_id',$category->id)->get(); 
-
-
         return view('theme.category',compact('category','categories'));
 
     }
@@ -192,18 +190,5 @@ class HomeController extends Controller
         
     }
 
-    
-
-
-
-
-
-    
-
-    
-    
-
-  
-
-  
+      
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Utilities\EmailUtility;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Attribute;
@@ -11,6 +12,7 @@ use App\Models\Category;
 use App\Models\Collection;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\PaymentMethod;
 use App\Models\Variation;
 use App\Models\VariationAttribute;
 use App\Models\Slider;
@@ -21,8 +23,11 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\View;
 use Mpdf\Mpdf;
 
 
@@ -53,10 +58,8 @@ class CheckoutController extends Controller
             return back()->with('error','Cart Is Empty');
         }
 
-        // dd($cart);
-
-        return view('theme.checkout',compact('cart'));
-
+        $PaymentMethods = PaymentMethod::where('is_enable',1)->get();
+        return view('theme.checkout',compact('cart','PaymentMethods'));
     }
 
     /**
@@ -66,6 +69,8 @@ class CheckoutController extends Controller
     public function checkout_submit(Request $request)
     {
 
+        
+
         $validator = Validator::make($request->all(), [
             "name" => 'required|max:255',
             "phone" => 'required|max:255',
@@ -73,7 +78,7 @@ class CheckoutController extends Controller
             "country" => 'required|max:255',
             "city" => 'required|max:255',
             "address" => 'required|max:255',
-            "payment_method" => 'required|max:500',
+            "payment_method" => 'required|integer',
             "order_notes" => 'required|max:500',
         ]);
 
@@ -120,11 +125,12 @@ class CheckoutController extends Controller
                     'price' => $cart_item['price'],
                     'total' => $cart_item['total'],
                 ]);
-
             }
 
-            session()->put('cart',[]);
+        
+            EmailUtility::send_customer_email($order->id);
 
+        //    session()->put('cart',[]);
            DB::commit();
 
         } catch (\Exception $e) {
@@ -144,7 +150,11 @@ class CheckoutController extends Controller
     public function order_confirmaton(Request $request,$id)
     {
 
+        // dd(View::shared('global_d')['email_address']);
+
         $order = Order::where('tracking_id',$id)->first(); 
+
+       
         if(!$order){
           return redirect('/shop')->with('error','Record Not Found');
         }
@@ -171,39 +181,25 @@ class CheckoutController extends Controller
         }
 
         return view('theme.order_tracking');
-
     }
-
+    
      /**
      * Show the application dashboard.
      */
     public function get_invoice(Request $request,$id)
     {
 
-        $data = Order::find($id);
-        $mpdf = new \Mpdf\Mpdf([
-            'mode' => 'utf-8',
-            'orientation' => 'L',
-            'format'      => 'A4',
+        $pdfContent = EmailUtility::getPdf($id);
+
+        $name = "#".$id.'-order-irhawears.pdf';
+
+        return Response::make($pdfContent, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="'.$name.'"',
         ]);
 
 
-        $html = Blade::render('theme.invoice',compact('data'));
-
-        // echo $html;
-         // Write HTML content to PDF
-         $mpdf->WriteHTML($html);
-         
-         // Output the PDF as a downloadable file
-         $mpdf->Output();
-
     }
 
-
-
-    
-    
-
-
-    
+   
 }

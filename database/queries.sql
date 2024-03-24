@@ -26,3 +26,10 @@ VALUES (NULL, 'home_page_banner', '', 'image', '1', 'site_settings');
 ALTER TABLE `filemanager` ADD `grouping` TEXT NOT NULL DEFAULT 'others' AFTER `updated_at`;
 ALTER TABLE `settings` ADD `section_sorting` INT NULL DEFAULT '0';
 ALTER TABLE `settings` ADD `section` text NULL DEFAULT 'others';
+
+------------------------
+ALTER TABLE `settings` ADD `group_sorting` INT NOT NULL DEFAULT '0' AFTER `section_sorting`;
+
+INSERT INTO `settings` (`id`, `field`, `value`, `type`, `sort`, `grouping`, `section`, `section_sorting`, `group_sorting`) VALUES (NULL, 'cash_on_delivery_message', '21', 'textarea', '1', 'payment_method', 'payment_method', '1', '0');
+
+INSERT INTO `settings` (`id`, `field`, `value`, `type`, `sort`, `grouping`, `section`, `section_sorting`, `group_sorting`) VALUES (NULL, 'bank_transfer_message', '21', 'textarea', '1', 'payment_method', 'payment_method', '1', '0');

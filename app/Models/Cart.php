@@ -29,12 +29,17 @@ class Cart
                 'variations.price'
             ])
             ->join('products','products.id','=','variations.product_id')
-            ->join('filemanager','filemanager.id','=','variations.image')
+            ->Leftjoin('filemanager','filemanager.id','=','variations.image')
             ->where('variations.id',$c['sku'])
-            ->first()
-            ->toArray();
+            ->get();
 
-            $attributes = [];
+            if(count($products) == 0){
+                continue;
+            }
+
+           $products = $products->first()->toArray();
+           $attributes = [];
+
            if($c['attributes']){
                 $attributes = Value::select([
                     'attributes.title as attribute_title',

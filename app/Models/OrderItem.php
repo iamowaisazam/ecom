@@ -39,5 +39,19 @@ class OrderItem extends Model
         return $this->belongsTo(Variation::class, 'variation_id');
     }
 
+    public function var()
+    {   
+        $vv = [];
+        $vars = $this->variation;
+        if($vars){
+            $att = $vars->attributes()->get();
+            foreach ($att as $key => $value) {
+                $vv[$value->attribute->title] = $value->values->title;
+            }
+        }
+        return $vv;
+        
+    }
+
     
 }

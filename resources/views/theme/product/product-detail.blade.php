@@ -113,20 +113,7 @@
                 <div class="product-single__meta">
                     <h1 class="product-single__title">{{$product->title}}</h1>
                     
-                    <!-- Product Reviews -->
-                    <div class="prInfoRow d-flex flex-wrap">
-                        <div class="product-review">
-                            <a class="reviewLink d-flex flex-wrap align-items-center" >
-                                <i class="an an-star"></i>
-                                <i class="an an-star"></i>
-                                <i class="an an-star"></i>
-                                <i class="an an-star"></i>
-                                <i class="an an-star-half-alt"></i>
-                                <span class="spr-badge-caption">6 reviews</span>
-                            </a>
-                        </div>
-                    </div>
-                    <!-- End Product Reviews -->
+                 
 
                     <!-- Product Price -->
                     <div class="product-single__price product-single__price-product-template">

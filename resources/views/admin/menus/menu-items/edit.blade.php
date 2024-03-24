@@ -32,15 +32,7 @@
                      <div class="card-body">  
                          <form method="post" action="{{URL::to('/admin/menus_items/update/'.Crypt::encryptString($model->id))}}">
                              @csrf
-                                
-                                    <div class="form-group">
-                                        <label class="form-label">Parent Menu</label>
-                                        <select disabled class="form-control" name="parent_id">
-                                            <option value="">None</option>
-                                            {!! $dropdowns !!}
-                                        </select>
-                                    </div>
-                
+
                                      <div class="form-group">
                                          <label class="form-label" >Title</label>
                                          <input required name="title" 
@@ -48,12 +40,6 @@
                                            value="{{$model->title}}"
                                            placeholder="Title">
                                      </div>
-
-                                     <div class="form-group">
-                                        <label class="form-label" >Sort</label>
-                                        <input required type="number" name="sort" value="{{$model->sort}}" 
-                                        class="form-control" placeholder="sort" />
-                                    </div>
 
                                      <div class="form-group">
                                         <label class="form-label" >Link</label>
@@ -85,35 +71,15 @@
                           </div>
                        </section>
                   </div>
-                 
             </div> 
-
-      
-
  @endsection
  @section('js')
+    <script>
+      let level = "{{request()->level}}";
+      $(function () {
 
 
-
-       <script>
-
-        let level = "{{request()->level}}";
-    
-        $(function () {
-
-            // if(level == 1){
-
-            //     $('[data-level="3"]').attr('disabled', 'true');
-            // }else if(level == 2){
-                
-            //     $('[data-level="3"]').attr('disabled', 'true');
-            // }else{
-
-            //     $('[data-level="3"]').attr('disabled', 'true');
-
-            // }       
-           
-    
       });
+
     </script>
 @endsection
