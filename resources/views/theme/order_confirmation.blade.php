@@ -63,11 +63,15 @@
                         <div class="col-12 col-sm-6 col-md-6 col-lg-6">
                             <div class="billing-details clearfix">
                                 <h3>Order Details</h3>
-                                <p>Order No: #{{$order->id}}</p>
+                                <p>Order No: # {{$order->id}}</p>
                                 <p>Order Tracking ID: {{$order->tracking_id}}</p>
                                 <p>Order Date: {{$order->created_at}}</p>
                                 <p>Order Status: {{$order->order_status}}</p>
-                                <p>Order Payment Method: {{$order->payment_method}}</p>
+                                <?php
+                                $order_payment_method = "cash_on_delivery";
+                                $converted_payment_method = ucwords(str_replace("_", " ", $order_payment_method));
+                                ?>
+                                <p>Order Payment Method: {{$converted_payment_method}}</p>
                                 <p>Order Payment: {{$order->payment_status}}</p>
                                 <p>Order Notes: {{$order->order_notes}}</p>
                             </div>

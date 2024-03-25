@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 use Mpdf\Mpdf;
+use Illuminate\Support\Facades\Mail;
 
 
 class CheckoutController extends Controller
@@ -106,6 +107,13 @@ class CheckoutController extends Controller
                 'subtotal'  => $cart['total'],
                 'is_enable'  => 1,
             ]);
+            if ($order) {
+                Mail::send('theme.emails.order-confirmation-email', ['name' => $request->name, 'order' => $order], function($message) use ($request) {
+                    $message->to($request->email);
+                    $message->subject('Order Receipt - ');
+                    $message->from(env('MAIL_USERNAME'), env('MAIL_FROM_NAME'));
+                });
+            }
         
      
             foreach ($cart['cart_items'] as $cart_item) {

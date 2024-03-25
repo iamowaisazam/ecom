@@ -88,7 +88,8 @@ Route::get('/admin/status', [App\Http\Controllers\Admin\DashboardController::cla
     Route::get('/admin/users/edit/{id}', [App\Http\Controllers\Admin\UserController::class, 'edit']);
     Route::post('/admin/users/update/{id}', [App\Http\Controllers\Admin\UserController::class, 'update']);
     Route::get('/admin/users/delete/{id}', [App\Http\Controllers\Admin\UserController::class, 'delete']);
-
+    // profile edit
+    Route::get('admin/editprofile', [App\Http\Controllers\Admin\profileController::class, 'index'])->name('profile');
 //Roles
     Route::get('/admin/roles/index', [App\Http\Controllers\Admin\RoleController::class, 'index']);
     Route::get('/admin/roles/create', [App\Http\Controllers\Admin\RoleController::class, 'create']);
@@ -132,6 +133,13 @@ Route::get('/admin/status', [App\Http\Controllers\Admin\DashboardController::cla
     
     // client Report
     Route::get('/admin/reports/clients/index', [App\Http\Controllers\Admin\ReportsController::class, 'clientIndex']);
+    Route::get('/admin/reports/clients/edit/{id}', [App\Http\Controllers\Admin\ReportsController::class, 'clientEdit']);
+
+    // Product Report
+    Route::get('/admin/reports/product/index', [App\Http\Controllers\Admin\ReportsController::class, 'productIndex']);
+    
+    // inventory Report
+    Route::get('/admin/reports/inventory/index', [App\Http\Controllers\Admin\ReportsController::class, 'inventoryIndex']);
 
 
 

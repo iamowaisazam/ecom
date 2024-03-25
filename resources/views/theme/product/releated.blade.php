@@ -34,13 +34,13 @@
                     <span class="old-price">{{$global_d['site_currency']}} {{$rel->selling_price}}</span>
                     <span class="price">{{$global_d['site_currency']}} {{$rel->price}}</span>
                 </div>
-                <div class="product-review">
+                <!-- <div class="product-review">
                     <i class="an an-star"></i>
                     <i class="an an-star"></i>
                     <i class="an an-star"></i>
                     <i class="an an-star"></i>
                     <i class="an an-star-half-alt"></i>
-                </div>
+                </div> -->
             </div>
         </div>
         @endforeach

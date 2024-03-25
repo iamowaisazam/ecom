@@ -180,6 +180,20 @@ class HomeController extends Controller
             ->orWhere('meta_description', 'LIKE', "%{$request->searchm}%") 
             ->orWhere('meta_keywords', 'LIKE', "%{$request->search}%"); 
         }
+        
+        if ($request->has('sort')) {
+            $sortBy = $request->input('sort');
+            if ($sortBy == 'ascending') {
+                $data->orderBy('title', 'asc');
+            } elseif ($sortBy == 'descending') {
+                $data->orderBy('title', 'desc');
+            } elseif ($sortBy == 'low_to_high') {
+                $data->orderBy('price', 'asc');
+            }elseif ($sortBy == 'high_to_low') {
+                $data->orderBy('price', 'desc');
+            }
+        }
+        
 
 
         if($request->has('category') && $request->category != ''){
@@ -204,7 +218,7 @@ class HomeController extends Controller
         
         
         $data = $data->paginate(10);
-
+        // dd($data);
 
         $categories = Category::with('children.children')->where('parent_id', NULL)->get();
         $collections = Collection::where('is_enable',1)->get();

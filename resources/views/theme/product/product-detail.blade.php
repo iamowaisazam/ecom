@@ -17,6 +17,22 @@
     .product-info p span {
        padding-left: 0px!important;   
     }
+    .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 2s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
 </style>
   
 
@@ -115,7 +131,7 @@
                     
                     <!-- Product Reviews -->
                     <div class="prInfoRow d-flex flex-wrap">
-                        <div class="product-review">
+                        <!-- <div class="product-review">
                             <a class="reviewLink d-flex flex-wrap align-items-center" >
                                 <i class="an an-star"></i>
                                 <i class="an an-star"></i>
@@ -124,7 +140,7 @@
                                 <i class="an an-star-half-alt"></i>
                                 <span class="spr-badge-caption">6 reviews</span>
                             </a>
-                        </div>
+                        </div> -->
                     </div>
                     <!-- End Product Reviews -->
 
@@ -236,21 +252,23 @@
                             </div>                                
                             <div class="product-form__item--submit">
                                     <button 
+                                    id="addToCartButton"
                                     name="cart-type"
                                     type="button" 
                                     value="cart"
                                     class="btn product-form__cart-submit">
                                     <span>Add to cart</span>
+                                    <span class="loader" style="display: none;"></span>
                                     </button>
                             </div>
                             <div class="payment-button" data-shopify="payment-button">
-                                    <button 
+                                    <!-- <button 
                                         name="cart-type" 
                                         value="buy" 
                                         type="button" 
                                         class="payment-button__button payment-button__button--unbranded">
                                         Buy it now
-                                    </button>
+                                    </button> -->
                             </div>
                         </div>
                     </form>
@@ -297,7 +315,24 @@
 @section('js')
 
 <script> 
+document.addEventListener("DOMContentLoaded", function() {
+    var addToCartButton = document.getElementById('addToCartButton');
+    var loader = addToCartButton.querySelector('.loader');
 
+    addToCartButton.addEventListener('click', function() {
+        // Disable the button
+        addToCartButton.disabled = true;
+        // Show the loader
+        loader.style.display = 'inline-block';
+
+        // Re-enable the button after 10 seconds
+        setTimeout(function() {
+            addToCartButton.disabled = false;
+            // Hide the loader
+            loader.style.display = 'none';
+        }, 5000); // 10 seconds in milliseconds
+    });
+});
 
    let arrays = [];
    let json  = '<?php echo json_encode($variations);?>';

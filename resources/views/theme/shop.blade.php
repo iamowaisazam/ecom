@@ -211,18 +211,16 @@
                     
                     <div class="col-6 col-md-6 col-lg-6 d-flex justify-content-end align-items-center text-end">
                         <div class="filters-toolbar__item">
-                            <label for="SortBy" class="hidden">Sort</label>
-                            <select name="SortBy" id="SortBy" class="filters-toolbar__input filters-toolbar__input--sort">
-                                <option value="title-ascending" selected="selected">Sort</option>
-                                <option>Best Selling</option>
-                                <option>Alphabetically, A-Z</option>
-                                <option>Alphabetically, Z-A</option>
-                                <option>Price, low to high</option>
-                                <option>Price, high to low</option>
-                                <option>Date, new to old</option>
-                                <option>Date, old to new</option>
-                            </select>
-                            <input class="collection-header__default-sort" type="hidden" value="manual">
+                        <label for="SortBy" class="hidden">Sort</label>
+                        <select name="SortBy" id="SortBy" class="filters-toolbar__input filters-toolbar__input--sort sortby" onchange="redirectTo(this)">
+                            <option value="" selected="selected">Sort</option>
+                            <option value="best_selling">Best Selling</option>
+                            <option value="ascending">Alphabetically, A-Z</option>
+                            <option value="descending">Alphabetically, Z-A</option>
+                            <option value="low_to_high">Price, low to high</option>
+                            <option value="high_to_low">Price, high to low</option>
+                        </select>
+                    <input class="collection-header__default-sort" type="hidden" value="manual">
                         </div>
                     </div>
                 </div>
@@ -263,13 +261,13 @@
                           <span class="old-price">{{$global_d['site_currency']}} {{$item->selling_price}}</span>
                           <span class="price">{{$global_d['site_currency']}} {{$item->price}}</span>
                       </div>
-                      <div class="product-review">
+                      <!-- <div class="product-review">
                           <i class="an an-star"></i>
                           <i class="an an-star"></i>
                           <i class="an an-star"></i>
                           <i class="an an-star"></i>
                           <i class="an an-star-half-alt"></i>
-                      </div>
+                      </div> -->
                   </div>
                 </div>
               @endforeach
@@ -303,7 +301,20 @@
 </div>
 @endsection
 @section('js')
+<script>
 
+function redirectTo(selectElement) {
+    var selectedValue = selectElement.value;
+    if(selectedValue !== "") {
+        var baseUrl = "shop?sort=";
+        var finalUrl = baseUrl + encodeURIComponent(selectedValue);
+        window.location.href = finalUrl;
+    }
+}
+
+
+      
+    </script>
 
 
 @endsection

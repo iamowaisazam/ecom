@@ -37,7 +37,7 @@
                                         <label for="input-firstname">Fullname 
                                             <span class="text-danger required-f">*</span>
                                         </label>
-                                        <input name="name" required class="form-control"  type="text" />
+                                        <input name="name" required class="form-control"  type="text" value="{{ old('name') }}"/>
 
                                         @if($errors->has('name'))
                                           <p class="d-block invalid-feedback" >{{ $errors->first('name') }}</p>
@@ -50,7 +50,7 @@
                                         <label class="form-label" for="input-email">Phone
                                             <span class="text-danger required-f">*</span>
                                         </label>
-                                         <input required class="form-control" name="phone" type="text" />
+                                         <input required class="form-control" name="phone" type="text" value="{{ old('phone') }}"/>
                                          @if($errors->has('phone'))
                                           <p class="d-block invalid-feedback" >{{ $errors->first('phone') }}</p>
                                         @endif 
@@ -60,7 +60,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label class="form-label" for="input-email">E-Mail</label>
-                                         <input name="email" class="form-control" type="email">
+                                         <input name="email" class="form-control" type="email" value="{{ old('email') }}" >
                                          @if($errors->has('email'))
                                           <p class="d-block invalid-feedback" >{{ $errors->first('email') }}</p>
                                         @endif 
@@ -86,7 +86,7 @@
                                         <label class="form-label" for="input-email">City
                                             <span class="text-danger required-f">*</span>
                                         </label>
-                                         <input name="city" class="form-control" >
+                                         <input name="city" class="form-control" value="{{ old('city') }}">
                                     </div>
                                     @if($errors->has('city'))
                                           <p class="d-block invalid-feedback" >{{ $errors->first('city') }}</p>
@@ -98,7 +98,7 @@
                                         <label class="form-label" for="input-email">Address
                                             <span class="text-danger required-f">*</span>
                                         </label>
-                                        <textarea required name="address" class="form-control"></textarea>
+                                        <textarea required name="address" class="form-control" value="{{ old('address') }}"></textarea>
                                         @if($errors->has('address'))
                                           <p class="d-block invalid-feedback" >{{ $errors->first('address') }}</p>
                                         @endif 
@@ -172,7 +172,7 @@
                     <div class="row">
                         <div class="form-group col-md-12 col-lg-12 col-xl-12 mb-0">
                             <label for="input-company"> Order Notes </label>
-                            <textarea name="order_notes" class="form-control resize-both" rows="3"></textarea>
+                            <textarea name="order_notes" class="form-control resize-both" rows="3" value="{{ old('order_notes') }}"></textarea>
                             @if($errors->has('order_notes'))
                               <p class="d-block invalid-feedback">{{ $errors->first('order_notes') }}</p>
                              @endif 

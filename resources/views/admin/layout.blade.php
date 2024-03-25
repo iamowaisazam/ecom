@@ -87,11 +87,11 @@
                         <!-- ============================================================== -->
                         <!-- Search -->
                         <!-- ============================================================== -->
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <form class="app-search d-none d-md-block d-lg-block">
                                 <input type="text" class="form-control" placeholder="Search & enter">
                             </form>
-                        </li>
+                        </li> -->
                     </ul>
                     
                     <!-- ============================================================== -->
@@ -115,8 +115,7 @@
                               <span class="hidden-md-down">Mark &nbsp;<i class="fa fa-angle-down"></i></span> 
                             </a>
                             <div class="dropdown-menu dropdown-menu-end animated flipInY">
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="ti-user"></i> My Profile</a>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="ti-wallet"></i> Change Password</a>
+                                <a href="{{route("profile")}}" class="dropdown-item"><i class="ti-user"></i> My Profile</a>
                                 
                                 <a href="javascript:void(0)" class="right-side-toggle dropdown-item"><i class="ti-settings"></i> Settings</a>
                               
@@ -229,7 +228,8 @@
                             
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="{{URL::to('admin/reports/clients/index')}}">Customer</a></li>
-                                <li><a href="{{URL::to('admin/products/index')}}">Admin Report</a></li>
+                                <li><a href="{{URL::to('admin/reports/product/index')}}">Product</a></li>
+                                <li><a href="{{URL::to('admin/reports/inventory/index')}}">Inventory</a></li>
                             </ul>
                         </li>
 
