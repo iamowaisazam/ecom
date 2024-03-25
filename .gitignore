@@ -5,6 +5,7 @@
 /public/error_log
 /storage/*.key
 .env
+/public/admin/invoices
 .env.backup
 .phpunit.result.cache
 docker-compose.override.yml
