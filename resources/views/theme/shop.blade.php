@@ -119,27 +119,7 @@
             </div>
             <!-- End Categories -->
 
-            <!-- Price Filter -->
-            <!-- <div class="sidebar_widget filterBox filter-widget">
-                <div class="widget-title">
-                    <h2>Price</h2>
-                </div>
-                <form action="#" method="post" class="price-filter widget-content">
-                    <div id="slider-range" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                        <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
-                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <p class="no-margin"><input id="amount" type="text" /></p>
-                        </div>
-                        <div class="col-6 text-end margin-25px-top">
-                            <button class="btn btn-secondary btn--small">filter</button>
-                        </div>
-                    </div>
-                </form>
-            </div> -->
+       
             <!-- End Price Filter -->
 
               <!-- Categories -->
@@ -261,13 +241,6 @@
                           <span class="old-price">{{$global_d['site_currency']}} {{$item->selling_price}}</span>
                           <span class="price">{{$global_d['site_currency']}} {{$item->price}}</span>
                       </div>
-                      <!-- <div class="product-review">
-                          <i class="an an-star"></i>
-                          <i class="an an-star"></i>
-                          <i class="an an-star"></i>
-                          <i class="an an-star"></i>
-                          <i class="an an-star-half-alt"></i>
-                      </div> -->
                   </div>
                 </div>
               @endforeach

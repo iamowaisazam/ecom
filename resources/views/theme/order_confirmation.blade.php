@@ -67,11 +67,8 @@
                                 <p>Order Tracking ID: {{$order->tracking_id}}</p>
                                 <p>Order Date: {{$order->created_at}}</p>
                                 <p>Order Status: {{$order->order_status}}</p>
-                                <?php
-                                $order_payment_method = "cash_on_delivery";
-                                $converted_payment_method = ucwords(str_replace("_", " ", $order_payment_method));
-                                ?>
-                                <p>Order Payment Method: {{$converted_payment_method}}</p>
+                                <p>Order Payment Method: 
+                                    {{$order->payment_methods ? $order->payment_methods->title : ''}}</p>
                                 <p>Order Payment: {{$order->payment_status}}</p>
                                 <p>Order Notes: {{$order->order_notes}}</p>
                             </div>

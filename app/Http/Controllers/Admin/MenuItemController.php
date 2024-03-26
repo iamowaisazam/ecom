@@ -67,28 +67,16 @@ class MenuItemController extends Controller
      */
     public function store(Request $request)
     {
-
-        $level = 1; 
-        $parent_id = null; 
-
-        if($request->parent_id == null && $request->parent_id == ''){
-            $level = 1; 
-            $parent_id = null; 
-        }else{
-            $explode =  explode('-',$request->parent_id);
-            $level = $explode[1]; 
-            $parent_id = $explode[0]; 
-        }
         
         MenuItem::create([
             "menu_id" => $request->menu_id,
             "title" => $request->title,
-            "subtitle" => $request->subtitle,
+            "subtitle" => "",
             "target" => $request->target,
             "link" => $request->link,
-            "parent_id" => $parent_id,
-            "level" => $level,
-            "sort" => $request->sort,
+            "parent_id" => NULL,
+            "level" => 0,
+            "sort" => 0,
         ]);
 
         return back()->with('success','Record Created Success');
@@ -162,7 +150,7 @@ class MenuItemController extends Controller
                                     ->update([
                                         "sort" => $childkey,
                                         "parent_id" => $subCategory['id'],
-                                        "level3" => 1,
+                                        "level3" => 3,
                                     ]);
 
                                 }
@@ -204,9 +192,6 @@ class MenuItemController extends Controller
             "subtitle" => $request->subtitle,
             "target" => $request->target,
             "link" => $request->link,
-            // "parent_id" => $request->parent_id,
-            "sort" => $request->sort,
-            "level" => 1,
         ]);
 
     

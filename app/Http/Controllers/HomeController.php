@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
 use Symfony\Component\Mime\Part\HtmlPart;
+use Illuminate\Support\Facades\App;
+
 
 class HomeController extends Controller
 {
@@ -33,65 +35,7 @@ class HomeController extends Controller
         // $this->middleware('auth');
     }
 
-    function generateAttributeCombinations($attributes) {
-        $result = [[]]; // Initialize with an empty combination
-    
-        foreach ($attributes as $attribute) {
-            $currentResult = [];
-    
-            foreach ($result as $item) {
-                foreach ($attribute['values'] as $value) {
-                    $currentResult[] = array_merge($item, [ $value]);
-                }
-            }
-    
-            $result = $currentResult;
-        }
-    
-        return $result;
-    }
-
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function combination_maker()
-    {
-
-        $attributes = Attribute::with('values')->get()->toArray();
-
-        
-        $results = $this->generateAttributeCombinations($attributes);
-        // dd($results);
-
-        foreach ($results as $values) {
-
-            $sku = [];
-            foreach ($values as $item) {
-                array_push($sku,$item['title']);
-            }
-
-            $ProductVariation = Variation::create([
-                "product_id"=> 3,
-                "title" => implode('-',$sku), 
-                "sku" => implode('-',$sku),
-                "value" => implode('-',$sku) 
-            ]);
-
-            foreach ($values as $item) {
-                VariationAttribute::create([
-                    "variation_id" => $ProductVariation->id,
-                    "attribute_id" => $item['attribute_id'],
-                    "value_id" => $item['id'],
-                    "value" => $item['title'],
-                ]);
-            }
-        }
-
  
-    }
 
 
     /**
@@ -101,6 +45,7 @@ class HomeController extends Controller
      */
     public function home()
     {
+        // session()->put('cart',[]);
         
         $categories = Category::where('is_enable',1)->where('is_featured',1)->where('parent_id',null)->get();
         // dd($categories);
@@ -218,8 +163,6 @@ class HomeController extends Controller
         
         
         $data = $data->paginate(10);
-        // dd($data);
-
         $categories = Category::with('children.children')->where('parent_id', NULL)->get();
         $collections = Collection::where('is_enable',1)->get();
 
@@ -238,10 +181,7 @@ class HomeController extends Controller
         if(!$category){
           return back();
         }
-
         $categories = Category::where('parent_id',$category->id)->get(); 
-
-
         return view('theme.category',compact('category','categories'));
 
     }
@@ -264,18 +204,5 @@ class HomeController extends Controller
         
     }
 
-    
-
-
-
-
-
-    
-
-    
-    
-
-  
-
-  
+      
 }

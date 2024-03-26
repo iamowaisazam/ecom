@@ -201,12 +201,15 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label" >Payment Method</label>
+                            <label class="form-label" >Payment Method</label>
                             <select class="form-control" name="payment_method" >
-                                <option {{$data->payment_method == 'cash_on_delivery' ? 'selected' : ''}} value="cash_on_delivery">Cash On Delivery</option>
+                                @foreach ($payment_methods as $p)
+                                  <option {{$data->payment_method == $p->id ? 'selected' : ''}} 
+                                    value="{{$p->id}}">{{$p->title}}</option>
+                                @endforeach
                             </select>
                             @if($errors->has('payment_method'))
-                            <p class="invalid-feedback" >{{ $errors->first('payment_method') }}</p>
+                              <p class="invalid-feedback" >{{ $errors->first('payment_method') }}</p>
                             @endif 
                     </div>
 

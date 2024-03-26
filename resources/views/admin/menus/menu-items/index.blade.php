@@ -144,15 +144,7 @@ href="{{asset('public/admin/assets/node_modules/datatables.net-bs4/css/responsiv
                          <form method="post" action="{{URL::to('/admin/menus_items/store')}}">
                              @csrf
                                 <input type="hidden" name="menu_id" value="{{$menu->id}}" />
-
-                                    <div class="form-group">
-                                        <label class="form-label">Select Parent</label>
-                                        <select class="form-control" name="parent_id">
-                                            <option value="">None</option>
-                                            {!! $dropdowns !!}
-                                        </select>
-                                    </div>
-                
+                                
                                      <div class="form-group">
                                          <label class="form-label" >Title</label>
                                          <input required name="title" 
@@ -161,22 +153,9 @@ href="{{asset('public/admin/assets/node_modules/datatables.net-bs4/css/responsiv
                                      </div>
 
                                      <div class="form-group">
-                                        <label class="form-label" >Sort</label>
-                                        <input required type="number" name="sort" 
-                                        class="form-control" placeholder="sort" />
-                                    </div>
-
-                                     <div class="form-group">
                                         <label class="form-label" >Link</label>
                                         <input required name="link" 
                                         class="form-control" placeholder="Link" /> 
-                                    </div>
-
-                                     <div class="form-group">
-                                        <label class="form-label">SubTitle</label>
-                                        <input name="subtitle" 
-                                          class="form-control" 
-                                          placeholder="SubTitle">
                                     </div>
 
                                     <div class="form-group">

@@ -103,8 +103,10 @@ href="{{asset('public/admin/assets/node_modules/datatables.net-bs4/css/responsiv
                                                 class="payment_status form-control">
                                                 <option value="">
                                                     Payment Method</option>
-                                                    <option value="cash_on_delivery">
-                                                        Cash On Delivery</option>
+                                                    @foreach ($payment_methods as $item)
+                                                    <option value="{{$item->id}}">
+                                                        {{$item->title}}</option>
+                                                    @endforeach
                                                 </select>
                                             </th>
                                             <th>

@@ -111,13 +111,26 @@
                                             <span class="text-danger required-f">*</span>
                                         </label>
                                         <select class="form-control" name="payment_method">
-                                            <option value="cash_on_delivery">Cash On Delivery</option>
+                                            @foreach ($PaymentMethods as $method)
+                                               <option value="{{$method->id}}">{{$method->title}}</option>
+                                            @endforeach
                                         </select>
                                         @if($errors->has('payment_method'))
                                           <p class="d-block invalid-feedback">
                                             {{ $errors->first('name') }}</p>
                                         @endif 
                                     </div>
+
+                                    @foreach ($PaymentMethods as $method)
+                                        <div style="display: none;" class="card payment_box 
+                                        card_{{$method->id}}">
+                                            <div class="card-body">
+                                                <h3 class="card-title">{{$method->title}}</h3>
+                                                <p class="card-text">{{$method->message}}</p>
+                                            </div>
+                                        </div>
+                                    @endforeach
+
                                 </div>
                             </div>
                     </fieldset>
@@ -191,14 +204,27 @@
 <!-- End Body Content -->
 @endsection
 @section('js')
+
     <script>
         $(document).ready(function () {
-           
 
             $('.checkout_btn').click(function (e) { 
                 $('.checkout_form').submit();
-                
             });
+
+            $('select[name="payment_method"]').change(function (e) { 
+                
+               
+                $('.payment_box').hide();
+                let payment_method = $(this).val();
+                payment_method = '.card_'+payment_method;
+                $(`${payment_method}`).show();
+                
+            }).trigger('change');
+
+            
+
+           
 
         });
 

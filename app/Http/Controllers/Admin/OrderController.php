@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Attribute;
 use App\Models\Collection;
 use App\Models\Order;
+use App\Models\PaymentMethod;
 use App\Models\ProductCollection;
 use App\Models\Variation;
 use App\Models\VariationAttribute;
@@ -50,7 +51,7 @@ class OrderController extends Controller
     
         if($request->ajax()){
 
-            $query = Order::Query();
+            $query = Order::Leftjoin('payment_methods','payment_methods.id','=','orders.payment_method');
 
             if($request->id){
                 $query->where('id',$request->id);
@@ -84,7 +85,10 @@ class OrderController extends Controller
                 $query->where('grand_total',$request->grand_total);
             }
 
-            $count = $query->get();
+            $count = $query->select([
+                'orders.*',
+                'payment_methods.title'
+            ])->get();
 
             $records = $query->skip($request->start)
             ->take($request->length)->orderBy('id','desc')
@@ -95,8 +99,6 @@ class OrderController extends Controller
 
       
                 $track = '<a class="" target="_blank" href="'.URL::to('/order-confirmaton/'.$value->tracking_id).'">'.$value->tracking_id.'</a>';
-
-
                 $action = '<a class="" href="'.URL::to('admin/orders/edit/'.Crypt::encryptString($value->id)).'">#'.$value->id.'</a>';
 
                 array_push($data,[
@@ -106,7 +108,7 @@ class OrderController extends Controller
                     $track,  
                     $value->customer_name,
                     $value->customer_phone,
-                    str_replace('_', ' ',$value->payment_method),
+                    $value->title,
                     'PKR '.$value->grandtotal,                          
                  ]
                 );
@@ -120,8 +122,9 @@ class OrderController extends Controller
             ]);
         }
         
-        $category = Category::all();    
-        return view('admin.orders.index',compact('category'));
+        $category = Category::all();
+        $payment_methods = PaymentMethod::where('is_enable',1)->get();    
+        return view('admin.orders.index',compact('category','payment_methods'));
     }
 
     
@@ -139,7 +142,9 @@ class OrderController extends Controller
             return back()->with('error','Record Not Found');
          }
 
-        return view('admin.orders.edit',compact('data'));
+         $payment_methods = PaymentMethod::where('is_enable',1)->get();    
+
+        return view('admin.orders.edit',compact('data','payment_methods'));
     }
 
 
