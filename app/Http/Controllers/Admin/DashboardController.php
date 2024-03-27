@@ -13,9 +13,10 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
-
-
-
+use App\Models\Order;
+use App\Models\Collection;
+use App\Models\Category;
+use App\Models\Product;
 
 class DashboardController extends Controller
 {
@@ -40,9 +41,12 @@ class DashboardController extends Controller
      */
     public function dashboard()
     {
-       
+        $totalOrder = Order::count();
+        $totalCollection = Collection::count();
+        $totalCategory = Category::count();
+        $totalProduct = Product::count();
         
-        return view('admin.dashboard');
+        return view('admin.dashboard',compact('totalOrder','totalCollection','totalCategory','totalProduct'));
     }
 
     /**

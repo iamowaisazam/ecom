@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use App\Models\Product;
+use App\Models\newsletter;
 use App\Models\Attribute;
 use App\Models\Value;
 use App\Models\Category;
@@ -203,6 +204,18 @@ class HomeController extends Controller
         });
         
     }
+    public function newslettertSubmit(Request $request)
+    {
+       
+        $request->validate([
+            'EMAIL' => 'required|email', 
+        ]);
 
+        // Create a new newsletter subscriber
+        $subscriber = new newsletter();
+        $subscriber->email = $request->input('EMAIL');
+        $subscriber->save();
+        return response()->json(['message' => 'Subscription successful'], 200);
+    }
       
 }

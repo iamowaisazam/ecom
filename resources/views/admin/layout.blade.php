@@ -112,7 +112,7 @@
                         <li class="nav-item dropdown u-pro">
                             <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               <img src="{{asset('admin/assets/images/users/1.jpg')}}" alt="user" class=""> 
-                              <span class="hidden-md-down">Mark &nbsp;<i class="fa fa-angle-down"></i></span> 
+                              <span class="hidden-md-down">{{ Auth::user()->name }} &nbsp;<i class="fa fa-angle-down"></i></span> 
                             </a>
                             <div class="dropdown-menu dropdown-menu-end animated flipInY">
                                 <a href="{{route("profile")}}" class="dropdown-item"><i class="ti-user"></i> My Profile</a>
@@ -183,6 +183,11 @@
                             </ul>
                         </li>
 
+                        <li><a class="waves-effect waves-dark" 
+                            href="{{URL::to('admin/newsletter/index')}}" 
+                            aria-expanded="false"><i class="mdi mdi-newspaper"></i>
+                            <span class="hide-menu"> Newsletter </span></a>
+                        </li>
                         <li><a class="has-arrow waves-effect waves-dark" 
                             href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-folder-multiple-image"></i>
                             <span class="hide-menu"> Slider </span></a>
@@ -230,6 +235,14 @@
                                 <li><a href="{{URL::to('admin/reports/clients/index')}}">Customer</a></li>
                                 <li><a href="{{URL::to('admin/reports/product/index')}}">Product</a></li>
                                 <li><a href="{{URL::to('admin/reports/inventory/index')}}">Inventory</a></li>
+                            </ul>
+                        </li>
+                        <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-money"></i>
+                            <span class="hide-menu"> Payment </span></a>
+                            
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="{{URL::to('admin/payment/create')}}">Add New Method</a></li>
+                                <li><a href="{{URL::to('admin/payment/index')}}">All Method</a></li>
                             </ul>
                         </li>
 
