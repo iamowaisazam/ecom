@@ -46,10 +46,10 @@
 										<div class="d-flex no-block align-items-center">
 											<div>
 												<h3><i class="icon-screen-desktop"></i></h3>
-												<p class="text-muted">MYNEW CLIENTS</p>
+												<p class="text-muted">ORDER,S</p>
 											</div>
 											<div class="ms-auto">
-												<h2 class="counter text-primary">23</h2>
+												<h2 class="counter text-primary">{{ $totalOrder }}</h2>
 											</div>
 										</div>
 									</div>
@@ -71,10 +71,10 @@
 										<div class="d-flex no-block align-items-center">
 											<div>
 												<h3><i class="icon-note"></i></h3>
-												<p class="text-muted">NEW PROJECTS</p>
+												<p class="text-muted">COLLECTION</p>
 											</div>
 											<div class="ms-auto">
-												<h2 class="counter text-cyan">169</h2>
+												<h2 class="counter text-cyan">{{ $totalCollection }}</h2>
 											</div>
 										</div>
 									</div>
@@ -96,10 +96,10 @@
 										<div class="d-flex no-block align-items-center">
 											<div>
 												<h3><i class="icon-doc"></i></h3>
-												<p class="text-muted">NEW INVOICES</p>
+												<p class="text-muted">CATEGORY</p>
 											</div>
 											<div class="ms-auto">
-												<h2 class="counter text-purple">157</h2>
+												<h2 class="counter text-purple">{{$totalCategory}}</h2>
 											</div>
 										</div>
 									</div>
@@ -121,10 +121,10 @@
 										<div class="d-flex no-block align-items-center">
 											<div>
 												<h3><i class="icon-bag"></i></h3>
-												<p class="text-muted">All PROJECTS</p>
+												<p class="text-muted">PRODUCTS</p>
 											</div>
 											<div class="ms-auto">
-												<h2 class="counter text-success">431</h2>
+												<h2 class="counter text-success">{{$totalProduct}}</h2>
 											</div>
 										</div>
 									</div>

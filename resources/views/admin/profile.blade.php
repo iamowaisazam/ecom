@@ -42,7 +42,7 @@ $permissions = [
                 <h4 class="mb-0 text-white" >Edit your profile</h4>
             </header>
             <div class="card-body">
-                <form method="post" action="{{URL::to('admin/users/update/'.Crypt::encryptString($user->id))}}" >
+                <form method="post" action="{{route('update')}}" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label class="form-label" >User Name</label>
@@ -60,6 +60,23 @@ $permissions = [
                       <p class="invalid-feedback" >{{ $errors->first('email') }}</p>
                      @endif 
                    </div>
+                   <div class="my-2 row">
+        <div class="col-md-12">
+            <label class="form-label">File</label>
+            <input type="file" multiple name="files[]" class="form-control">
+            @if ($errors->has('files.*'))
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->get('files.*') as $fileErrors)
+                            @foreach ($fileErrors as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+        </div>
+    </div>
 
                     <div class="form-group">
                         <label class="form-label">Password</label>

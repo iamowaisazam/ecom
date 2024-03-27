@@ -1,5 +1,5 @@
 <div>
-    <p>Dear,{{ $name }},</p>
+    <p>Dear,{{ $customer_name }},</p>
     <p>Thank you for your order. Your order has been received. 
     Please wait for order confirmation call.</p>
     <p>Here are the details of your purchase:</p>

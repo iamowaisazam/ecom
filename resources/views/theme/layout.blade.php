@@ -293,16 +293,17 @@
                         <div class=" col-12 col-sm-12 col-md-3 col-lg-3 newsletter">
                             <div class="display-table">
                                 <div class="display-table-cell footer-newsletter">
-                                    <form action="#" method="post">
-                                        <label class="h4">Newsletter</label>
-                                        <p>sign up for newsletter to know our latest news and offers.</p>
-                                        <div class="input-group">
-                                            <input type="email" class="input-group__field newsletter__input" name="EMAIL" value="" placeholder="Email address" required />
-                                            <span class="input-group__btn">
-                                                <button type="submit" class="btn newsletter__submit" name="commit" id="Subscribe"><span class="newsletter__submit-text--large">Sign Up</span></button>
-                                            </span>
-                                        </div>
-                                    </form>
+                                <form id="newsletter-form" action="#" method="post">
+                                    @csrf
+                                    <label class="h4">Newsletter</label>
+                                    <p>Sign up for newsletter to know our latest news and offers.</p>
+                                    <div class="input-group">
+                                        <input type="email" class="input-group__field newsletter__input" name="EMAIL" value="" placeholder="Email address" required />
+                                        <span class="input-group__btn">
+                                            <button type="submit" class="btn newsletter__submit" name="commit" id="Subscribe"><span class="newsletter__submit-text--large">Sign Up</span></button>
+                                        </span>
+                                    </div>
+                                </form>
                                 </div>
                             </div>
                             
@@ -417,7 +418,27 @@
         <script src="{{asset('public/theme/assets/js/main.js')}}"></script>
         <script src="{{asset('public/admin/assets/node_modules/toast-master/js/jquery.toast.js')}}"></script>
         <script src="{{asset('public/theme/assets/js/cart.js')}}"></script>
+        <script>
+         $(document).ready(function() {
+            $('#newsletter-form').submit(function(event) {
+                event.preventDefault(); 
         
+                var formData = $(this).serialize();
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{route('newslettertSubmit')}}', 
+                        data: formData,
+                        success: function(response) {
+                            $('<p>Subscription successful!</p>').css('color', 'green').appendTo('#newsletter-form');
+                            
+                        },
+                        error: function(xhr, status, error) {
+                            $('<p>Subscription failed</p>').css('color', 'red').appendTo('#newsletter-form');
+                        }
+                    });
+                });
+});
+        </script>
         @if(Session::get('success'))
         <script> 
             $.toast({
