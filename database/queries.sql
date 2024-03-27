@@ -33,3 +33,6 @@ ALTER TABLE `settings` ADD `group_sorting` INT NOT NULL DEFAULT '0' AFTER `secti
 INSERT INTO `settings` (`id`, `field`, `value`, `type`, `sort`, `grouping`, `section`, `section_sorting`, `group_sorting`) VALUES (NULL, 'cash_on_delivery_message', '21', 'textarea', '1', 'payment_method', 'payment_method', '1', '0');
 
 INSERT INTO `settings` (`id`, `field`, `value`, `type`, `sort`, `grouping`, `section`, `section_sorting`, `group_sorting`) VALUES (NULL, 'bank_transfer_message', '21', 'textarea', '1', 'payment_method', 'payment_method', '1', '0');
+
+ALTER TABLE users ADD profile_image text NULL;
+ALTER TABLE users ADD email_token text NULL;

@@ -91,9 +91,6 @@ class Product extends Model
     {  
 
         $img = explode(',',$this->images);
-        array_push($img,$this->image);
-        array_push($img,$this->hover_image);
-
         foreach ($this->variations->pluck('image')->toArray() as $val) {
             array_push($img,$val);
         }

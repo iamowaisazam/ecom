@@ -79,7 +79,7 @@ class CheckoutController extends Controller
             "city" => 'required|max:255',
             "address" => 'required|max:255',
             "payment_method" => 'required|integer',
-            "order_notes" => 'required|max:500',
+            "order_notes" => 'max:500',
         ]);
 
         if ($validator->fails()) {

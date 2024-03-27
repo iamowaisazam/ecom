@@ -35,7 +35,7 @@ class AppServiceProvider extends ServiceProvider
           
              $groups = [];
              $global_d = [];
-             foreach (Setting::with('image')->get() as $key => $value) {
+             foreach (Setting::with('image')->orderBy('group_sorting')->get() as $key => $value) {
                 // dd($value);
                 $global_d[$value->field] = $value->value;
                 if($value->type == "image"){

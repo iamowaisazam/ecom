@@ -2,6 +2,8 @@
 
 @php
 
+$gallery = $product->get_gallery();
+
 @endphp
 
 @section('metatags')
@@ -65,9 +67,11 @@
                   <!-- Product Images -->
                     <div class="zoompro-wrap product-zoom-right pl-20">
                         <div class="zoompro-span">
+                            @if(count($gallery) > 0)
                             <img class="blur-up lazyload zoompro" 
-                            data-zoom-image="{{asset($product->get_thumbnail ? 'public/'.$product->get_thumbnail->path : '')}}"  
-                            src="{{asset($product->get_thumbnail ? 'public/'.$product->get_thumbnail->path : '')}}" />               
+                             data-zoom-image="{{asset($gallery[0]->path)}}"  
+                             src="{{asset($gallery[0]->path)}}" />
+                            @endif               
                         </div>
                    
                         <div class="product-buttons">
@@ -79,7 +83,7 @@
                     <div class="product-thumb product-thumb-1">
                         <div id="gallery" class="product-dec-slider-1 product-tab-left">
                        
-                          @foreach ($product->get_gallery() as $img) 
+                          @foreach ($gallery as $img) 
                             <a  data-image="{{asset('public/'.$img->path)}}" 
                                 data-zoom-image="{{asset('public/'.$img->path)}}" 
                                 class="slick-slide slick-cloned active" 
@@ -92,7 +96,7 @@
                         </div>
                     </div>
                     <div class="lightboximages">
-                        @foreach ($product->get_gallery() as $img) 
+                        @foreach ($gallery as $img) 
                         <a href="{{asset('public/'.$img->path)}}" data-size="1462x2048"></a>
                         @endforeach
                     </div>
