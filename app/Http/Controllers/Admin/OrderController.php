@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\OrderStatus;
 use App\Models\Attribute;
 use App\Models\Collection;
 use App\Models\Order;
@@ -140,11 +141,13 @@ class OrderController extends Controller
         $data = Order::find($id);
         if($data == false){  
             return back()->with('error','Record Not Found');
-         }
+        }
+        
+        $payment_methods = PaymentMethod::where('is_enable',1)->get();    
+        $status = OrderStatus::all();
+        // dd($status);
 
-         $payment_methods = PaymentMethod::where('is_enable',1)->get();    
-
-        return view('admin.orders.edit',compact('data','payment_methods'));
+        return view('admin.orders.edit',compact('data','payment_methods','status'));
     }
 
 

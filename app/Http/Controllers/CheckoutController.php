@@ -11,6 +11,7 @@ use App\Models\Value;
 use App\Models\Category;
 use App\Models\Collection;
 use App\Models\Order;
+use App\Models\OrderStatus;
 use App\Models\OrderItem;
 use App\Models\PaymentMethod;
 use App\Models\Variation;
@@ -92,8 +93,8 @@ class CheckoutController extends Controller
         $cart = Cart::get_cart_details();
 
         DB::beginTransaction();
-
         try {
+            $status = OrderStatus::where('id', 1)->first();
 
         $order = Order::create([
                 'customer_name' => $request->name,
@@ -106,7 +107,7 @@ class CheckoutController extends Controller
                 'payment_method'  => $request->payment_method,
                 'payment_status'  => 'unpaid',
                 'tracking_id' => $tracking_id,
-                'order_status'  => 'pending',
+                'order_status'  => $status->id,
                 'grandtotal'  => $cart['total'],
                 'subtotal'  => $cart['total'],
                 'is_enable'  => 1,
@@ -153,14 +154,16 @@ class CheckoutController extends Controller
         // dd(View::shared('global_d')['email_address']);
 
         $order = Order::where('tracking_id',$id)->first(); 
+        
+        $statusId = $order->order_status;
+        $orderStatus = OrderStatus::where('id',$statusId)->first(); 
 
-       
         if(!$order){
           return redirect('/shop')->with('error','Record Not Found');
         }
 
      
-        return view('theme.order_confirmation',compact('order'));
+        return view('theme.order_confirmation',compact('order','orderStatus'));
 
     }
 

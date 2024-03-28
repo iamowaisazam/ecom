@@ -284,10 +284,11 @@ class ReportsController extends Controller
     }
     public function inventoryIndex(Request $request)
     {
+        $query = ProductCollection::Query();
+        dd($query);
 
         if($request->ajax()){
 
-            $query = Order::Query();
             if($request->name){
                 $query->where('customer_name','like','%'.$request->name.'%');
             }
@@ -361,7 +362,7 @@ class ReportsController extends Controller
         }
         
         $category = Category::all();    
-        return view('admin.reports.product.index',compact('category'));
+        // return view('admin.reports.inventory.index',compact('category'));
     }
 
      /**

@@ -20,21 +20,31 @@ $gallery = $product->get_gallery();
        padding-left: 0px!important;   
     }
     .loader {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #3498db;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            animation: spin 2s linear infinite;
-            display: inline-block;
-            vertical-align: middle;
-            margin-right: 10px;
-        }
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+    border-bottom-color: transparent; /* hide bottom border to make it look more like a spinner */
+}
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Optional: Add a label to indicate loading */
+.loading-label {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #333;
+    display: inline-block;
+    vertical-align: middle;
+}
 </style>
   
 
@@ -247,7 +257,7 @@ $gallery = $product->get_gallery();
                                     type="button" 
                                     value="cart"
                                     class="btn product-form__cart-submit">
-                                    <span>Add to cart</span>
+                                    <span class="cart_text">Add to cart</span>
                                     <span class="loader" style="display: none;"></span>
                                     </button>
                             </div>

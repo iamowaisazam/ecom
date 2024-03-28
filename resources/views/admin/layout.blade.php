@@ -111,7 +111,11 @@
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown u-pro">
                             <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <img src="{{asset('admin/assets/images/users/1.jpg')}}" alt="user" class=""> 
+                              @if(auth()->user()->image && auth()->user()->image->filename)
+                                    <img src="/public/filemanager/{{ auth()->user()->image->filename }}" alt="user" class=""> 
+                                @else
+                                    <img src="{{ asset('admin/assets/images/users/1.jpg') }}" alt="user" class=""> 
+                                @endif
                               <span class="hidden-md-down">{{ Auth::user()->name }} &nbsp;<i class="fa fa-angle-down"></i></span> 
                             </a>
                             <div class="dropdown-menu dropdown-menu-end animated flipInY">

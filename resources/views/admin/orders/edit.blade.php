@@ -191,9 +191,13 @@
                     <div class="form-group">
                         <label class="form-label" >Order Status</label>
                             <select class="form-control" name="order_status" >
-                                @foreach ($global_d['order_status'] as $order_status)
-                                    <option @if($data->order_status == $order_status) selected @endif value="{{$order_status}}">{{$order_status}}</option>
-                                @endforeach
+                            
+                                <!-- @foreach ($global_d['order_status'] as $order_status)
+                                    <option @if($data->order_status == $order_status) selected @endif value="{{$data->id}}">{{$order_status}}</option>
+                                    @endforeach -->
+                                    @foreach($status as $val)
+                                    <option value="{{$val->id}}">{{$val->title}}</option>
+                                    @endforeach
                             </select>
                             @if($errors->has('order_status'))
                             <p class="invalid-feedback" >{{ $errors->first('order_status') }}</p>

@@ -5,7 +5,8 @@ $(document).ready(function () {
     function getCarts() {
 
         $('.mini-products-list').html('');
-
+	$('.loader').show();
+	$('.cart_text').hide();
         $.ajax({
             type: "get",
             url: site_url+"/cart/get_cart_details",
@@ -13,7 +14,8 @@ $(document).ready(function () {
             },
             dataType: "json",
             success: function (response) {
-
+ 	    	$('.loader').hide();
+		$('.cart_text').show();
                 $('.minicart-header .modal-title strong').text(response.cart_items.length);
                 $('#CartCount').text('('+response.cart_items.length+')');
                 

@@ -6,6 +6,9 @@
     .invalid-feedback{
       display: block;
    }
+   .ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline.ck-blurred {
+    height: 143px;
+}
 </style>
 @endsection
 
@@ -54,8 +57,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Short Details</label>
-                         <textarea placeholder="Short Details" name="shortdetails" class="form-control" >{{$model->message}}</textarea>
+                        <label class="form-label">Description</label>
+                         <textarea id="short_description" name="shortdetails" class="form-control" maxlength="500" >{{$model->message}}</textarea>
                           @if($errors->has('details'))
                           <p class="invalid-feedback" >{{ $errors->first('details') }}</p>
                           @endif 
@@ -88,7 +91,7 @@
         });
     
     }); 
-      ClassicEditor.create(document.querySelector('#long_description')).catch(error => {
+      ClassicEditor.create(document.querySelector('#short_description')).catch(error => {
                 console.error(error);
       }); 
 

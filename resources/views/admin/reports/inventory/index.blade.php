@@ -247,16 +247,13 @@ button.btn_exe:hover {
                                     <thead>
                                        
                                         <tr class="" >
-                                            <th>Order id</th> 
-                                            <th>Order Date</th>   
-                                            <th>Customer name</th>
-                                            <th>Email</th>
-                                            <th>Phone </th>    
-                                            <th>Address</th>   
-                                            <th>Order status</th>
-                                            <th>Payment method</th>
-                                            <th>Payment status</th>
-                                            <th>Total ammount</th>
+                                            <th>Category</th> 
+                                            <th>Product Title</th>   
+                                            <th>Variation</th>
+                                            <th>Price</th>
+                                            <th>Stock </th>    
+                                            <th>Low stock</th>   
+                                       
                                         </tr>
                                      </thead>
                                     <tbody>
@@ -294,7 +291,7 @@ button.btn_exe:hover {
             serverSide: true,
             lengthMenu: [[10,25, 50, 100,500],[10,25, 50, 100,500]],
             ajax: {
-                url: "{{URL::to('admin/reports/clients/index')}}",
+                url: "{{URL::to('admin/reports/inventory/index')}}",
                 type: "GET",
                 data: function ( d ) {
                     d.name = $(".customerName").val();

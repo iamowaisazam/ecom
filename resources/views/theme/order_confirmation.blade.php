@@ -66,7 +66,7 @@
                                 <p>Order No: # {{$order->id}}</p>
                                 <p>Order Tracking ID: {{$order->tracking_id}}</p>
                                 <p>Order Date: {{$order->created_at}}</p>
-                                <p>Order Status: {{$order->order_status}}</p>
+                                <p>Order Status: {{$orderStatus->title}}</p>
                                 <p>Order Payment Method: 
                                     {{$order->payment_methods ? $order->payment_methods->title : ''}}</p>
                                 <p>Order Payment: {{$order->payment_status}}</p>

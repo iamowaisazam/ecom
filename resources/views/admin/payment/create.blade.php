@@ -79,12 +79,14 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Short Details</label>
-                         <textarea placeholder="Short Details" name="shortdetails" class="form-control" >{{old('details')}}</textarea>
+                        <label class="form-label">Description </label>
+                         <textarea placeholder="Short Details" id="short_description" name="shortdetails" class="form-control" >{{old('details')}}</textarea>
                           @if($errors->has('details'))
                           <p class="invalid-feedback" >{{ $errors->first('details') }}</p>
                           @endif 
                     </div>
+                  
+                          
 
                     <div class="form-group row">
                         <div class="col-md-12 text-left">
@@ -114,7 +116,7 @@
     
     }); 
 
-      ClassicEditor.create(document.querySelector('#long_description')).catch(error => {
+      ClassicEditor.create(document.querySelector('#short_description')).catch(error => {
                 console.error(error);
       });
     

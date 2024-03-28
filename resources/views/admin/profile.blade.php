@@ -61,22 +61,20 @@ $permissions = [
                      @endif 
                    </div>
                    <div class="my-2 row">
-        <div class="col-md-12">
-            <label class="form-label">File</label>
-            <input type="file" multiple name="files[]" class="form-control">
-            @if ($errors->has('files.*'))
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->get('files.*') as $fileErrors)
-                            @foreach ($fileErrors as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-        </div>
-    </div>
+                    
+                   <div class="form-group">
+                        <label class="form-label" >Image</label>
+                        @if(isset($user->profile_image))
+                        <input type="text" value="{{$user->profile_image}}" name="image_id" class="form-control" placeholder="Image"> 
+                        @else
+                        <input type="text" value="{{old('image_id')}}" name="image_id" class="form-control" placeholder="Image"> 
+
+                          @endif 
+                          @if($errors->has('image_id'))
+                          <p class="invalid-feedback" >{{ $errors->first('image_id') }}</p>
+                          @endif 
+                      </div>
+
 
                     <div class="form-group">
                         <label class="form-label">Password</label>

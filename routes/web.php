@@ -90,9 +90,14 @@ Route::middleware(['web', 'auth'])->group(function () {
     Route::get('/admin/users/edit/{id}', [App\Http\Controllers\Admin\UserController::class, 'edit']);
     Route::post('/admin/users/update/{id}', [App\Http\Controllers\Admin\UserController::class, 'update']);
     Route::get('/admin/users/delete/{id}', [App\Http\Controllers\Admin\UserController::class, 'delete']);
+
+
     // profile edit
     Route::get('admin/editprofile', [App\Http\Controllers\Admin\profileController::class, 'index'])->name('profile');
+
     Route::post('admin/update', [App\Http\Controllers\Admin\profileController::class, 'update'])->name('update');
+    
+    
     //Roles
     Route::get('/admin/roles/index', [App\Http\Controllers\Admin\RoleController::class, 'index']);
     Route::get('/admin/roles/create', [App\Http\Controllers\Admin\RoleController::class, 'create']);
@@ -116,7 +121,19 @@ Route::middleware(['web', 'auth'])->group(function () {
     Route::get('/admin/menus_items/edit/{id}', [App\Http\Controllers\Admin\MenuItemController::class, 'edit']);
     Route::post('/admin/menus_items/update/{id}', [App\Http\Controllers\Admin\MenuItemController::class, 'update']);
     Route::get('/admin/menus_items/delete/{id}', [App\Http\Controllers\Admin\MenuItemController::class, 'delete']);
-  
+     //page
+     Route::get('/admin/page/index', [App\Http\Controllers\Admin\PageController::class, 'index']);
+     Route::get('/admin/page/edit/{id}', [App\Http\Controllers\Admin\PageController::class, 'edit']);
+     Route::get('/admin/page/create', [App\Http\Controllers\Admin\PageController::class, 'create']);
+     Route::post('/admin/page/store', [App\Http\Controllers\Admin\PageController::class, 'store']);
+     Route::post('/admin/page/update/{id}', [App\Http\Controllers\Admin\PageController::class, 'update']);
+     Route::get('/admin/page/delete/{id}', [App\Http\Controllers\Admin\PageController::class, 'delete']);
+
+         
+    //newsletters
+    Route::get('/admin/newsletter/index', [App\Http\Controllers\Admin\NewsletterController::class, 'index'])->name('admin.newsletter.index');
+    Route::get('admin/newsletter/delete/{id}', [App\Http\Controllers\Admin\NewsletterController::class, 'delete'])->name('admin.newsletter.delete');
+    
 
     //products
   Route::get('/admin/products/index', [App\Http\Controllers\Admin\ProductController::class, 'index']);
@@ -164,24 +181,14 @@ Route::middleware(['web', 'auth'])->group(function () {
   //Collections
   Route::get('/admin/collections/index', [App\Http\Controllers\Admin\CollectionController::class, 'index']);
   Route::get('/admin/collections/create', [App\Http\Controllers\Admin\CollectionController::class, 'create']);
-    Route::post('/admin/collections/store', [App\Http\Controllers\Admin\CollectionController::class, 'store']);
-    Route::get('/admin/collections/edit/{id}', [App\Http\Controllers\Admin\CollectionController::class, 'edit']);
-    Route::post('/admin/collections/update/{id}', [App\Http\Controllers\Admin\CollectionController::class, 'update']);
-    Route::get('/admin/collections/delete/{id}', [App\Http\Controllers\Admin\CollectionController::class, 'delete']);
+  Route::post('/admin/collections/store', [App\Http\Controllers\Admin\CollectionController::class, 'store']);
+  Route::get('/admin/collections/edit/{id}', [App\Http\Controllers\Admin\CollectionController::class, 'edit']);
+  Route::post('/admin/collections/update/{id}', [App\Http\Controllers\Admin\CollectionController::class, 'update']);
+  Route::get('/admin/collections/delete/{id}', [App\Http\Controllers\Admin\CollectionController::class, 'delete']);
     
-    //page
-    Route::get('/admin/page/index', [App\Http\Controllers\Admin\PageController::class, 'index']);
-    Route::get('/admin/page/edit/{id}', [App\Http\Controllers\Admin\PageController::class, 'edit']);
-    Route::get('/admin/page/create', [App\Http\Controllers\Admin\PageController::class, 'create']);
-    Route::post('/admin/page/store', [App\Http\Controllers\Admin\PageController::class, 'store']);
-    Route::post('/admin/page/update/{id}', [App\Http\Controllers\Admin\PageController::class, 'update']);
-    Route::get('/admin/page/delete/{id}', [App\Http\Controllers\Admin\PageController::class, 'delete']);
+ 
     
-    
-    //Admin newsletters
-    Route::get('/admin/newsletter/index', [App\Http\Controllers\Admin\NewsletterController::class, 'index'])->name('admin.newsletter.index');
-    Route::get('admin/newsletter/delete/{id}', [App\Http\Controllers\Admin\NewsletterController::class, 'delete'])->name('admin.newsletter.delete');
-    
+
     //products category
     Route::get('/admin/categories/index', [App\Http\Controllers\Admin\CategoryController::class, 'index']);
     Route::get('/admin/categories/create', [App\Http\Controllers\Admin\CategoryController::class, 'create']);

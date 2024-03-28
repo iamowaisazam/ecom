@@ -10,22 +10,18 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Carbon\Carbon;
 use Auth;
-use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\URL;
+use App\Models\Filemanager;
 use Illuminate\Validation\Rule;
-use Laravel\Ui\Presets\React;
-use Illuminate\Support\Facades\Storage;
+
 class profileController extends Controller
 {
     public function index(Request $request)
     {
         $id = Auth::user()->id;
-        // echo $id  ;
         $user = User::find($id);
         if($user == false){  
             return back()->with('error','Record Not Found');
          }
-
         return view('admin.profile',compact('user'));
     }
     public function update(Request $request)
@@ -53,17 +49,10 @@ class profileController extends Controller
            return back()->with('error','Record Not Found');
         }
        
-        if ($request->hasFile('files')) {
-            foreach ($request->file('files') as $file) {
-                
-                $filename = uniqid() . '_' . $file->getClientOriginalName();
         
-                // dd($filename);
-                Storage::putFileAs('public/profile', $file, $filename);
-            }
-        }
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->profile_image = $request->image_id;
         $user->created_by = Auth::user()->id;
         $user->created_at = Carbon::now();
 
@@ -81,5 +70,5 @@ class profileController extends Controller
         return back()->with('success','Record Updated');
 
     }
-    
+
 }

@@ -126,7 +126,7 @@
                                         card_{{$method->id}}">
                                             <div class="card-body">
                                                 <h3 class="card-title">{{$method->title}}</h3>
-                                                <p class="card-text">{{$method->message}}</p>
+                                                <p class="card-text">{!!$method->message !!} </p>
                                             </div>
                                         </div>
                                     @endforeach
